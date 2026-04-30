@@ -1,0 +1,238 @@
+/* =============================================================================
+   RegulonDB MG — tokens.css  v1.0.0
+   GENERATED FILE — do not edit by hand.
+   SOURCE: spec/tokens.json   →   scripts/build-tokens.mjs
+   ============================================================================= */
+
+:root {
+
+  /* ---------------------------------------------------------------------------- */
+  /* Brand palette (hex from the official RegulonDB PDF)                        */
+  /* ---------------------------------------------------------------------------- */
+  --blue-1: #1F3D4E;
+  --blue-2: #32617D;
+  --blue-3: #3D779B;
+  --blue-4: #72A7C7;
+  --blue-5: #D5E2EA;
+  --grey-1: #373737;
+  --grey-2: #666666;
+  --grey-3: #999999;
+  --grey-4: #D5D5D7;
+  --grey-5: #F4F5F5;
+  --white: #FFFFFF;
+  --black: #000000;
+  --accent: #C98528;
+  --accent-light: #D2A769;
+  --postit: #FFF8A6;
+  --error: #C93A1D;
+
+  /* ---------------------------------------------------------------------------- */
+  /* Object-type accents (consistent dot/icon color in lists)                   */
+  /* ---------------------------------------------------------------------------- */
+  --obj-gene: #2F6B48;
+  --obj-operon: #7A4A1E;
+  --obj-tf: #6B2F64;
+  --obj-regulon: #1A4D6B;
+  --obj-promoter: #A14522;
+  --obj-dataset: #3D4A7A;
+
+  /* ---------------------------------------------------------------------------- */
+  /* Evidence palette (categories — never color alone)                          */
+  /* ---------------------------------------------------------------------------- */
+  --evidence-curated: #32617D;
+  --evidence-curated-bg: #E1E9EE;
+  --evidence-curated-fg: #214557;
+  --evidence-predicted: #C98528;
+  --evidence-predicted-bg: #F8EEDD;
+  --evidence-predicted-fg: #6E481A;
+  --evidence-ht: #7C5295;
+  --evidence-ht-bg: #ECE5F0;
+  --evidence-ht-fg: #4B2F5C;
+  --evidence-weak: #C93A1D;
+  --evidence-weak-bg: #F7E1DC;
+  --evidence-weak-fg: #7A2412;
+
+  /* ---------------------------------------------------------------------------- */
+  /* Semantic surfaces                                                          */
+  /* ---------------------------------------------------------------------------- */
+  --surface-canvas: #FFFFFF;
+  --surface-raised: #FFFFFF;
+  --surface-sunken: #F4F5F5;
+  --surface-section: #D5E2EA;
+  --surface-note: #FFF8A6;
+  --surface-header: #1F3D4E;
+
+  /* ---------------------------------------------------------------------------- */
+  /* Semantic text                                                              */
+  /* ---------------------------------------------------------------------------- */
+  --text-primary: #373737;
+  --text-secondary: #666666;
+  --text-tertiary: #999999;
+  --text-on-dark: #FFFFFF;
+  --text-link: #32617D;
+  --text-link-hover: #3D779B;
+  --text-title: #1F3D4E;
+  --text-error: #C93A1D;
+
+  /* ---------------------------------------------------------------------------- */
+  /* Semantic borders                                                           */
+  /* ---------------------------------------------------------------------------- */
+  --border-default: #D5D5D7;
+  --border-subtle: #E8EAEC;
+  --border-strong: #999999;
+  --border-focus: #3D779B;
+
+  /* ---------------------------------------------------------------------------- */
+  /* Typography                                                                 */
+  /* ---------------------------------------------------------------------------- */
+  --font-sans: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --font-citation: "Times New Roman", Times, Georgia, serif;
+  --font-mono: "Courier New", ui-monospace, "SF Mono", Menlo, monospace;
+  --fs-h1: 1.5rem;
+  --fs-h2: 1.375rem;
+  --fs-h3: 1.25rem;
+  --fs-h4: 1.125rem;
+  --fs-body-lg: 1rem;
+  --fs-body: 0.875rem;
+  --fs-mono: 0.8125rem;
+  --fs-mono-sm: 0.75rem;
+  --lh-h1: 1.25;
+  --lh-h2: 1.3;
+  --lh-h3: 1.35;
+  --lh-h4: 1.4;
+  --lh-body-lg: 1.6;
+  --lh-body: 1.55;
+  --lh-mono: 1.55;
+  --lh-mono-sm: 1.4;
+
+  /* ---------------------------------------------------------------------------- */
+  /* Spacing (4 / 8 base scale)                                                 */
+  /* ---------------------------------------------------------------------------- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-7: 32px;
+  --sp-8: 40px;
+  --sp-9: 48px;
+  --sp-10: 64px;
+
+  /* ---------------------------------------------------------------------------- */
+  /* Radii                                                                      */
+  /* ---------------------------------------------------------------------------- */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-pill: 999px;
+
+  /* ---------------------------------------------------------------------------- */
+  /* Shadows (blue-tinted, never grey)                                          */
+  /* ---------------------------------------------------------------------------- */
+  --shadow-xs: 0 1px 2px rgba(31, 61, 78, 0.06);
+  --shadow-sm: 0 2px 6px rgba(31, 61, 78, 0.10);
+  --shadow-md: 0 8px 24px rgba(31, 61, 78, 0.14);
+
+  /* ---------------------------------------------------------------------------- */
+  /* Motion                                                                     */
+  /* ---------------------------------------------------------------------------- */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --dur-micro: 120ms;
+  --dur-standard: 200ms;
+  --dur-page: 320ms;
+
+  /* ---------------------------------------------------------------------------- */
+  /* Layout                                                                     */
+  /* ---------------------------------------------------------------------------- */
+  --container-max: 1280px;
+  --container-wide: 1400px;
+  --sidebar-width: 280px;
+  --right-panel-width: 360px;
+  --header-height: 56px;
+  --subheader-height: 44px;
+
+  /* ---------------------------------------------------------------------------- */
+  /* Focus ring                                                                 */
+  /* ---------------------------------------------------------------------------- */
+  --focus-ring: 0 0 0 2px var(--surface-canvas), 0 0 0 4px var(--blue-3);
+}
+
+/* =============================================================================
+   Dark mode — semantic remap. Brand hue identity preserved (not inverted).
+   ============================================================================= */
+
+[data-theme="dark"] {
+  --surface-canvas: #0E1A22;
+  --surface-raised: #152834;
+  --surface-sunken: #0B141A;
+  --surface-section: #1A2D38;
+  --surface-note: #5A4F00;
+  --surface-header: #0A141A;
+  --text-primary: #E6EEF3;
+  --text-secondary: #A7B4BB;
+  --text-tertiary: #7A8890;
+  --text-link: #9CC5DC;
+  --text-link-hover: #BFDCEC;
+  --text-title: #E6EEF3;
+  --border-default: #2A3D48;
+  --border-subtle: #1E2E38;
+  --border-strong: #3B5260;
+  --evidence-curated-bg: #1B2E3A;
+  --evidence-curated-fg: #9CC5DC;
+  --evidence-predicted-bg: #3A2C15;
+  --evidence-predicted-fg: #E3B977;
+  --evidence-ht-bg: #2B2338;
+  --evidence-ht-fg: #C7B0E8;
+  --evidence-weak-bg: #3A1F18;
+  --evidence-weak-fg: #EF7D67;
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.40);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.50);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.55);
+  --focus-ring: 0 0 0 2px var(--surface-canvas), 0 0 0 4px var(--blue-4);
+}
+
+@media (prefers-color-scheme: dark) {
+
+  :root:not([data-theme="light"]) {
+  --surface-canvas: #0E1A22;
+  --surface-raised: #152834;
+  --surface-sunken: #0B141A;
+  --surface-section: #1A2D38;
+  --surface-note: #5A4F00;
+  --surface-header: #0A141A;
+  --text-primary: #E6EEF3;
+  --text-secondary: #A7B4BB;
+  --text-tertiary: #7A8890;
+  --text-link: #9CC5DC;
+  --text-link-hover: #BFDCEC;
+  --text-title: #E6EEF3;
+  --border-default: #2A3D48;
+  --border-subtle: #1E2E38;
+  --border-strong: #3B5260;
+  --evidence-curated-bg: #1B2E3A;
+  --evidence-curated-fg: #9CC5DC;
+  --evidence-predicted-bg: #3A2C15;
+  --evidence-predicted-fg: #E3B977;
+  --evidence-ht-bg: #2B2338;
+  --evidence-ht-fg: #C7B0E8;
+  --evidence-weak-bg: #3A1F18;
+  --evidence-weak-fg: #EF7D67;
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.40);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.50);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.55);
+  --focus-ring: 0 0 0 2px var(--surface-canvas), 0 0 0 4px var(--blue-4);
+}
+}
+
+/* =============================================================================
+   Reduced motion — globally disable transitions/animations
+   ============================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

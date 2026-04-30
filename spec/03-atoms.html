@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" data-page="atoms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atoms · RegulonDB MG Design System</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/spec.css">
+<link rel="stylesheet" href="assets/components.css">
+<style>
+  .row { display: flex; gap: var(--sp-4); flex-wrap: wrap; align-items: center; }
+  .row.tight { gap: var(--sp-2); }
+  .stack { display: flex; flex-direction: column; gap: var(--sp-3); }
+  .grid-states {
+    display: grid; gap: var(--sp-4);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  .label-state {
+    font-size: var(--fs-mono-sm); color: var(--text-tertiary);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    font-family: var(--font-mono);
+    margin-bottom: 6px; display: block;
+  }
+  .props-table th, .props-table td { font-size: var(--fs-body); }
+  .props-table th:first-child { width: 18%; }
+  .props-table th:nth-child(2){ width: 18%; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="shell">
+  <aside class="sidebar" aria-label="Design system navigation">
+    <div class="brand">
+      <img class="brand-logo" src="assets/logo-on-dark.svg" alt="RegulonDB" />
+      <small class="brand-strap">Multi-genomic</small>
+    </div>
+    <nav>
+      <h5>Manual</h5>
+      <a href="index.html">Overview</a>
+      <a href="01-foundations.html">01 · Foundations</a>
+      <a href="02-conventions.html">02 · Conventions</a>
+      <h5>Components</h5>
+      <a href="03-atoms.html">03 · Atoms</a>
+      <a href="04-molecules.html">04 · Molecules</a>
+      <a href="05-organisms.html">05 · Organisms</a>
+      <a href="06-templates.html">06 · Templates</a>
+      <a href="07-pages.html">07 · Pages</a>
+      <h5>Quality</h5>
+      <a href="08-accessibility.html">08 · Accessibility</a>
+      <a href="09-changelog.html">09 · Changelog</a>
+      <h5>Library</h5>
+      <a href="../lib/showcase.html">Showcase (preview)</a>
+    </nav>
+  </aside>
+
+  <main class="main" id="main">
+    <div class="topbar">
+      <div>
+        <div class="eyebrow">03 · Atoms</div>
+        <h1>Atoms</h1>
+      </div>
+      <div class="actions"><button class="btn-ghost" data-action="theme" type="button">Theme: auto</button></div>
+    </div>
+    <p class="lede" style="margin-bottom: var(--sp-7);">
+      Indivisible primitives. They never know about the biology &mdash; with four exceptions: <code>Gene</code>, <code>TaxonName</code>, <code>SigmaFactorLabel</code>, <code>PromoterPositionLabel</code>. Those are atoms <em>because</em> they encode a typographic rule that cannot be re-derived from a generic <code>span</code>.
+    </p>
+
+    <!-- Button -->
+    <section class="section" id="button">
+      <header><div class="eyebrow">Atom</div><h2>Button</h2><p class="lede">Six variants, three sizes, six states. Imperative-only labels: "Compare", "Export", "Save".</p></header>
+      <div class="card-frame">
+        <header><span>Variants</span><span><button class="toggle-code" data-action="toggle-code" type="button">Show code</button></span></header>
+        <div class="demo">
+          <div class="row">
+            <button class="btn btn--primary">Compare across organisms</button>
+            <button class="btn btn--secondary">Export TSV</button>
+            <button class="btn btn--outline">Add to set</button>
+            <button class="btn btn--ghost">Cancel</button>
+            <button class="btn btn--destructive">Delete set</button>
+            <button class="btn btn--link">View references</button>
+          </div>
+        </div>
+        <pre class="code" hidden>&lt;button class="btn btn--primary"&gt;Compare across organisms&lt;/button&gt;
+&lt;button class="btn btn--secondary"&gt;Export TSV&lt;/button&gt;
+&lt;button class="btn btn--outline"&gt;Add to set&lt;/button&gt;
+&lt;button class="btn btn--ghost"&gt;Cancel&lt;/button&gt;
+&lt;button class="btn btn--destructive"&gt;Delete set&lt;/button&gt;
+&lt;button class="btn btn--link"&gt;View references&lt;/button&gt;</pre>
+      </div>
+
+      <div class="card-frame">
+        <header><span>Sizes</span></header>
+        <div class="demo">
+          <div class="row">
+            <button class="btn btn--primary btn--sm">Small</button>
+            <button class="btn btn--primary">Medium</button>
+            <button class="btn btn--primary btn--lg">Large</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-frame">
+        <header><span>States</span></header>
+        <div class="demo">
+          <div class="grid-states">
+            <div><span class="label-state">Default</span><button class="btn btn--primary">Compare</button></div>
+            <div><span class="label-state">Hover (:hover)</span><button class="btn btn--primary" style="background: var(--blue-1);">Compare</button></div>
+            <div><span class="label-state">Focus-visible</span><button class="btn btn--primary" style="box-shadow: var(--focus-ring);">Compare</button></div>
+            <div><span class="label-state">Active</span><button class="btn btn--primary" style="background: #294e63;">Compare</button></div>
+            <div><span class="label-state">Disabled</span><button class="btn btn--primary" disabled>Compare</button></div>
+            <div><span class="label-state">Loading</span><button class="btn btn--primary btn--loading">Compare</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dodont">
+        <div class="do"><h4>Do</h4><p>Use the imperative voice: "Export", "Save", "Add to set". Keep CTAs to one primary per page.</p></div>
+        <div class="dont"><h4>Don't</h4><p>Use accent (secondary) for anything other than Compare and predicted-evidence-style CTAs. It dilutes the signal.</p></div>
+      </div>
+    </section>
+
+    <!-- Input -->
+    <section class="section" id="input">
+      <header><div class="eyebrow">Atom</div><h2>Input · Textarea</h2></header>
+      <div class="card-frame">
+        <header><span>States</span></header>
+        <div class="demo">
+          <div class="grid-states">
+            <div><span class="label-state">Default</span><input class="input" placeholder="Search genes, TFs, operons" /></div>
+            <div><span class="label-state">Filled</span><input class="input" value="lexA" /></div>
+            <div><span class="label-state">Focus</span><input class="input" value="lexA" style="border-color: var(--blue-3); box-shadow: 0 0 0 3px rgba(61,119,155,0.18);" /></div>
+            <div><span class="label-state">Invalid</span><input class="input" value="!@#" aria-invalid="true" /></div>
+            <div><span class="label-state">Disabled</span><input class="input" value="—" disabled /></div>
+            <div><span class="label-state">Textarea</span><textarea class="textarea" rows="3" placeholder="Curator notes&hellip;"></textarea></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Toggles -->
+    <section class="section" id="toggles">
+      <header><div class="eyebrow">Atom</div><h2>Checkbox · Radio · Switch</h2></header>
+      <div class="card-frame">
+        <header><span>States</span></header>
+        <div class="demo">
+          <div class="row" style="gap: var(--sp-7);">
+            <label class="row tight"><input type="checkbox" class="checkbox" checked /> Curated only</label>
+            <label class="row tight"><input type="checkbox" class="checkbox" /> Include predictions</label>
+            <label class="row tight"><input type="radio" name="r" class="radio" checked /> Sense strand</label>
+            <label class="row tight"><input type="radio" name="r" class="radio" /> Antisense</label>
+            <label class="row tight"><input type="checkbox" class="switch" checked /> Cross-organism</label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tag, Kbd, Link, Divider -->
+    <section class="section" id="ornament">
+      <header><div class="eyebrow">Atoms</div><h2>Tag · Kbd · Link · Divider</h2></header>
+      <div class="card-frame">
+        <header><span>Specimens</span></header>
+        <div class="demo">
+          <div class="row">
+            <span class="tag">214 regulons</span>
+            <span class="tag tag--solid">Active organism</span>
+            <span class="tag tag--accent">Predicted</span>
+            <span class="kbd">&#8984;</span><span class="kbd">K</span>
+            <span class="kbd">G</span><span class="kbd">H</span>
+            <a class="link" href="#">view references</a>
+          </div>
+          <hr class="divider">
+          <p style="color: var(--text-secondary); margin: 0;">Divider above is <code>.divider</code>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spinner / Skeleton -->
+    <section class="section" id="loading">
+      <header><div class="eyebrow">Atoms</div><h2>Spinner · Skeleton</h2><p class="lede">Prefer skeletons. Use spinners only when the silhouette can&rsquo;t be predicted.</p></header>
+      <div class="card-frame">
+        <header><span>Specimens</span></header>
+        <div class="demo">
+          <div class="row" style="margin-bottom: var(--sp-5);"><span class="spinner" aria-label="Loading"></span><span style="color: var(--text-secondary);">Spinner (16px)</span></div>
+          <div class="stack" style="max-width: 420px;">
+            <span class="skeleton" style="width: 60%;"></span>
+            <span class="skeleton" style="width: 90%;"></span>
+            <span class="skeleton" style="width: 75%; height: 18px;"></span>
+            <span class="skeleton" style="width: 100%; height: 64px;"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Assistant atoms -->
+    <section class="section" id="assistant-atoms">
+      <header><div class="eyebrow">Atoms · Assistant</div><h2>TypingIndicator &middot; LevelPicker</h2>
+        <p class="lede">Two assistant primitives. <strong>TypingIndicator</strong> is the three-dot bounce shown while the assistant composes a reply. <strong>LevelPicker</strong> is the audience-tunable segmented toggle that drives the per-page explainer (PI / Postdoc / Undergrad / Public).</p>
+      </header>
+      <div class="card-frame">
+        <header><span>Specimens</span></header>
+        <div class="demo">
+          <div class="row" style="margin-bottom: var(--sp-5); gap: var(--sp-5);">
+            <span class="typing-indicator" role="status" aria-label="Assistant is thinking"><span></span><span></span><span></span></span>
+            <span style="color: var(--text-secondary);">TypingIndicator &mdash; honours <code>prefers-reduced-motion</code></span>
+          </div>
+          <div class="row" style="gap: var(--sp-3);">
+            <div class="level-picker tabs tabs--segmented" role="tablist" aria-label="Explanation level">
+              <button role="tab" aria-selected="false">PI</button>
+              <button role="tab" aria-selected="true">Postdoc</button>
+              <button role="tab" aria-selected="false">Undergrad</button>
+              <button role="tab" aria-selected="false">Public</button>
+            </div>
+            <span style="color: var(--text-secondary);">LevelPicker &mdash; mirrors <code>tabs--segmented</code> styling.</span>
+          </div>
+        </div>
+      </div>
+      <div class="dodont">
+        <div class="do"><h4>Do</h4><p>Use TypingIndicator to signal pending agent work. Pair LevelPicker with state, not query strings &mdash; level is a viewer preference, not a route concern.</p></div>
+        <div class="dont"><h4>Don&rsquo;t</h4><p>Don&rsquo;t reach for a generic Spinner where TypingIndicator fits &mdash; the bouncy dots are the brand cue for &ldquo;agent thinking&rdquo;.</p></div>
+      </div>
+    </section>
+
+    <!-- Comparative atoms -->
+    <section class="section" id="comparative-atoms">
+      <header><div class="eyebrow">Atoms &middot; Comparative</div><h2>ScorePill &middot; DOIBadge</h2>
+        <p class="lede">Two primitives that make comparative + FAIR signals legible. <strong>ScorePill</strong> is a 0&ndash;1 metric pill with a colored band reflecting the value &mdash; used by the Regulatory Rewiring Index (RRI) and any other compact metric where the visual cue matters as much as the number. <strong>DOIBadge</strong> is the citable identifier rendered next to releases and dataset cards; clicking opens <code>doi.org</code> in a new tab.</p>
+      </header>
+      <div class="card-frame">
+        <header><span>ScorePill bands</span></header>
+        <div class="demo" style="display:flex; flex-direction:column; gap:12px; align-items:flex-start">
+          <span class="score-pill score-pill--low" role="meter"><span class="score-pill__label">RRI</span><span class="score-pill__bar"><span class="score-pill__fill" style="width:8%"></span></span><span class="score-pill__value">0.08</span></span>
+          <span class="score-pill score-pill--medium" role="meter"><span class="score-pill__label">RRI</span><span class="score-pill__bar"><span class="score-pill__fill" style="width:34%"></span></span><span class="score-pill__value">0.34</span></span>
+          <span class="score-pill score-pill--high" role="meter"><span class="score-pill__label">RRI</span><span class="score-pill__bar"><span class="score-pill__fill" style="width:62%"></span></span><span class="score-pill__value">0.62</span></span>
+          <span class="score-pill score-pill--extreme" role="meter"><span class="score-pill__label">RRI</span><span class="score-pill__bar"><span class="score-pill__fill" style="width:95%"></span></span><span class="score-pill__value">0.95</span></span>
+        </div>
+      </div>
+      <div class="card-frame">
+        <header><span>DOIBadge</span></header>
+        <div class="demo" style="display:flex; flex-direction:column; gap:8px; align-items:flex-start">
+          <a class="doi-badge" href="#"><span class="doi-badge__label">DOI</span><code class="doi-badge__id">10.5281/zenodo.10874321</code></a>
+          <a class="doi-badge" href="#"><span class="doi-badge__label">Zenodo</span><code class="doi-badge__id">10.5281/zenodo.10874322</code></a>
+        </div>
+      </div>
+      <div class="dodont">
+        <div class="do"><h4>Do</h4><p>Use ScorePill for any 0&ndash;1 ratio: RRI, conservation %, prediction confidence. Default thresholds (0.25 / 0.55 / 0.80) keep colors consistent across pages; override via the <code>band</code> prop only when the metric needs a non-default cut.</p></div>
+        <div class="dont"><h4>Don&rsquo;t</h4><p>Don&rsquo;t use ScorePill for raw counts &mdash; the bar conveys "fraction of a maximum", which is meaningless for "47 datasets". Use a Tag or plain monospace number instead.</p></div>
+      </div>
+    </section>
+
+    <!-- Scientific atoms -->
+    <section class="section" id="scientific">
+      <header><div class="eyebrow">Atoms · Scientific</div><h2>Gene · TaxonName · SigmaFactor · PromoterPosition · OperonNotation · ProteinSymbol · Coordinate</h2>
+        <p class="lede">These four-plus atoms are the brand&rsquo;s scientific contract. Their existence as components &mdash; not raw spans &mdash; is what guarantees the rules are actually applied.</p>
+      </header>
+
+      <div class="card-frame">
+        <header><span>Live specimens</span><span><button class="toggle-code" data-action="toggle-code" type="button">Show code</button></span></header>
+        <div class="demo">
+          <table class="spec-table">
+            <thead><tr><th>Atom</th><th>Render</th><th>Markup</th></tr></thead>
+            <tbody>
+              <tr><td>Gene</td>      <td><em class="gene">araC</em></td>            <td><code>&lt;em class="gene"&gt;araC&lt;/em&gt;</code></td></tr>
+              <tr><td>TaxonName</td><td><em class="taxon">Escherichia coli</em> <span class="strain">K-12 MG1655</span></td><td><code>&lt;em class="taxon"&gt;E. coli&lt;/em&gt; &lt;span class="strain"&gt;K-12 MG1655&lt;/span&gt;</code></td></tr>
+              <tr><td>SigmaFactor</td><td>&sigma;<sup style="font-size:0.7em;">70</sup> &sigma;<sup style="font-size:0.7em;">38</sup> &sigma;<sup style="font-size:0.7em;">32</sup></td><td><code>&sigma;&#8311;&#8304;</code> Unicode glyphs preferred over <code>&lt;sup&gt;</code></td></tr>
+              <tr><td>PromoterPosition</td><td><span class="promoter-pos">&minus;10</span> <span class="promoter-pos">&minus;35</span></td><td><code>&minus;10</code> Unicode minus + monospace</td></tr>
+              <tr><td>OperonNotation</td><td><em class="operon-notation">lacZYA</em>, <em class="operon-notation">araBAD</em></td><td><code>&lt;em class="operon-notation"&gt;lacZYA&lt;/em&gt;</code></td></tr>
+              <tr><td>ProteinSymbol</td><td><span class="protein">AraC</span>, <span class="protein">LexA</span>, <span class="protein">CRP</span></td><td><code>&lt;span class="protein"&gt;AraC&lt;/span&gt;</code></td></tr>
+              <tr><td>Coordinate</td><td><span class="coordinate">3,923,882</span></td><td><code>&lt;span class="coordinate"&gt;3,923,882&lt;/span&gt;</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <pre class="code" hidden>&lt;em class="gene"&gt;araC&lt;/em&gt;
+&lt;em class="taxon"&gt;Escherichia coli&lt;/em&gt; &lt;span class="strain"&gt;K-12 MG1655&lt;/span&gt;
+&sigma;&#8311;&#8304;   /* Unicode superscript */
+&lt;span class="promoter-pos"&gt;&minus;10&lt;/span&gt;</pre>
+      </div>
+
+      <div class="dodont">
+        <div class="do"><h4>Do</h4><p>Use the typed components in the React lib (<code>&lt;Gene/&gt;</code>, <code>&lt;TaxonName/&gt;</code>) so the rules are enforced by the type system.</p></div>
+        <div class="dont"><h4>Don't</h4><p>Manually italicize gene names with inline style. The class attribute is required for accessibility, search and i18n.</p></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+<script src="assets/spec.js"></script>
+</body>
+</html>

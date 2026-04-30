@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" data-page="pages">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pages · RegulonDB MG Design System</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/spec.css">
+<link rel="stylesheet" href="assets/components.css">
+<style>
+  .pg-card {
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    background: var(--surface-raised);
+    padding: var(--sp-5);
+    margin: var(--sp-4) 0;
+  }
+  .pg-card h3 { margin-top: 0; }
+  .pg-card .meta { color: var(--text-secondary); font-size: var(--fs-mono-sm); font-family: var(--font-mono); margin-bottom: var(--sp-3); }
+  .pg-card a { color: var(--text-link); }
+
+  .gene-mini {
+    display: grid; grid-template-columns: 1fr 240px; gap: var(--sp-4);
+    border: 1px solid var(--border-default); border-radius: var(--radius-md);
+    padding: var(--sp-4); background: var(--surface-raised);
+  }
+  .gene-mini h2 { margin: 0 0 4px; }
+  .gene-mini .tagline { color: var(--text-secondary); margin-bottom: var(--sp-3); }
+  .gene-mini .crossdb { display: flex; gap: 6px; flex-wrap: wrap; }
+  .gene-mini .crossdb a { font-size: var(--fs-mono-sm); padding: 2px 8px; border: 1px solid var(--border-default); border-radius: var(--radius-pill); background: var(--surface-sunken); color: var(--text-link); text-decoration: none; }
+  .gene-mini .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: var(--fs-mono-sm); }
+  .gene-mini .stats div { background: var(--surface-section); border-radius: var(--radius-sm); padding: 6px 10px; }
+  .gene-mini .stats strong { display: block; font-family: var(--font-mono); font-size: var(--fs-body); }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Design system navigation">
+    <div class="brand">
+      <img class="brand-logo" src="assets/logo-on-dark.svg" alt="RegulonDB" />
+      <small class="brand-strap">Multi-genomic</small>
+    </div>
+    <nav>
+      <h5>Manual</h5>
+      <a href="index.html">Overview</a><a href="01-foundations.html">01 · Foundations</a><a href="02-conventions.html">02 · Conventions</a>
+      <h5>Components</h5>
+      <a href="03-atoms.html">03 · Atoms</a><a href="04-molecules.html">04 · Molecules</a><a href="05-organisms.html">05 · Organisms</a><a href="06-templates.html">06 · Templates</a><a href="07-pages.html">07 · Pages</a>
+      <h5>Quality</h5>
+      <a href="08-accessibility.html">08 · Accessibility</a><a href="09-changelog.html">09 · Changelog</a>
+      <h5>Library</h5>
+      <a href="../lib/showcase.html">Showcase (preview)</a>
+    </nav>
+  </aside>
+  <main class="main" id="main">
+    <div class="topbar">
+      <div><div class="eyebrow">07 · Pages</div><h1>Pages</h1></div>
+      <div class="actions"><button class="btn-ghost" data-action="theme" type="button">Theme: auto</button></div>
+    </div>
+    <p class="lede" style="margin-bottom: var(--sp-7);">
+      Real-data instances. The system&rsquo;s end-to-end proof: if a page renders coherently with real data and no patches, the system works. Live versions of these pages are wired in the Storybook lib (B.1) and rendered in the showcase (B.2).
+    </p>
+
+    <section class="section">
+      <header><h2>HomePage</h2></header>
+      <div class="pg-card">
+        <h3>Home &mdash; <em class="taxon">E. coli</em> K-12 MG1655</h3>
+        <p class="meta">HomeTemplate &middot; live in Storybook &middot; sample data</p>
+        <p>Hero search, ActiveOrganismCard with stats (4,639 / 335 / 2,783 / 214), 6-card quick grid, release notes, multi-organism callout.</p>
+        <a href="../lib/showcase.html#/Pages/HomePage">Open in showcase &rarr;</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <header><h2>GeneAraCPage</h2></header>
+      <div class="pg-card">
+        <p class="meta">GeneTemplate &middot; the canonical worked example</p>
+        <div class="gene-mini">
+          <div>
+            <span class="obj-tag obj-tag--gene">Gene</span>
+            <h2 style="margin-top: 6px;"><em class="gene">araC</em></h2>
+            <p class="tagline">Dual regulator of the L-arabinose utilization system; activates the <em class="gene">araBAD</em>, <em class="gene">araE</em> and <em class="gene">araFGH</em> operons in the presence of arabinose and represses <em class="gene">araC</em> in its absence.</p>
+            <div class="row">
+              <span class="ev-badge ev-badge--curated">IDA</span>
+              <span class="ev-badge ev-badge--curated">IPI</span>
+              <span class="ev-badge ev-badge--ht">HT</span>
+              <span class="ev-badge ev-badge--predicted">IEA</span>
+            </div>
+            <div class="crossdb" style="margin-top: var(--sp-3);">
+              <a href="#">UniProt &middot; P0A9E0</a>
+              <a href="#">EcoCyc &middot; ARAC</a>
+              <a href="#">NCBI Gene &middot; 944822</a>
+              <a href="#">AlphaFold</a>
+              <a href="#">PDB &middot; 1xjA</a>
+            </div>
+          </div>
+          <div>
+            <div class="stats">
+              <div><span style="color: var(--text-tertiary);">b-number</span><strong>b0064</strong></div>
+              <div><span style="color: var(--text-tertiary);">Length</span><strong>879 bp</strong></div>
+              <div><span style="color: var(--text-tertiary);">Strand</span><strong>&minus;</strong></div>
+              <div><span style="color: var(--text-tertiary);">GC%</span><strong>52.1</strong></div>
+              <div style="grid-column: 1/-1;"><span style="color: var(--text-tertiary);">Position</span><strong><span class="coordinate">70,387&hellip;71,265</span></strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <header><h2>TFLexAPage</h2></header>
+      <div class="pg-card">
+        <span class="obj-tag obj-tag--tf">Transcription factor</span>
+        <h3 style="margin: 6px 0 4px;"><span class="protein">LexA</span></h3>
+        <p class="tagline" style="color: var(--text-secondary);">Master repressor of the SOS response to DNA damage. Auto-cleaves under RecA-mediated DNA damage signal, releasing target operators.</p>
+        <p class="meta">TFTemplate &middot; HTH + S24 peptidase domain &middot; 14 curated targets</p>
+        <table class="data compact">
+          <thead><tr><th>Target</th><th>Effect</th><th>Operator</th><th>Evidence</th></tr></thead>
+          <tbody>
+            <tr><td><em class="gene">recA</em></td><td>repression</td><td><span class="seq" style="font-family: var(--font-mono); font-size: var(--fs-mono-sm);">tactgtatgagcatacagta</span></td><td><span class="ev-badge ev-badge--curated">IDA</span></td></tr>
+            <tr><td><em class="gene">uvrA</em></td><td>repression</td><td><span class="seq" style="font-family: var(--font-mono); font-size: var(--fs-mono-sm);">tactgtataaaaaaccagtt</span></td><td><span class="ev-badge ev-badge--curated">IDA</span></td></tr>
+            <tr><td><em class="gene">sulA</em></td><td>repression</td><td><span class="seq" style="font-family: var(--font-mono); font-size: var(--fs-mono-sm);">tactgtacatccatacagta</span></td><td><span class="ev-badge ev-badge--curated">IPI</span></td></tr>
+            <tr><td><em class="gene">dinB</em></td><td>repression</td><td><span class="seq" style="font-family: var(--font-mono); font-size: var(--fs-mono-sm);">tactgtatactttaccagtg</span></td><td><span class="ev-badge ev-badge--predicted">IEA</span></td></tr>
+            <tr><td><em class="gene">umuD</em></td><td>repression</td><td><span class="seq" style="font-family: var(--font-mono); font-size: var(--fs-mono-sm);">tactgtataagaactcccgt</span></td><td><span class="ev-badge ev-badge--ht">HT</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <header><h2>RegulonAraCPage</h2></header>
+      <div class="pg-card">
+        <span class="obj-tag obj-tag--regulon">Regulon</span>
+        <h3 style="margin: 6px 0;">AraC regulon</h3>
+        <p class="meta">RegulonTemplate &middot; live radial in showcase</p>
+        <p>4 target operons (<em class="gene">araBAD</em>, <em class="gene">araFGH</em>, <em class="gene">araE</em>, <em class="gene">araC</em>) &middot; activates 3 / represses 1 (autoregulation) &middot; co-regulator: CRP at <span class="promoter-pos">&minus;41.5</span> of P<sub>BAD</sub>.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <header><h2>CompareLexAPage</h2></header>
+      <div class="pg-card">
+        <span class="obj-tag obj-tag--tf">Compare TF</span>
+        <h3 style="margin: 6px 0;"><span class="protein">LexA</span> across organisms</h3>
+        <p class="meta">CompareTemplate &middot; SOS regulon conservation across <em class="taxon">E. coli</em>, <em class="taxon">S. enterica</em>, <em class="taxon">B. subtilis</em></p>
+        <p>Note: <em class="taxon">B. subtilis</em> uses a distinct repressor family (DinR / Cheo box). The matrix flags this with <code>N/A &mdash; distinct family</code> rather than implying false-orthology.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <header><h2>SearchResultsLexAPage</h2></header>
+      <div class="pg-card">
+        <h3 style="margin: 0;">Search &mdash; "lexA"</h3>
+        <p class="meta">FacetedSearchTemplate &middot; 14 hits across 3 organisms</p>
+        <p>Cross-organism toggle on, query highlighted via <code>&lt;mark&gt;</code> (postit yellow) in result snippets.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <header><h2>SummaryHistoryPage</h2></header>
+      <div class="pg-card">
+        <span class="obj-tag obj-tag--dataset">Cross-organism</span>
+        <h3 style="margin: 6px 0 4px;">Summary history</h3>
+        <p class="tagline" style="color: var(--text-secondary);">Release-history dashboard. Stat cards (with deltas) at the top, growth chart over time, vertical release timeline, per-release stats table, right rail with "About / Export / Latest highlight".</p>
+        <p class="meta">SummaryHistoryTemplate &middot; cross-organism (no organism prefix) &middot; route <code>#/summary-history</code></p>
+        <p>New primitives this page introduces:</p>
+        <ul style="line-height: 1.8;">
+          <li><strong>StatCardWithDelta</strong> (molecule) &mdash; value + label + signed delta vs a reference version. Tone auto-derived from sign; override via <code>tone</code> prop.</li>
+          <li><strong>ReleaseHighlight</strong> (molecule) &mdash; color-coded one-liner banner using the evidence palette (feature / data / structural / note).</li>
+          <li><strong>ReleaseTimeline</strong> (organism) &mdash; vertical chronological list with major-release dot styling for x.0 versions.</li>
+          <li><strong>GrowthChart</strong> (organism) &mdash; hand-rolled SVG line / stacked-area chart, no deps. Optional milestone annotations.</li>
+          <li><strong>SummaryHistoryTemplate</strong> (template) &mdash; 3-column layout: timeline (sidebar) + chart+table (main) + about/export rail.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <header><h2>NotFoundPage · OrganismLoadingPage</h2></header>
+      <div class="pg-card">
+        <h3 style="margin: 0;">404 &mdash; gene not found</h3>
+        <p class="meta">EmptyStateTemplate &middot; helpful copy + suggested searches</p>
+      </div>
+      <div class="pg-card">
+        <h3 style="margin: 0;">Organism loading</h3>
+        <p class="meta">Skeleton end-to-end &middot; preserves silhouette, no spinner</p>
+        <div class="stack" style="max-width: 480px;">
+          <span class="skeleton" style="width: 30%; height: 24px;"></span>
+          <span class="skeleton" style="width: 80%;"></span>
+          <span class="skeleton" style="width: 60%;"></span>
+          <span class="skeleton" style="width: 100%; height: 96px;"></span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+<script src="assets/spec.js"></script>
+</body>
+</html>

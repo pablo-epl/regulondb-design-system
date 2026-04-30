@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RegulonDB MG · Stakeholder presentation</title>
+<style>
+  @page { size: A4 landscape; margin: 0 }
+  * { box-sizing: border-box }
+  html, body { margin: 0; padding: 0; height: 100%; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; color: #373737 }
+  body {
+    width: 297mm; height: 210mm;
+    background:
+      radial-gradient(900px 420px at 92% -8%, rgba(60,119,155,0.20), transparent 60%),
+      radial-gradient(700px 360px at -10% 110%, rgba(201,133,40,0.14), transparent 60%),
+      #FFFFFF;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 64px 72px;
+  }
+  .top { display: flex; justify-content: space-between; align-items: flex-start }
+  .top svg { height: 56px; width: auto }
+  .meta { font-family: "Courier New", ui-monospace, monospace; font-size: 11px; text-align: right; color: #666666; line-height: 1.6 }
+  .meta strong { display: block; color: #1F3D4E; font-family: Arial, sans-serif; font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 4px }
+  main { display: flex; flex-direction: column; justify-content: center; max-width: 720px }
+  h1 { font-size: 56px; line-height: 1.05; margin: 0 0 18px; color: #1F3D4E; letter-spacing: -1px }
+  h1 em { font-style: italic; color: #32617D }
+  .lede { font-size: 18px; line-height: 1.55; color: #373737; max-width: 60ch; margin: 0 0 28px }
+  .lede em { font-style: italic }
+  .stats { display: flex; gap: 32px; flex-wrap: wrap; padding-top: 18px; border-top: 1px solid #D5D5D7 }
+  .stats > div { font-family: "Courier New", monospace }
+  .stats strong { display: block; font-family: Arial, sans-serif; font-size: 22px; color: #1F3D4E }
+  .stats span { font-size: 11px; color: #666666; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; display: inline-block }
+  footer { display: flex; justify-content: space-between; align-items: center; color: #999999; font-size: 11px; font-family: "Courier New", monospace; padding-top: 18px; border-top: 1px solid #D5D5D7 }
+  .toc { font-size: 12px; line-height: 1.7 }
+  .toc strong { color: #1F3D4E; font-family: Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.04em; font-size: 11px; display: block; margin-bottom: 6px }
+</style>
+</head>
+<body>
+  <div class="top">
+    <img src="../../spec/assets/logo.svg" alt="RegulonDB" />
+    <div class="meta">
+      <strong>Multi-genomic prototype</strong>
+      Stakeholder review &middot; v0.9 prototype<br>
+      2026 &middot; CCG-UNAM
+    </div>
+  </div>
+
+  <main>
+    <h1>From <em>E.&nbsp;coli</em> K-12<br>to a multi-genomic platform.</h1>
+    <p class="lede">
+      RegulonDB has been the international curated reference for bacterial transcriptional regulation since 1991.
+      This deck walks through the prototype of <strong>RegulonDB MG</strong> &mdash; the redesign that extends
+      curation to <em>Salmonella enterica</em>, <em>Bacillus subtilis</em>, and additional bacterial models, integrating
+      experimental evidence with computational predictions, orthology, metabolic context, and high-throughput datasets.
+    </p>
+    <div class="stats">
+      <div><strong>3</strong><span>seed organisms</span></div>
+      <div><strong>4,639</strong><span>genes &middot; E. coli</span></div>
+      <div><strong>335</strong><span>TFs &middot; E. coli</span></div>
+      <div><strong>214</strong><span>regulons &middot; E. coli</span></div>
+      <div><strong>~600</strong><span>curated regulons cross-organism</span></div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="toc">
+      <strong>What you'll see</strong>
+      Home &middot; Gene page (araC) &middot; TF page (LexA) &middot; Regulon (AraC, LexA) &middot; Search &middot; Compare cross-organism &middot; Salmonella &middot; B. subtilis
+    </div>
+    <div>RegulonDB MG &middot; CCG-UNAM &middot; 2026</div>
+  </footer>
+</body>
+</html>

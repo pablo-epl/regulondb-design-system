@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" data-page="changelog">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Changelog · RegulonDB MG Design System</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/spec.css">
+<link rel="stylesheet" href="assets/components.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Design system navigation">
+    <div class="brand">
+      <img class="brand-logo" src="assets/logo-on-dark.svg" alt="RegulonDB" />
+      <small class="brand-strap">Multi-genomic</small>
+    </div>
+    <nav>
+      <h5>Manual</h5>
+      <a href="index.html">Overview</a><a href="01-foundations.html">01 · Foundations</a><a href="02-conventions.html">02 · Conventions</a>
+      <h5>Components</h5>
+      <a href="03-atoms.html">03 · Atoms</a><a href="04-molecules.html">04 · Molecules</a><a href="05-organisms.html">05 · Organisms</a><a href="06-templates.html">06 · Templates</a><a href="07-pages.html">07 · Pages</a>
+      <h5>Quality</h5>
+      <a href="08-accessibility.html">08 · Accessibility</a><a href="09-changelog.html">09 · Changelog</a>
+      <h5>Library</h5>
+      <a href="../lib/showcase.html">Showcase (preview)</a>
+    </nav>
+  </aside>
+  <main class="main" id="main">
+    <div class="topbar">
+      <div><div class="eyebrow">09 · Changelog</div><h1>Changelog</h1></div>
+      <div class="actions"><button class="btn-ghost" data-action="theme" type="button">Theme: auto</button></div>
+    </div>
+    <p class="lede" style="margin-bottom: var(--sp-7);">What changed and when. Versioned by Semantic Versioning. Tokens are a public API &mdash; their renaming or removal is a breaking change.</p>
+
+    <section class="section">
+      <header><h2>v1.0.0 &mdash; 2026&middot;04 &mdash; first release</h2></header>
+      <ul style="line-height: 1.9;">
+        <li><strong>Foundations</strong> &mdash; Color, type, spacing, radii, shadow and motion tokens locked. <code>tokens.json</code> declared as the single source of truth.</li>
+        <li><strong>Conventions</strong> &mdash; Scientific nomenclature encoded as components (<code>&lt;Gene&gt;</code>, <code>&lt;TaxonName&gt;</code>, <code>&lt;SigmaFactorLabel&gt;</code>, <code>&lt;PromoterPositionLabel&gt;</code>).</li>
+        <li><strong>Atomic Design</strong> &mdash; Library reorganised into atoms / molecules / organisms / templates / pages.</li>
+        <li><strong>Evidence palette</strong> &mdash; Curated / Predicted / High&#8209;throughput / Weak with 12% bg + AA fg. Color-never-alone rule introduced.</li>
+        <li><strong>Three deliverables</strong> &mdash; <code>spec/</code> (HTML manual), <code>lib/</code> (Storybook source), <code>lib/showcase.html</code> (single-file React preview).</li>
+        <li><strong>Dark mode</strong> &mdash; semantic remap, accent preserved, postit inverted to readable yellow tint.</li>
+        <li><strong>Accessibility</strong> &mdash; Lighthouse A11y &gt;= 95 budget; axe zero-critical budget; keyboard map documented.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <header><h2>Migration from prototype (Feb&middot;2026)</h2></header>
+      <p>Components named <code>regulondb/styles.css</code> in the original prototype are still compatible &mdash; tokens.css names were preserved. The <code>--font-serif</code> token was renamed to <code>--font-citation</code> for explicitness. Add a temporary <code>:root { --font-serif: var(--font-citation); }</code> alias if migrating gradually.</p>
+    </section>
+
+    <section class="section">
+      <header><h2>v1.1 &mdash; Brand mark</h2></header>
+      <ul style="line-height: 1.9;">
+        <li><strong>Logo</strong> &mdash; canonical SVG (full wordmark, on-dark variant, compact mark) at <code>spec/assets/logo*.svg</code> and React <code>&lt;Logo&gt;</code> atom in <code>lib/src/components/atoms/Logo.tsx</code>. Replaces the placeholder R/M square in every consumer (spec sidebars, showcase, lib Header, prototype).</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <header><h2>v1.2 &mdash; Summary history page</h2></header>
+      <ul style="line-height: 1.9;">
+        <li><strong>StatCardWithDelta</strong> (molecule) &mdash; metric tile with current value + signed delta vs a reference release. Tone auto-from-sign; override via prop. Zero deltas render as "unchanged since vN".</li>
+        <li><strong>ReleaseHighlight</strong> (molecule) &mdash; color-coded one-liner banner; tones reuse the evidence palette (feature / data / structural / note).</li>
+        <li><strong>ReleaseTimeline</strong> (organism) &mdash; vertical chronological list with major-release dots for <code>x.0</code> versions.</li>
+        <li><strong>GrowthChart</strong> (organism) &mdash; hand-rolled SVG line / stacked-area chart; no deps; supports milestone annotations and a custom legend.</li>
+        <li><strong>SummaryHistoryTemplate</strong> (template) &mdash; sidebar timeline + main chart+table + right rail layout.</li>
+        <li><strong>SummaryHistoryPage</strong> (page) &mdash; cross-organism release-history dashboard. Wired into the prototype at <code>#/summary-history</code> (no organism prefix). Backed by an extended <code>D.releases</code> with per-release <code>stats</code> across <em class="taxon">E. coli</em>, <em class="taxon">S. enterica</em>, and <em class="taxon">B. subtilis</em>.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <header><h2>v1.3 &mdash; Assistant</h2></header>
+      <ul style="line-height: 1.9;">
+        <li><strong>TypingIndicator</strong> (atom) &mdash; three-dot bounce shown while the assistant composes a reply; honours <code>prefers-reduced-motion</code>.</li>
+        <li><strong>LevelPicker</strong> (atom) &mdash; segmented audience-tunable toggle (PI / Postdoc / Undergrad / Public). Drives the per-page explainer body swap; mirrors <code>tabs--segmented</code> styling.</li>
+        <li><strong>ChatMessage</strong> (molecule) &mdash; bubble + avatar + body; three roles (<code>user</code>, <code>assistant</code>, <code>system</code>). Footer slot for citation chips.</li>
+        <li><strong>ChatComposer</strong> (molecule) &mdash; auto-growing textarea (max 180px) + Send + suggestions strip. <code>Enter</code> submits, <code>Shift+Enter</code> newline.</li>
+        <li><strong>CitationChip</strong> (molecule) &mdash; pill linking back to the source object using ObjectTypeTag color codes; makes assistant answers auditable.</li>
+        <li><strong>ChatPanel</strong> (organism) &mdash; slide-in right drawer hosting a ChatMessage list + ChatComposer. Focus-trapped via the existing <code>useFocusTrap</code> hook; auto-scrolls on append. Hosts the RAG chat surface.</li>
+        <li><strong>ExplainerPanel</strong> (organism) &mdash; page-side variant for the per-page explainer. Mounts near the top of object pages; level choice persists in <code>localStorage</code>.</li>
+        <li><strong>Prototype wiring</strong> &mdash; FAB launcher (<code>.assistant-fab</code>, bottom-right) + <code>&#8984;J</code> / <code>Ctrl+J</code> shortcut. Per-page explainer mounted on gene / TF / regulon pages with curated PI / Postdoc / Undergrad / Public bodies. Engine in <code>regulondb/assistant.js</code>; UI in <code>regulondb/assistant-ui.js</code>.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <header><h2>v1.4 &mdash; Comparative + FAIR</h2></header>
+      <p class="lede">Materialises three Roadmap items: the multi-genomic differentiator (M-2 Pan-regulome), a citable comparative metric (M-4 RRI), and the FAIR landing page (Q-7 + D-1..D-7).</p>
+      <ul style="line-height: 1.9;">
+        <li><strong>ScorePill</strong> (atom) &mdash; 0&ndash;1 metric pill with a colored band reflecting the value (low / medium / high / extreme). Used by the RRI leaderboard and by the regulon page header.</li>
+        <li><strong>DOIBadge</strong> (atom) &mdash; citable identifier rendered next to releases and dataset cards; click opens <code>doi.org</code> in a new tab.</li>
+        <li><strong>ConservationCell</strong> (molecule) &mdash; one cell of the pan-regulome grid; four states (<code>conserved</code> / <code>divergent</code> / <code>absent</code> / <code>unknown</code>) with tooltip carrying the regulator symbol.</li>
+        <li><strong>DatasetCard</strong> (molecule) &mdash; Card variant composing DOIBadge + format Tags + Download / Cite buttons; one card per citable artefact.</li>
+        <li><strong>Pan-regulome page</strong> (organism, route <code>#/pan-regulome</code>) &mdash; orthogroup &times; organism pivot table with KPIs, function/state filters, TSV export.</li>
+        <li><strong>RRI Leaderboard page</strong> (organism, route <code>#/rri-leaderboard</code>) &mdash; regulons ranked by Regulatory Rewiring Index with target / regulator breakdown and per-row "why" prose.</li>
+        <li><strong>Datasets &amp; Downloads page</strong> (organism, route <code>#/downloads</code>) &mdash; responsive grid of DatasetCards (D-1..D-7); each carries a Zenodo DOI and a one-click citation copy.</li>
+        <li><strong>Per-regulon RRI pill</strong> &mdash; the same ScorePill also appears in the regulon page header meta row, linking back to the leaderboard.</li>
+        <li><strong>Mock data extensions</strong> in <code>regulondb/data.js</code>: <code>pan_regulome</code> (~30 orthogroups across 3 organisms with regulator/evidence/effect per cell), <code>rri_table</code> (12 regulons with RRI / targetRRI / regulatorRRI / summary), <code>datasets</code> (D-1..D-7 with mock Zenodo DOIs).</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <header><h2>Future (v1.5+)</h2></header>
+      <ul style="line-height: 1.9;">
+        <li>Token contracts published as JSON Schema for CI validation.</li>
+        <li>Brand assets pack &mdash; favicons, OG images, printable lockup at higher fidelity (vector source from brand team).</li>
+      </ul>
+    </section>
+  </main>
+</div>
+<script src="assets/spec.js"></script>
+</body>
+</html>

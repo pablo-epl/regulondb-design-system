@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en" data-page="foundations">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foundations · RegulonDB MG Design System</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/spec.css">
+<style>
+  /* Demo-only specimens for the foundations page */
+  .palette-row { display: grid; gap: var(--sp-3); }
+  .palette-row .grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+
+  .scheme-block {
+    border: 1px solid var(--border-default); border-radius: var(--radius-md);
+    overflow: hidden; background: var(--surface-raised);
+  }
+  .scheme-block .top {
+    padding: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-2);
+  }
+  .scheme-block .top.primary  { background: var(--blue-1); color: #fff; }
+  .scheme-block .top.primaryV { background: var(--blue-2); color: #fff; }
+  .scheme-block .top.secondary{ background: var(--accent); color: #fff; }
+  .scheme-block .top.surface  { background: var(--blue-5); color: #000; }
+  .scheme-block .top.error    { background: var(--error); color: #fff; }
+  .scheme-block .top.postit   { background: var(--postit); color: #5A4F00; }
+
+  .scheme-block .bot {
+    padding: var(--sp-3) var(--sp-4); border-top: 1px solid var(--border-default);
+    font-size: var(--fs-mono-sm); font-family: var(--font-mono);
+    color: var(--text-secondary);
+  }
+  .scheme-block strong { font-family: var(--font-sans); font-size: var(--fs-body); color: var(--text-primary); display: block; }
+
+  /* Spacing visualisation */
+  .spacing-row { display: flex; align-items: center; gap: var(--sp-4); margin: var(--sp-3) 0; font-family: var(--font-mono); font-size: var(--fs-mono-sm); }
+  .spacing-bar { background: var(--blue-3); height: 14px; border-radius: 2px; }
+  .spacing-row .label { width: 80px; color: var(--text-secondary); }
+  .spacing-row .px    { color: var(--text-tertiary); }
+
+  /* Radii visualisation */
+  .radius-grid { display: grid; gap: var(--sp-4); grid-template-columns: repeat(4, 1fr); }
+  .radius-grid > div {
+    height: 96px; background: var(--blue-5);
+    display: grid; place-items: center;
+    border: 1px solid var(--border-default);
+    font-family: var(--font-mono); font-size: var(--fs-mono-sm); color: var(--text-secondary);
+  }
+
+  /* Shadow visualisation */
+  .shadow-grid { display: grid; gap: var(--sp-7); grid-template-columns: repeat(3, 1fr); }
+  .shadow-grid > div {
+    height: 120px; background: var(--surface-raised);
+    border-radius: var(--radius-md);
+    display: grid; place-items: center;
+    font-family: var(--font-mono); font-size: var(--fs-mono-sm); color: var(--text-secondary);
+  }
+
+  /* Evidence palette card */
+  .ev-card {
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md); overflow: hidden;
+  }
+  .ev-card .head { padding: var(--sp-4); }
+  .ev-card .body {
+    padding: var(--sp-4); border-top: 1px solid var(--border-default);
+    display: flex; gap: var(--sp-3); flex-wrap: wrap;
+    font-size: var(--fs-mono-sm); font-family: var(--font-mono);
+  }
+  .ev-card .body .pair { display: flex; flex-direction: column; gap: 2px; }
+  .ev-card .body .swatch-mini { width: 100%; height: 28px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.05); }
+
+  /* Motion clip demo */
+  .motion-demo { display: flex; gap: var(--sp-5); align-items: center; flex-wrap: wrap; }
+  .motion-demo > button {
+    padding: 12px 20px; background: var(--blue-2); color: #fff;
+    border: 0; border-radius: var(--radius-md); cursor: pointer;
+    font: inherit;
+  }
+  .motion-target {
+    width: 56px; height: 56px; background: var(--accent);
+    border-radius: var(--radius-md);
+    transition: transform var(--dur-standard) var(--ease-standard);
+  }
+  .motion-target.move { transform: translateX(160px); }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="shell">
+  <aside class="sidebar" aria-label="Design system navigation">
+    <div class="brand">
+      <img class="brand-logo" src="assets/logo-on-dark.svg" alt="RegulonDB" />
+      <small class="brand-strap">Multi-genomic</small>
+    </div>
+    <nav>
+      <h5>Manual</h5>
+      <a href="index.html">Overview</a>
+      <a href="01-foundations.html">01 · Foundations</a>
+      <a href="02-conventions.html">02 · Conventions</a>
+      <h5>Components</h5>
+      <a href="03-atoms.html">03 · Atoms</a>
+      <a href="04-molecules.html">04 · Molecules</a>
+      <a href="05-organisms.html">05 · Organisms</a>
+      <a href="06-templates.html">06 · Templates</a>
+      <a href="07-pages.html">07 · Pages</a>
+      <h5>Quality</h5>
+      <a href="08-accessibility.html">08 · Accessibility</a>
+      <a href="09-changelog.html">09 · Changelog</a>
+      <h5>Library</h5>
+      <a href="../lib/showcase.html">Showcase (preview)</a>
+    </nav>
+  </aside>
+
+  <main class="main" id="main">
+    <div class="topbar">
+      <div>
+        <div class="eyebrow">01 · Foundations</div>
+        <h1>Foundations</h1>
+      </div>
+      <div class="actions">
+        <button class="btn-ghost" data-action="theme" type="button">Theme: auto</button>
+      </div>
+    </div>
+    <p class="lede" style="margin-bottom: var(--sp-7);">
+      Color, typography, spacing, radii, shadow and motion. The unalterable layer of the system.
+      Every component above this layer must compose from these tokens &mdash; never their hex equivalents.
+    </p>
+
+    <!-- ========================================================== Color -->
+    <section class="section" id="color">
+      <header>
+        <div class="eyebrow">Foundations &middot; Color</div>
+        <h2>Color</h2>
+        <p class="lede">
+          Five blues, five greys, plus four reserved hues: error red, accent gold, accent-light gold and post&#8209;it yellow.
+          The accent is rare and intentional. Color is never the only signal of meaning.
+        </p>
+      </header>
+
+      <h3 style="margin-top: var(--sp-7); margin-bottom: var(--sp-4);">Brand &mdash; Blue</h3>
+      <div class="grid">
+        <div class="swatch"><div class="chip" style="background: var(--blue-1);"></div><div class="meta"><strong>--blue-1</strong><code>#1F3D4E</code><div class="role">Headers, H1, brand identity</div></div></div>
+        <div class="swatch"><div class="chip" style="background: var(--blue-2);"></div><div class="meta"><strong>--blue-2</strong><code>#32617D</code><div class="role">Links, primary CTA</div></div></div>
+        <div class="swatch"><div class="chip" style="background: var(--blue-3);"></div><div class="meta"><strong>--blue-3</strong><code>#3D779B</code><div class="role">Hover, focus ring</div></div></div>
+        <div class="swatch"><div class="chip" style="background: var(--blue-4);"></div><div class="meta"><strong>--blue-4</strong><code>#72A7C7</code><div class="role">Soft highlight, info</div></div></div>
+        <div class="swatch"><div class="chip" style="background: var(--blue-5);"></div><div class="meta"><strong>--blue-5</strong><code>#D5E2EA</code><div class="role">Surface, section bg</div></div></div>
+      </div>
+
+      <h3 style="margin-top: var(--sp-7); margin-bottom: var(--sp-4);">Neutral &mdash; Grey</h3>
+      <div class="grid">
+        <div class="swatch"><div class="chip" style="background: var(--grey-1);"></div><div class="meta"><strong>--grey-1</strong><code>#373737</code><div class="role">Body text</div></div></div>
+        <div class="swatch"><div class="chip" style="background: var(--grey-2);"></div><div class="meta"><strong>--grey-2</strong><code>#666666</code><div class="role">Secondary text</div></div></div>
+        <div class="swatch"><div class="chip" style="background: var(--grey-3);"></div><div class="meta"><strong>--grey-3</strong><code>#999999</code><div class="role">Tertiary, placeholders</div></div></div>
+        <div class="swatch"><div class="chip" style="background: var(--grey-4); border-bottom: 1px solid var(--border-default);"></div><div class="meta"><strong>--grey-4</strong><code>#D5D5D7</code><div class="role">Borders</div></div></div>
+        <div class="swatch"><div class="chip" style="background: var(--grey-5); border-bottom: 1px solid var(--border-default);"></div><div class="meta"><strong>--grey-5</strong><code>#F4F5F5</code><div class="role">Sunken surface</div></div></div>
+      </div>
+
+      <h3 style="margin-top: var(--sp-7); margin-bottom: var(--sp-4);">Reserved hues</h3>
+      <div class="grid">
+        <div class="swatch"><div class="chip" style="background: var(--accent);"></div><div class="meta"><strong>--accent</strong><code>#C98528</code><div class="role">Compare CTA, divergent gene arrows, predicted</div></div></div>
+        <div class="swatch"><div class="chip" style="background: var(--accent-light);"></div><div class="meta"><strong>--accent-light</strong><code>#D2A769</code><div class="role">Border on accent buttons</div></div></div>
+        <div class="swatch"><div class="chip" style="background: var(--postit); border-bottom: 1px solid var(--border-default);"></div><div class="meta"><strong>--postit</strong><code>#FFF8A6</code><div class="role">Curator notes, &lt;mark&gt;</div></div></div>
+        <div class="swatch"><div class="chip" style="background: var(--error);"></div><div class="meta"><strong>--error</strong><code>#C93A1D</code><div class="role">Errors, repression, weak evidence</div></div></div>
+      </div>
+
+      <h3 style="margin-top: var(--sp-7); margin-bottom: var(--sp-4);">Color scheme &mdash; semantic mapping (light)</h3>
+      <p style="color: var(--text-secondary); max-width: 70ch;">Each role binds a hex value. Do not bind components to raw hex; bind them to semantic tokens. Dark-mode counterparts swap surfaces and lighten primaries; the accent never dims.</p>
+      <div class="grid grid--3">
+        <div class="scheme-block"><div class="top primary"><strong style="color:#fff;">Primary</strong><span style="font-family:var(--font-mono); font-size:var(--fs-mono-sm); opacity:.85">--blue-1 &middot; #1F3D4E</span></div><div class="bot">Identity. Headers, H1, surface-header.</div></div>
+        <div class="scheme-block"><div class="top primaryV"><strong style="color:#fff;">Primary Variant</strong><span style="font-family:var(--font-mono); font-size:var(--fs-mono-sm); opacity:.85">--blue-2 &middot; #32617D</span></div><div class="bot">Links, primary CTA, active tab.</div></div>
+        <div class="scheme-block"><div class="top secondary"><strong style="color:#fff;">Secondary</strong><span style="font-family:var(--font-mono); font-size:var(--fs-mono-sm); opacity:.85">--accent &middot; #C98528</span></div><div class="bot">Compare CTA, divergent / predicted.</div></div>
+        <div class="scheme-block"><div class="top surface"><strong>Surface</strong><span style="font-family:var(--font-mono); font-size:var(--fs-mono-sm);">--blue-5 &middot; #D5E2EA</span></div><div class="bot">Cards, section bg.</div></div>
+        <div class="scheme-block"><div class="top error"><strong style="color:#fff;">Error</strong><span style="font-family:var(--font-mono); font-size:var(--fs-mono-sm); opacity:.85">--error &middot; #C93A1D</span></div><div class="bot">Repression, weak evidence, errors.</div></div>
+        <div class="scheme-block"><div class="top postit"><strong>Postit</strong><span style="font-family:var(--font-mono); font-size:var(--fs-mono-sm);">--postit &middot; #FFF8A6</span></div><div class="bot">Curator notes &amp; &lt;mark&gt; only.</div></div>
+      </div>
+
+      <h3 style="margin-top: var(--sp-7); margin-bottom: var(--sp-4);">Evidence palette</h3>
+      <p style="color: var(--text-secondary); max-width: 70ch;">
+        Four categories, each with a base hue, a 12&#8209;% mixed background and an AA&#8209;legible foreground.
+        Background formula: <code>base @ 12 % alpha composited over white</code>. Always pair with the code text (IDA, IEA&hellip;) and an icon &mdash; never lean on color alone.
+      </p>
+      <div class="grid grid--2">
+        <div class="ev-card">
+          <div class="head" style="background: var(--evidence-curated-bg); color: var(--evidence-curated-fg);"><strong>Curated</strong> &mdash; Manual / experimental strong (IDA, IPI, IEP, IC).</div>
+          <div class="body">
+            <div class="pair" style="flex:1"><div class="swatch-mini" style="background: var(--evidence-curated);"></div>--evidence-curated</div>
+            <div class="pair" style="flex:1"><div class="swatch-mini" style="background: var(--evidence-curated-bg);"></div>--evidence-curated-bg</div>
+            <div class="pair" style="flex:1"><div class="swatch-mini" style="background: var(--evidence-curated-fg);"></div>--evidence-curated-fg</div>
+          </div>
+        </div>
+        <div class="ev-card">
+          <div class="head" style="background: var(--evidence-predicted-bg); color: var(--evidence-predicted-fg);"><strong>Predicted</strong> &mdash; Computational, IEA, ortholog inference.</div>
+          <div class="body">
+            <div class="pair" style="flex:1"><div class="swatch-mini" style="background: var(--evidence-predicted);"></div>--evidence-predicted</div>
+            <div class="pair" style="flex:1"><div class="swatch-mini" style="background: var(--evidence-predicted-bg);"></div>--evidence-predicted-bg</div>
+            <div class="pair" style="flex:1"><div class="swatch-mini" style="background: var(--evidence-predicted-fg);"></div>--evidence-predicted-fg</div>
+          </div>
+        </div>
+        <div class="ev-card">
+          <div class="head" style="background: var(--evidence-ht-bg); color: var(--evidence-ht-fg);"><strong>High-throughput</strong> &mdash; ChIP-seq, RNA-seq, gSELEX (massive scale, no 1:1 curation).</div>
+          <div class="body">
+            <div class="pair" style="flex:1"><div class="swatch-mini" style="background: var(--evidence-ht);"></div>--evidence-ht</div>
+            <div class="pair" style="flex:1"><div class="swatch-mini" style="background: var(--evidence-ht-bg);"></div>--evidence-ht-bg</div>
+            <div class="pair" style="flex:1"><div class="swatch-mini" style="background: var(--evidence-ht-fg);"></div>--evidence-ht-fg</div>
+          </div>
+        </div>
+        <div class="ev-card">
+          <div class="head" style="background: var(--evidence-weak-bg); color: var(--evidence-weak-fg);"><strong>Weak</strong> &mdash; Contradictory or low-confidence.</div>
+          <div class="body">
+            <div class="pair" style="flex:1"><div class="swatch-mini" style="background: var(--evidence-weak);"></div>--evidence-weak</div>
+            <div class="pair" style="flex:1"><div class="swatch-mini" style="background: var(--evidence-weak-bg);"></div>--evidence-weak-bg</div>
+            <div class="pair" style="flex:1"><div class="swatch-mini" style="background: var(--evidence-weak-fg);"></div>--evidence-weak-fg</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: var(--sp-7); margin-bottom: var(--sp-4);">Object-type accents</h3>
+      <p style="color: var(--text-secondary); max-width: 70ch;">
+        A discrete dot color per biological object type. Used in <code>ObjectTypeTag</code> and as the icon stroke color. Distinct from the brand palette: these don&rsquo;t live in components, only in lists/tables of mixed object types.
+      </p>
+      <div class="grid">
+        <div class="swatch"><div class="chip" style="background: var(--obj-gene);"></div><div class="meta"><strong>--obj-gene</strong><code>#2F6B48</code><div class="role">Gene</div></div></div>
+        <div class="swatch"><div class="chip" style="background: var(--obj-operon);"></div><div class="meta"><strong>--obj-operon</strong><code>#7A4A1E</code><div class="role">Operon</div></div></div>
+        <div class="swatch"><div class="chip" style="background: var(--obj-tf);"></div><div class="meta"><strong>--obj-tf</strong><code>#6B2F64</code><div class="role">Transcription factor</div></div></div>
+        <div class="swatch"><div class="chip" style="background: var(--obj-regulon);"></div><div class="meta"><strong>--obj-regulon</strong><code>#1A4D6B</code><div class="role">Regulon</div></div></div>
+        <div class="swatch"><div class="chip" style="background: var(--obj-promoter);"></div><div class="meta"><strong>--obj-promoter</strong><code>#A14522</code><div class="role">Promoter</div></div></div>
+        <div class="swatch"><div class="chip" style="background: var(--obj-dataset);"></div><div class="meta"><strong>--obj-dataset</strong><code>#3D4A7A</code><div class="role">Dataset</div></div></div>
+      </div>
+
+      <div class="dodont">
+        <div class="do">
+          <h4>Do</h4>
+          <p>Use accent only on Compare CTAs, divergent gene arrows, predicted-evidence badges, and a single hero accent. Three places per page is the limit.</p>
+        </div>
+        <div class="dont">
+          <h4>Don't</h4>
+          <p>Use accent as a substitute for blue when you "want some warmth." It dilutes its meaning and breaks the contract that orange = predicted/divergent.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================== Type -->
+    <section class="section" id="type">
+      <header>
+        <div class="eyebrow">Foundations &middot; Typography</div>
+        <h2>Typography</h2>
+        <p class="lede">
+          Arial is the workhorse. Times New Roman is reserved for citations.
+          Courier New is reserved for sequence, code and coordinates.
+          Sizes come from the official PDF: 24 / 22 / 20 / 18 for headings, 16 for relevant body, 14 for normal body.
+        </p>
+      </header>
+
+      <div class="card-frame">
+        <header>Heading scale</header>
+        <div class="demo demo--plain" style="background: var(--surface-raised);">
+          <div class="type-row"><div class="label">H1</div><h1 style="margin:0;">Master repressor of the SOS response</h1><div class="meta">Arial 700 / 24px / 1.25</div></div>
+          <div class="type-row"><div class="label">H2</div><h2 style="margin:0;">Targets, evidence and conservation</h2><div class="meta">Arial 700 / 22px / 1.30</div></div>
+          <div class="type-row"><div class="label">H3</div><h3 style="margin:0;">Domain architecture</h3><div class="meta">Arial 700 / 20px / 1.35</div></div>
+          <div class="type-row"><div class="label">H4</div><h4 style="margin:0;">Conservation across organisms</h4><div class="meta">Arial 700 / 18px / 1.40</div></div>
+          <div class="type-row"><div class="label">Body lg</div><div style="font-size:var(--fs-body-lg); line-height:var(--lh-body-lg);">Dual regulator of the L-arabinose utilization system; activates the <em class="gene">araBAD</em>, <em class="gene">araC</em> and <em class="gene">araFGH</em> operons in the presence of arabinose.</div><div class="meta">Arial 400 / 16px / 1.6</div></div>
+          <div class="type-row"><div class="label">Body</div><div>Standard table cell, UI chrome, captions. Reads dense at scale &mdash; the design supports density rather than fights it.</div><div class="meta">Arial 400 / 14px / 1.55</div></div>
+          <div class="type-row"><div class="label">Citation</div><div style="font-family: var(--font-citation); font-style: italic;">(Salgado, Gama-Castro, Mart&iacute;nez-Antonio, et&nbsp;al., RegulonDB v12, 2024)</div><div class="meta">Times New Roman 400 italic / 14px</div></div>
+          <div class="type-row"><div class="label">Mono</div><div style="font-family: var(--font-mono); font-size: var(--fs-mono);">5&#8242;-AACGTGGTGTGTAATTAATTTAACGTACGT-3&#8242;</div><div class="meta">Courier New 400 / 13px / 1.55</div></div>
+          <div class="type-row"><div class="label">Mono sm</div><div style="font-family: var(--font-mono); font-size: var(--fs-mono-sm);">3,923,882</div><div class="meta">Courier New 400 / 12px / 1.40</div></div>
+        </div>
+      </div>
+
+      <div class="dodont">
+        <div class="do">
+          <h4>Do</h4>
+          <p>Use citation type only inside reference lists and inline (Author, year) citations. Use mono for sequences, IDs and coordinates. Use Arial everywhere else.</p>
+        </div>
+        <div class="dont">
+          <h4>Don't</h4>
+          <p>Use Times for body copy "to feel scientific", or use mono inside paragraphs. Mixing typefaces inside a sentence dilutes their semantic load.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================== Spacing -->
+    <section class="section" id="spacing">
+      <header>
+        <div class="eyebrow">Foundations &middot; Spacing</div>
+        <h2>Spacing</h2>
+        <p class="lede">
+          A 4 / 8&#8209;px scale. Twelve steps from <code>--sp-1</code> (4px) to <code>--sp-10</code> (64px).
+          Use spacing as structure, not decoration.
+        </p>
+      </header>
+      <div class="card-frame">
+        <header>4 / 8 base scale</header>
+        <div class="demo demo--plain" style="background: var(--surface-raised);">
+          <div class="spacing-row"><div class="label">--sp-1</div><div class="spacing-bar" style="width: 4px"></div><div class="px">4px</div></div>
+          <div class="spacing-row"><div class="label">--sp-2</div><div class="spacing-bar" style="width: 8px"></div><div class="px">8px</div></div>
+          <div class="spacing-row"><div class="label">--sp-3</div><div class="spacing-bar" style="width: 12px"></div><div class="px">12px</div></div>
+          <div class="spacing-row"><div class="label">--sp-4</div><div class="spacing-bar" style="width: 16px"></div><div class="px">16px &mdash; gutter</div></div>
+          <div class="spacing-row"><div class="label">--sp-5</div><div class="spacing-bar" style="width: 20px"></div><div class="px">20px &mdash; card padding</div></div>
+          <div class="spacing-row"><div class="label">--sp-6</div><div class="spacing-bar" style="width: 24px"></div><div class="px">24px</div></div>
+          <div class="spacing-row"><div class="label">--sp-7</div><div class="spacing-bar" style="width: 32px"></div><div class="px">32px</div></div>
+          <div class="spacing-row"><div class="label">--sp-8</div><div class="spacing-bar" style="width: 40px"></div><div class="px">40px</div></div>
+          <div class="spacing-row"><div class="label">--sp-9</div><div class="spacing-bar" style="width: 48px"></div><div class="px">48px &mdash; section gap</div></div>
+          <div class="spacing-row"><div class="label">--sp-10</div><div class="spacing-bar" style="width: 64px"></div><div class="px">64px &mdash; page rhythm</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================== Radii -->
+    <section class="section" id="radii">
+      <header>
+        <div class="eyebrow">Foundations &middot; Radii &amp; Shadow</div>
+        <h2>Radii &amp; shadow</h2>
+        <p class="lede">Four radii. Three shadows, all blue&#8209;tinted (never grey).</p>
+      </header>
+
+      <div class="card-frame">
+        <header>Radii</header>
+        <div class="demo demo--plain" style="background: var(--surface-raised);">
+          <div class="radius-grid">
+            <div style="border-radius: var(--radius-sm);">--radius-sm &middot; 4</div>
+            <div style="border-radius: var(--radius-md);">--radius-md &middot; 6</div>
+            <div style="border-radius: var(--radius-lg);">--radius-lg &middot; 10</div>
+            <div style="border-radius: var(--radius-pill);">--radius-pill</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-frame">
+        <header>Shadow</header>
+        <div class="demo demo--plain" style="background: var(--surface-section);">
+          <div class="shadow-grid">
+            <div style="box-shadow: var(--shadow-xs);">--shadow-xs</div>
+            <div style="box-shadow: var(--shadow-sm);">--shadow-sm</div>
+            <div style="box-shadow: var(--shadow-md);">--shadow-md</div>
+          </div>
+        </div>
+      </div>
+      <p style="color: var(--text-secondary); max-width: 70ch;">
+        Cards rest flat (no shadow); <code>--shadow-xs</code> is for subtle hovers; <code>--shadow-sm</code> for menus; <code>--shadow-md</code> reserved for drawers and dialogs.
+      </p>
+    </section>
+
+    <!-- ========================================================== Brand mark -->
+    <section class="section" id="logo">
+      <header>
+        <div class="eyebrow">Foundations &middot; Brand mark</div>
+        <h2>Logo</h2>
+        <p class="lede">
+          Three variants &mdash; full wordmark for light surfaces, on-dark variant for blue-1 / dark backgrounds, and a compact mark for tight spaces. The arrow always points right and is always &#8209;-blue-2 (or &#8209;-blue-3 on dark). The wordmark sits flush against the arrow tail; the italic <strong>DB</strong> sits inside the head.
+        </p>
+      </header>
+
+      <div class="grid grid--2" style="margin-top: var(--sp-5);">
+        <div class="card-frame"><header><span>Wordmark &middot; light</span><span><a class="copy" download href="assets/logo.svg">Download SVG</a></span></header>
+          <div class="demo demo--plain" style="background: var(--surface-canvas); padding: var(--sp-7);">
+            <img src="assets/logo.svg" alt="RegulonDB wordmark" style="width: 100%; max-width: 480px; height: auto; display: block;"/>
+          </div>
+        </div>
+        <div class="card-frame"><header><span>Wordmark &middot; on dark</span><span><a class="copy" download href="assets/logo-on-dark.svg">Download SVG</a></span></header>
+          <div class="demo demo--plain" style="background: var(--blue-1); padding: var(--sp-7);">
+            <img src="assets/logo-on-dark.svg" alt="RegulonDB wordmark on dark" style="width: 100%; max-width: 480px; height: auto; display: block;"/>
+          </div>
+        </div>
+        <div class="card-frame"><header><span>Compact mark</span><span><a class="copy" download href="assets/logo-mark.svg">Download SVG</a></span></header>
+          <div class="demo demo--plain" style="background: var(--surface-canvas); padding: var(--sp-7); display: flex; gap: var(--sp-7); align-items: center;">
+            <img src="assets/logo-mark.svg" alt="RegulonDB mark" style="height: 64px; width: auto;"/>
+            <img src="assets/logo-mark.svg" alt="RegulonDB mark medium" style="height: 32px; width: auto;"/>
+            <img src="assets/logo-mark.svg" alt="RegulonDB mark small" style="height: 20px; width: auto;"/>
+          </div>
+        </div>
+        <div class="card-frame"><header><span>Minimum size &middot; clearspace</span></header>
+          <div class="demo demo--plain" style="background: var(--surface-canvas); padding: var(--sp-7);">
+            <div style="display: inline-block; padding: 16px; outline: 1px dashed var(--border-default);">
+              <img src="assets/logo.svg" alt="RegulonDB wordmark with clearspace" style="height: 64px; width: auto; display: block;"/>
+            </div>
+            <p style="color: var(--text-secondary); font-size: var(--fs-mono-sm); font-family: var(--font-mono); margin-top: var(--sp-3);">
+              Minimum height 22 px for the wordmark, 16 px for the mark. Maintain clearspace equal to the height of the &lsquo;R&rsquo; on every side.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: var(--sp-7); margin-bottom: var(--sp-3);">Programmatic usage</h3>
+      <div class="card-frame">
+        <header><span>React (lib/)</span><span><button class="copy" data-action="copy" type="button">Copy</button></span></header>
+        <pre class="code">import { Logo } from "@regulondb/ui";
+
+&lt;Logo variant="wordmark"      height={32} /&gt;        // light surface
+&lt;Logo variant="wordmark-dark" height={28} /&gt;        // on --blue-1 (header)
+&lt;Logo variant="mark"          height={24} /&gt;        // narrow / favicon</pre>
+      </div>
+
+      <div class="card-frame">
+        <header><span>Static HTML / spec</span><span><button class="copy" data-action="copy" type="button">Copy</button></span></header>
+        <pre class="code">&lt;img src="assets/logo.svg"          alt="RegulonDB" height="32" /&gt;
+&lt;img src="assets/logo-on-dark.svg"  alt="RegulonDB" height="32" /&gt;
+&lt;img src="assets/logo-mark.svg"     alt="RegulonDB" height="24" /&gt;</pre>
+      </div>
+
+      <div class="dodont">
+        <div class="do"><h4>Do</h4><p>Use the <strong>on-dark variant</strong> over <code>--blue-1</code>. Keep clearspace ≥ x-height of the &ldquo;R&rdquo;. Use the compact mark only when the wordmark falls below 22 px tall.</p></div>
+        <div class="dont"><h4>Don't</h4><p>Recolor the arrow to anything other than <code>--blue-2</code> / <code>--blue-3</code>. Stretch, skew, rotate, drop-shadow or place over busy imagery. Pair it with a different typeface for &ldquo;DB&rdquo;.</p></div>
+      </div>
+    </section>
+
+    <!-- ========================================================== Motion -->
+    <section class="section" id="motion">
+      <header>
+        <div class="eyebrow">Foundations &middot; Motion</div>
+        <h2>Motion</h2>
+        <p class="lede">
+          One easing curve, three durations. <code>120ms</code> for color/border swaps, <code>200ms</code> for drawers and dropdowns, <code>320ms</code> for page transitions. Honour <code>prefers-reduced-motion</code>.
+        </p>
+      </header>
+      <div class="card-frame">
+        <header>Live demo</header>
+        <div class="demo demo--plain" style="background: var(--surface-raised);">
+          <div class="motion-demo">
+            <button type="button" id="motion-btn">Toggle 200ms</button>
+            <div class="motion-target" id="motion-target" aria-hidden="true"></div>
+            <span style="font-family: var(--font-mono); font-size: var(--fs-mono-sm); color: var(--text-secondary);">--dur-standard &middot; cubic-bezier(0.2, 0, 0, 1)</span>
+          </div>
+        </div>
+      </div>
+      <table class="spec-table">
+        <thead><tr><th>Token</th><th>Value</th><th>Use for</th></tr></thead>
+        <tbody>
+          <tr><td><code>--ease-standard</code></td><td><code>cubic-bezier(0.2, 0, 0, 1)</code></td><td>Single easing across the system. No spring, no bounce.</td></tr>
+          <tr><td><code>--dur-micro</code></td><td><code>120ms</code></td><td>Hover color/border swaps, icon-state changes.</td></tr>
+          <tr><td><code>--dur-standard</code></td><td><code>200ms</code></td><td>Drawer slide, dropdown menu, theme transition.</td></tr>
+          <tr><td><code>--dur-page</code></td><td><code>320ms</code></td><td>Page-level fade or slide between routes.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>
+
+<script src="assets/spec.js"></script>
+<script>
+  (function () {
+    var btn = document.getElementById('motion-btn');
+    var target = document.getElementById('motion-target');
+    if (btn && target) btn.addEventListener('click', function () { target.classList.toggle('move'); });
+  })();
+</script>
+</body>
+</html>

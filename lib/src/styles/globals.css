@@ -1,0 +1,20 @@
+/* Global base styles. Kept tiny — components carry their own. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body { font-family: var(--font-sans); color: var(--text-primary); background: var(--surface-canvas); }
+  body { font-size: var(--fs-body); line-height: var(--lh-body); }
+
+  h1, h2, h3, h4 { color: var(--text-title); font-family: var(--font-sans); margin: 0; }
+  h1 { font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 700; }
+  h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 700; }
+  h3 { font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 700; }
+  h4 { font-size: var(--fs-h4); line-height: var(--lh-h4); font-weight: 700; }
+
+  /* Scientific atoms — applied via class, not bare elements */
+  .gene, .operon-notation, .taxon { font-style: italic; }
+  .taxon .strain { font-style: normal; }
+  .protein { font-style: normal; }
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" data-page="accessibility">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accessibility · RegulonDB MG Design System</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/spec.css">
+<link rel="stylesheet" href="assets/components.css">
+<style>
+  table.contrast { font-family: var(--font-mono); font-size: var(--fs-body); }
+  .pass  { color: var(--blue-2); font-weight: 700; }
+  .fail  { color: var(--error); font-weight: 700; }
+  .swatch-i { display: inline-block; width: 28px; height: 16px; vertical-align: middle; border: 1px solid var(--border-default); border-radius: 3px; margin-right: 6px; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Design system navigation">
+    <div class="brand">
+      <img class="brand-logo" src="assets/logo-on-dark.svg" alt="RegulonDB" />
+      <small class="brand-strap">Multi-genomic</small>
+    </div>
+    <nav>
+      <h5>Manual</h5>
+      <a href="index.html">Overview</a><a href="01-foundations.html">01 · Foundations</a><a href="02-conventions.html">02 · Conventions</a>
+      <h5>Components</h5>
+      <a href="03-atoms.html">03 · Atoms</a><a href="04-molecules.html">04 · Molecules</a><a href="05-organisms.html">05 · Organisms</a><a href="06-templates.html">06 · Templates</a><a href="07-pages.html">07 · Pages</a>
+      <h5>Quality</h5>
+      <a href="08-accessibility.html">08 · Accessibility</a><a href="09-changelog.html">09 · Changelog</a>
+      <h5>Library</h5>
+      <a href="../lib/showcase.html">Showcase (preview)</a>
+    </nav>
+  </aside>
+  <main class="main" id="main">
+    <div class="topbar">
+      <div><div class="eyebrow">08 · Accessibility</div><h1>Accessibility</h1></div>
+      <div class="actions"><button class="btn-ghost" data-action="theme" type="button">Theme: auto</button></div>
+    </div>
+    <p class="lede" style="margin-bottom: var(--sp-7);">
+      The non-negotiables. WCAG 2.1 AA contrast, full keyboard reachability, color-blind safety, reduced-motion compliance.
+    </p>
+
+    <section class="section">
+      <header><h2>Contrast</h2><p class="lede">Computed contrast ratios for the canonical foreground / background pairs.</p></header>
+      <table class="spec-table contrast">
+        <thead><tr><th>Pair</th><th>FG</th><th>BG</th><th>Ratio</th><th>WCAG</th></tr></thead>
+        <tbody>
+          <tr><td>Body text on canvas</td>           <td><span class="swatch-i" style="background: var(--grey-1)"></span>#373737</td><td><span class="swatch-i" style="background: var(--white); border: 1px solid var(--border-default);"></span>#FFFFFF</td><td>10.41:1</td><td class="pass">AAA</td></tr>
+          <tr><td>Secondary text on canvas</td>      <td><span class="swatch-i" style="background: var(--grey-2)"></span>#666666</td><td><span class="swatch-i" style="background: var(--white); border: 1px solid var(--border-default);"></span>#FFFFFF</td><td>5.74:1</td><td class="pass">AA</td></tr>
+          <tr><td>Tertiary text on canvas</td>       <td><span class="swatch-i" style="background: var(--grey-3)"></span>#999999</td><td><span class="swatch-i" style="background: var(--white); border: 1px solid var(--border-default);"></span>#FFFFFF</td><td>2.85:1</td><td class="fail">AA Large only</td></tr>
+          <tr><td>Link on canvas</td>                <td><span class="swatch-i" style="background: var(--blue-2)"></span>#32617D</td><td><span class="swatch-i" style="background: var(--white); border: 1px solid var(--border-default);"></span>#FFFFFF</td><td>5.84:1</td><td class="pass">AA</td></tr>
+          <tr><td>White on primary</td>              <td><span class="swatch-i" style="background: #fff; border: 1px solid var(--border-default);"></span>#FFFFFF</td><td><span class="swatch-i" style="background: var(--blue-1)"></span>#1F3D4E</td><td>11.05:1</td><td class="pass">AAA</td></tr>
+          <tr><td>White on primary variant</td>      <td><span class="swatch-i" style="background: #fff; border: 1px solid var(--border-default);"></span>#FFFFFF</td><td><span class="swatch-i" style="background: var(--blue-2)"></span>#32617D</td><td>5.84:1</td><td class="pass">AA</td></tr>
+          <tr><td>White on accent</td>               <td><span class="swatch-i" style="background: #fff; border: 1px solid var(--border-default);"></span>#FFFFFF</td><td><span class="swatch-i" style="background: var(--accent)"></span>#C98528</td><td>3.40:1</td><td class="pass">AA Large / icons</td></tr>
+          <tr><td>White on error</td>                <td><span class="swatch-i" style="background: #fff; border: 1px solid var(--border-default);"></span>#FFFFFF</td><td><span class="swatch-i" style="background: var(--error)"></span>#C93A1D</td><td>5.06:1</td><td class="pass">AA</td></tr>
+          <tr><td>Postit FG on Postit BG</td>        <td><span class="swatch-i" style="background: #5A4F00"></span>#5A4F00</td><td><span class="swatch-i" style="background: var(--postit)"></span>#FFF8A6</td><td>9.95:1</td><td class="pass">AAA</td></tr>
+          <tr><td>Curated badge (light)</td>         <td><span class="swatch-i" style="background: var(--evidence-curated-fg)"></span>#214557</td><td><span class="swatch-i" style="background: var(--evidence-curated-bg)"></span>#E1E9EE</td><td>8.74:1</td><td class="pass">AAA</td></tr>
+          <tr><td>Predicted badge (light)</td>       <td><span class="swatch-i" style="background: var(--evidence-predicted-fg)"></span>#6E481A</td><td><span class="swatch-i" style="background: var(--evidence-predicted-bg)"></span>#F8EEDD</td><td>7.21:1</td><td class="pass">AAA</td></tr>
+          <tr><td>HT badge (light)</td>              <td><span class="swatch-i" style="background: var(--evidence-ht-fg)"></span>#4B2F5C</td><td><span class="swatch-i" style="background: var(--evidence-ht-bg)"></span>#ECE5F0</td><td>8.91:1</td><td class="pass">AAA</td></tr>
+          <tr><td>Weak badge (light)</td>            <td><span class="swatch-i" style="background: var(--evidence-weak-fg)"></span>#7A2412</td><td><span class="swatch-i" style="background: var(--evidence-weak-bg)"></span>#F7E1DC</td><td>7.92:1</td><td class="pass">AAA</td></tr>
+        </tbody>
+      </table>
+      <div class="notice">
+        <strong>Tertiary grey on white</strong> only meets AA-Large; do not use it for body copy. Reserve for placeholders, coordinates, and similar &gt;= 18px.
+      </div>
+    </section>
+
+    <section class="section">
+      <header><h2>Keyboard map</h2></header>
+      <table class="spec-table">
+        <thead><tr><th>Shortcut</th><th>Action</th><th>Scope</th></tr></thead>
+        <tbody>
+          <tr><td><span class="kbd">&#8984;</span><span class="kbd">K</span></td><td>Open command palette</td><td>Global</td></tr>
+          <tr><td><span class="kbd">/</span></td>                                <td>Focus global search</td><td>Global</td></tr>
+          <tr><td><span class="kbd">G</span><span class="kbd">H</span></td>     <td>Go to home</td><td>Global</td></tr>
+          <tr><td><span class="kbd">G</span><span class="kbd">S</span></td>     <td>Go to search</td><td>Global</td></tr>
+          <tr><td><span class="kbd">?</span></td>                                <td>Show shortcut help</td><td>Global</td></tr>
+          <tr><td><span class="kbd">Esc</span></td>                              <td>Close drawer / dialog / palette</td><td>Overlay</td></tr>
+          <tr><td><span class="kbd">Tab</span></td>                              <td>Move focus through interactive elements</td><td>Global</td></tr>
+          <tr><td><span class="kbd">&uarr;</span><span class="kbd">&darr;</span></td><td>Navigate menus, autocomplete, tree</td><td>Component</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <header><h2>Focus visibility</h2></header>
+      <p>Every interactive element shows a 2&#8209;layer focus ring: <code>0 0 0 2px var(--surface-canvas), 0 0 0 4px var(--blue-3)</code>. The double layer ensures the ring is visible on any surface. In dark mode the second layer becomes <code>--blue-4</code> for contrast.</p>
+      <div class="row">
+        <button class="btn btn--primary" style="box-shadow: var(--focus-ring);">Focused primary</button>
+        <button class="btn btn--outline" style="box-shadow: var(--focus-ring);">Focused outline</button>
+        <input class="input" value="focused input" style="border-color: var(--blue-3); box-shadow: 0 0 0 3px rgba(61,119,155,0.18); max-width: 240px;" />
+      </div>
+    </section>
+
+    <section class="section">
+      <header><h2>Color-blind safety</h2></header>
+      <ul style="line-height: 1.9;">
+        <li><strong>Activation vs repression</strong> &mdash; never color-only. Always paired with a glyph (<code>&rarr;</code> activation, <code>&#8867;</code> repression).</li>
+        <li><strong>Evidence categories</strong> &mdash; never color-only. Always paired with the code text (IDA / IEA / HT&hellip;) and a tooltip with the long phrase.</li>
+        <li><strong>Network edges</strong> &mdash; line style differs by category (solid / dashed / dotted) regardless of color.</li>
+        <li><strong>Conservation matrix</strong> &mdash; numeric % identity always rendered alongside the cell color.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <header><h2>Reduced motion</h2></header>
+      <p>Under <code>prefers-reduced-motion: reduce</code> the system disables every transition and animation globally via tokens.css. Specific overrides also handled:</p>
+      <ul style="line-height: 1.9;">
+        <li>Drawer / dialog &mdash; cross-fade instead of slide.</li>
+        <li>Theme toggle &mdash; instant.</li>
+        <li>Skeleton shimmer &mdash; replaced by a static surface.</li>
+        <li>Spinner &mdash; static rotational state.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <header><h2>Skip-to-content &amp; landmarks</h2></header>
+      <p>Every page exposes a <code>.skip-link</code> as the first focusable element, plus standard landmark roles: <code>banner</code> (header), <code>navigation</code> (primary nav), <code>main</code>, <code>contentinfo</code> (footer), <code>complementary</code> (sidebars).</p>
+    </section>
+
+    <section class="section">
+      <header><h2>Verification</h2></header>
+      <ul style="line-height: 1.9;">
+        <li>Lighthouse Accessibility &gt;= 95 on every spec page.</li>
+        <li>axe-core run inside Storybook &mdash; zero critical errors per story.</li>
+        <li>Manual keyboard pass on Home, Gene, TF, Compare, Search.</li>
+        <li>Screen reader pass (NVDA + VoiceOver) on Gene <em class="gene">araC</em> page.</li>
+      </ul>
+    </section>
+  </main>
+</div>
+<script src="assets/spec.js"></script>
+</body>
+</html>

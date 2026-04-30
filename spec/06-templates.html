@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-page="templates">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Templates · RegulonDB MG Design System</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/spec.css">
+<link rel="stylesheet" href="assets/components.css">
+<style>
+  .tpl-frame {
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .tpl-frame .scaffold {
+    background: var(--surface-sunken);
+    padding: var(--sp-4);
+  }
+  .tpl-block {
+    background: var(--surface-section);
+    border: 1px dashed var(--blue-3);
+    color: var(--blue-2);
+    border-radius: var(--radius-sm);
+    padding: var(--sp-3);
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono-sm);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    font-weight: 700;
+  }
+  .tpl-2col   { display: grid; grid-template-columns: 280px 1fr; gap: var(--sp-3); }
+  .tpl-3col   { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--sp-3); }
+  .tpl-shell  { display: flex; flex-direction: column; gap: var(--sp-3); min-height: 360px; }
+  .tpl-cap    { font-family: var(--font-mono); font-size: var(--fs-mono-sm); color: var(--text-secondary); margin-top: var(--sp-2); }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Design system navigation">
+    <div class="brand">
+      <img class="brand-logo" src="assets/logo-on-dark.svg" alt="RegulonDB" />
+      <small class="brand-strap">Multi-genomic</small>
+    </div>
+    <nav>
+      <h5>Manual</h5>
+      <a href="index.html">Overview</a><a href="01-foundations.html">01 · Foundations</a><a href="02-conventions.html">02 · Conventions</a>
+      <h5>Components</h5>
+      <a href="03-atoms.html">03 · Atoms</a><a href="04-molecules.html">04 · Molecules</a><a href="05-organisms.html">05 · Organisms</a><a href="06-templates.html">06 · Templates</a><a href="07-pages.html">07 · Pages</a>
+      <h5>Quality</h5>
+      <a href="08-accessibility.html">08 · Accessibility</a><a href="09-changelog.html">09 · Changelog</a>
+      <h5>Library</h5>
+      <a href="../lib/showcase.html">Showcase (preview)</a>
+    </nav>
+  </aside>
+  <main class="main" id="main">
+    <div class="topbar">
+      <div><div class="eyebrow">06 · Templates</div><h1>Templates</h1></div>
+      <div class="actions"><button class="btn-ghost" data-action="theme" type="button">Theme: auto</button></div>
+    </div>
+    <p class="lede" style="margin-bottom: var(--sp-7);">Skeletal layouts &mdash; structure without content. Where a template ends, a Page begins.</p>
+
+    <section class="section">
+      <header><h2>AppShell</h2></header>
+      <div class="tpl-frame"><div class="scaffold tpl-shell">
+        <div class="tpl-block">Header (organism)</div>
+        <div class="tpl-block">PrimaryNav (organism)</div>
+        <div class="tpl-block" style="flex: 1; display: grid; place-items: center;">Main content</div>
+        <div class="tpl-block">Footer (organism)</div>
+      </div></div>
+      <div class="tpl-cap">Used by every page. Container max-width: 1280&#8209;1400px.</div>
+    </section>
+
+    <section class="section">
+      <header><h2>HomeTemplate</h2></header>
+      <div class="tpl-frame"><div class="scaffold">
+        <div class="tpl-block" style="padding: var(--sp-7);">Hero search slot</div>
+        <div class="tpl-2col" style="margin-top: var(--sp-3);">
+          <div class="tpl-block">ActiveOrganismCard slot</div>
+          <div class="tpl-block">Release notes slot</div>
+        </div>
+        <div class="tpl-3col" style="margin-top: var(--sp-3);">
+          <div class="tpl-block">Quick card</div><div class="tpl-block">Quick card</div><div class="tpl-block">Quick card</div>
+          <div class="tpl-block">Quick card</div><div class="tpl-block">Quick card</div><div class="tpl-block">Quick card</div>
+        </div>
+      </div></div>
+      <div class="tpl-cap">6-card grid below the active-organism card.</div>
+    </section>
+
+    <section class="section">
+      <header><h2>ObjectPageTemplate</h2></header>
+      <div class="tpl-frame"><div class="scaffold tpl-shell">
+        <div class="tpl-block">Breadcrumb</div>
+        <div class="tpl-block" style="padding: var(--sp-5);">Object header (ObjectTypeTag + name + tagline + chips + cross-DB links)</div>
+        <div class="tpl-block">Tabs (Summary / Regulation / Sequence / Evidence / References)</div>
+        <div class="tpl-2col" style="flex: 1;">
+          <div class="tpl-block" style="display: grid; place-items: center;">Tab panel</div>
+          <div class="tpl-block">Sticky TOC (optional)</div>
+        </div>
+      </div></div>
+    </section>
+
+    <section class="section">
+      <header><h2>GeneTemplate</h2></header>
+      <div class="tpl-frame"><div class="scaffold tpl-shell">
+        <div class="tpl-block">Breadcrumb</div>
+        <div class="tpl-block">Object header</div>
+        <div class="tpl-block" style="padding: var(--sp-6);">GeneContextStrip slot (always above tabs)</div>
+        <div class="tpl-block">Tabs</div>
+        <div class="tpl-block" style="flex: 1; display: grid; place-items: center;">Tab panel</div>
+      </div></div>
+      <div class="tpl-cap">Extension of ObjectPageTemplate with the GeneContextStrip pinned above the tab strip.</div>
+    </section>
+
+    <section class="section">
+      <header><h2>TFTemplate</h2></header>
+      <div class="tpl-frame"><div class="scaffold tpl-shell">
+        <div class="tpl-block">Breadcrumb</div>
+        <div class="tpl-block">Object header</div>
+        <div class="tpl-2col">
+          <div class="tpl-block" style="padding: var(--sp-5);">Domain diagram slot</div>
+          <div class="tpl-block">Effectors / cofactors</div>
+        </div>
+        <div class="tpl-block">Targets table slot</div>
+      </div></div>
+    </section>
+
+    <section class="section">
+      <header><h2>RegulonTemplate</h2></header>
+      <div class="tpl-frame"><div class="scaffold tpl-shell">
+        <div class="tpl-block">Header + tagline</div>
+        <div class="tpl-2col">
+          <div class="tpl-block" style="padding: var(--sp-7);">RegulonRadial slot</div>
+          <div class="tpl-block">Members table slot</div>
+        </div>
+      </div></div>
+    </section>
+
+    <section class="section">
+      <header><h2>CompareTemplate</h2></header>
+      <div class="tpl-frame"><div class="scaffold tpl-shell">
+        <div class="tpl-block">Header + selected organisms</div>
+        <div class="tpl-3col">
+          <div class="tpl-block">Per-organism summary</div>
+          <div class="tpl-block">Per-organism summary</div>
+          <div class="tpl-block">Per-organism summary</div>
+        </div>
+        <div class="tpl-block">OrthologMatrix slot</div>
+      </div></div>
+    </section>
+
+    <section class="section">
+      <header><h2>FacetedSearchTemplate</h2></header>
+      <div class="tpl-frame"><div class="scaffold tpl-shell">
+        <div class="tpl-2col">
+          <div class="tpl-block">FacetedSidebar</div>
+          <div class="tpl-block">Active chips + ResultsList / Table toggle</div>
+        </div>
+      </div></div>
+    </section>
+
+    <section class="section">
+      <header><h2>NetworkTemplate</h2></header>
+      <div class="tpl-frame"><div class="scaffold tpl-shell">
+        <div class="tpl-2col" style="grid-template-columns: 1fr 360px;">
+          <div class="tpl-block" style="padding: var(--sp-9);">Full-bleed canvas (force-directed network)</div>
+          <div class="tpl-block">Side panel (selection details, layer toggles)</div>
+        </div>
+      </div></div>
+    </section>
+
+    <section class="section">
+      <header><h2>EmptyStateTemplate</h2></header>
+      <div class="tpl-frame"><div class="scaffold" style="padding: var(--sp-9); display: grid; place-items: center; min-height: 280px;">
+        <div class="tpl-block" style="max-width: 360px;">Empty state slot (icon + title + description + action)</div>
+      </div></div>
+    </section>
+  </main>
+</div>
+<script src="assets/spec.js"></script>
+</body>
+</html>

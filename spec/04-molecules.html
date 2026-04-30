@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en" data-page="molecules">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Molecules · RegulonDB MG Design System</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/spec.css">
+<link rel="stylesheet" href="assets/components.css">
+<style>
+  .row { display: flex; gap: var(--sp-4); flex-wrap: wrap; align-items: center; }
+  .stack { display: flex; flex-direction: column; gap: var(--sp-3); }
+  .grid-states { display: grid; gap: var(--sp-4); grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  .label-state { font-size: var(--fs-mono-sm); color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; font-family: var(--font-mono); margin-bottom: 6px; display: block; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="shell">
+  <aside class="sidebar" aria-label="Design system navigation">
+    <div class="brand">
+      <img class="brand-logo" src="assets/logo-on-dark.svg" alt="RegulonDB" />
+      <small class="brand-strap">Multi-genomic</small>
+    </div>
+    <nav>
+      <h5>Manual</h5>
+      <a href="index.html">Overview</a><a href="01-foundations.html">01 · Foundations</a><a href="02-conventions.html">02 · Conventions</a>
+      <h5>Components</h5>
+      <a href="03-atoms.html">03 · Atoms</a><a href="04-molecules.html">04 · Molecules</a><a href="05-organisms.html">05 · Organisms</a><a href="06-templates.html">06 · Templates</a><a href="07-pages.html">07 · Pages</a>
+      <h5>Quality</h5>
+      <a href="08-accessibility.html">08 · Accessibility</a><a href="09-changelog.html">09 · Changelog</a>
+      <h5>Library</h5>
+      <a href="../lib/showcase.html">Showcase (preview)</a>
+    </nav>
+  </aside>
+
+  <main class="main" id="main">
+    <div class="topbar">
+      <div><div class="eyebrow">04 · Molecules</div><h1>Molecules</h1></div>
+      <div class="actions"><button class="btn-ghost" data-action="theme" type="button">Theme: auto</button></div>
+    </div>
+    <p class="lede" style="margin-bottom: var(--sp-7);">Two or three atoms with one purpose. <em>Table</em> is a molecule, per Codely &mdash; header + body + cell.</p>
+
+    <!-- FormField -->
+    <section class="section" id="form-field"><header><div class="eyebrow">Molecule</div><h2>FormField</h2></header>
+      <div class="card-frame"><header><span>Composed</span></header><div class="demo">
+        <div class="form-field" style="max-width: 360px;">
+          <label class="label" for="ff-1">Search query</label>
+          <input class="input" id="ff-1" placeholder="lexA" />
+          <div class="helper-text">Supports gene symbols, b-numbers, RegulonDB IDs.</div>
+        </div>
+        <div class="form-field" style="max-width: 360px;">
+          <label class="label" for="ff-2">Threshold</label>
+          <input class="input" id="ff-2" value="abc" aria-invalid="true" />
+          <div class="helper-text helper-text--error">Must be a number between 0 and 1.</div>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- SearchInput -->
+    <section class="section" id="search-input"><header><div class="eyebrow">Molecule</div><h2>SearchInput</h2></header>
+      <div class="card-frame"><header><span>Default + filled</span></header><div class="demo">
+        <div class="grid-states">
+          <div><span class="label-state">Empty</span>
+            <div class="search-input" style="max-width: 320px;">
+              <svg class="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="16" y1="16" x2="22" y2="22"/></svg>
+              <input class="input" placeholder="Search genes, TFs, operons" />
+            </div></div>
+          <div><span class="label-state">Filled</span>
+            <div class="search-input" style="max-width: 320px;">
+              <svg class="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="16" y1="16" x2="22" y2="22"/></svg>
+              <input class="input" value="lexA" />
+              <button class="clear" type="button" aria-label="Clear">&times;</button>
+            </div></div>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- EvidenceBadge / Pair -->
+    <section class="section" id="evidence-badge"><header><div class="eyebrow">Molecule</div><h2>EvidenceBadge · EvidencePair</h2><p class="lede">Color carries 0% of the meaning &mdash; the code text and the tooltip do.</p></header>
+      <div class="card-frame"><header><span>Codes by category</span></header><div class="demo">
+        <div class="row">
+          <span class="ev-badge ev-badge--curated">IDA</span>
+          <span class="ev-badge ev-badge--curated">IPI</span>
+          <span class="ev-badge ev-badge--curated">IEP</span>
+          <span class="ev-badge ev-badge--curated">IC</span>
+          <span class="ev-badge ev-badge--predicted">IEA</span>
+          <span class="ev-badge ev-badge--ht">HT</span>
+          <span class="ev-badge ev-badge--weak">NAS</span>
+        </div>
+        <div style="height: var(--sp-5);"></div>
+        <div class="row">
+          <span class="ev-pair"><span class="ev-badge ev-badge--curated">IDA</span><span class="glyph">&rarr;</span>activation, strong</span>
+          <span class="ev-pair"><span class="ev-badge ev-badge--curated">IDA</span><span class="glyph">&#8867;</span>repression, strong</span>
+          <span class="ev-pair"><span class="ev-badge ev-badge--predicted">IEA</span><span class="glyph">&rarr;</span>activation, predicted</span>
+          <span class="ev-pair"><span class="ev-badge ev-badge--ht">HT</span><span class="glyph">&equiv;</span>binding, ChIP-exo</span>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- ObjectTypeTag -->
+    <section class="section" id="object-type"><header><div class="eyebrow">Molecule</div><h2>ObjectTypeTag</h2><p class="lede">A 8&times;8 colored dot + UPPERCASE caption. Faster to read than a 14px icon in dense lists.</p></header>
+      <div class="card-frame"><header><span>All types</span></header><div class="demo">
+        <div class="row">
+          <span class="obj-tag obj-tag--gene">Gene</span>
+          <span class="obj-tag obj-tag--operon">Operon</span>
+          <span class="obj-tag obj-tag--tf">TF</span>
+          <span class="obj-tag obj-tag--regulon">Regulon</span>
+          <span class="obj-tag obj-tag--promoter">Promoter</span>
+          <span class="obj-tag obj-tag--dataset">Dataset</span>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- Tabs -->
+    <section class="section" id="tabs"><header><div class="eyebrow">Molecule</div><h2>Tabs</h2></header>
+      <div class="card-frame"><header><span>Page-level (underline)</span></header><div class="demo">
+        <div class="tabs" role="tablist">
+          <button role="tab" aria-selected="true">Summary</button>
+          <button role="tab">Regulation</button>
+          <button role="tab">Sequence</button>
+          <button role="tab">Evidence</button>
+          <button role="tab">References</button>
+        </div>
+      </div></div>
+      <div class="card-frame"><header><span>Panel-level (segmented)</span></header><div class="demo">
+        <div class="tabs tabs--segmented" role="tablist">
+          <button role="tab" aria-selected="true">Curated</button>
+          <button role="tab">Predicted</button>
+          <button role="tab">High-throughput</button>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- Breadcrumb / Pagination -->
+    <section class="section" id="bc-pg"><header><div class="eyebrow">Molecules</div><h2>Breadcrumb · Pagination</h2></header>
+      <div class="card-frame"><header><span>Breadcrumb</span></header><div class="demo">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="#"><em class="taxon">E. coli</em> K-12 MG1655</a>
+          <span class="sep">&rsaquo;</span>
+          <a href="#">Transcription factors</a>
+          <span class="sep">&rsaquo;</span>
+          <span aria-current="page"><span class="protein">LexA</span></span>
+        </nav>
+      </div></div>
+      <div class="card-frame"><header><span>Pagination</span></header><div class="demo">
+        <div class="pagination">
+          <button disabled>&larr; Prev</button>
+          <button>1</button><button aria-current="page">2</button><button>3</button><button>4</button><button>5</button>
+          <button>Next &rarr;</button>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- Card -->
+    <section class="section" id="card"><header><div class="eyebrow">Molecule</div><h2>Card</h2></header>
+      <div class="card-frame"><header><span>Variants</span></header><div class="demo" style="background: var(--surface-section);">
+        <div class="grid-states">
+          <div class="card"><header><h4>Default</h4></header><p style="margin: 0; color: var(--text-secondary);">White surface, 1px border, 6px radius.</p></div>
+          <div class="card card--sunken"><header><h4>Sunken</h4></header><p style="margin: 0; color: var(--text-secondary);">Grey-5 surface for nested context.</p></div>
+          <div class="card card--section"><header><h4>Section</h4></header><p style="margin: 0; color: var(--text-secondary);">Blue-5 surface for grouping.</p></div>
+          <div class="card card--note"><header><h4>Curator note</h4></header><p style="margin: 0;">Postit yellow. Reserved for curator commentary.</p></div>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- Tooltip / Toast -->
+    <section class="section" id="tooltip-toast"><header><div class="eyebrow">Molecules</div><h2>Tooltip · Toast</h2></header>
+      <div class="card-frame"><header><span>Tooltip on hover</span></header><div class="demo">
+        <div class="row" style="padding-top: var(--sp-7);">
+          <span class="tooltip"><span class="ev-badge ev-badge--curated">IDA</span><span class="tooltip-content">Inferred from Direct Assay</span></span>
+          <span class="tooltip"><span class="ev-badge ev-badge--predicted">IEA</span><span class="tooltip-content">Inferred from Electronic Annotation</span></span>
+          <span class="tooltip"><span class="kbd">&#8984;</span><span class="tooltip-content">Open command palette</span></span>
+        </div>
+      </div></div>
+
+      <div class="card-frame"><header><span>Toast variants</span></header><div class="demo" style="background: var(--surface-section);">
+        <div class="stack">
+          <div class="toast"><div class="body"><div class="title">Set saved</div><div class="desc">"SOS targets" &mdash; 14 genes</div></div></div>
+          <div class="toast toast--success"><div class="body"><div class="title">Export complete</div><div class="desc">lexA-targets.tsv (14 rows)</div></div></div>
+          <div class="toast toast--warning"><div class="body"><div class="title">No ortholog data</div><div class="desc">B. subtilis: distinct family (AraR)</div></div></div>
+          <div class="toast toast--error"><div class="body"><div class="title">Connection lost</div><div class="desc">Retry &middot; <a class="link" href="#">view status</a></div></div></div>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- PromptDialog -->
+    <section class="section" id="prompt-dialog">
+      <header><div class="eyebrow">Molecule</div><h2>PromptDialog &middot; ConfirmDialog</h2>
+        <p class="lede">Branded replacements for <code>window.prompt()</code> and <code>window.confirm()</code>. Composed from the <a href="05-organisms.html#dialog">Dialog</a> primitive plus <code>Input</code> and <code>Button</code> &mdash; same focus trap, same ESC + click-outside dismissal, same surface tokens. Never use the native browser dialogs in product surfaces; they break brand and aren't themable.</p>
+      </header>
+
+      <style>
+        .demo-modal-overlay {
+          position: relative; min-height: 280px;
+          background: var(--surface-section);
+          border-radius: var(--radius-md);
+          display: grid; place-items: center;
+          padding: var(--sp-6);
+        }
+        .demo-modal-overlay::before {
+          content: ""; position: absolute; inset: 0;
+          background: rgba(15, 27, 34, 0.45);
+          backdrop-filter: blur(2px);
+          border-radius: inherit;
+        }
+        .demo-modal-panel {
+          position: relative;
+          background: var(--surface-raised);
+          color: var(--text-primary);
+          border-radius: var(--radius-lg);
+          box-shadow: var(--shadow-md);
+          width: min(420px, 100%);
+          padding: var(--sp-6);
+        }
+        .demo-modal-panel h3 { margin: 0 0 var(--sp-2); font-size: var(--fs-h3); }
+        .demo-modal-panel .desc { color: var(--text-secondary); font-size: var(--fs-body); margin: 0 0 var(--sp-4); }
+        .demo-modal-panel .actions { display: flex; gap: var(--sp-2); justify-content: flex-end; margin-top: var(--sp-5); }
+      </style>
+
+      <div class="card-frame"><header><span>PromptDialog &mdash; "Save as&hellip;"</span></header>
+        <div class="demo demo--plain">
+          <div class="demo-modal-overlay">
+            <div class="demo-modal-panel" role="dialog" aria-modal="true" aria-labelledby="demo-modal-title">
+              <h3 id="demo-modal-title">Name this saved set</h3>
+              <p class="desc">Give the working set a name so you can load or operate on it later.</p>
+              <label class="label" for="demo-modal-input">Set name</label>
+              <input class="input" id="demo-modal-input" type="text" value="SOS targets &mdash; confirmed" />
+              <div class="actions">
+                <button class="btn btn--ghost">Cancel</button>
+                <button class="btn btn--primary">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-frame"><header><span>ConfirmDialog (destructive tone)</span></header>
+        <div class="demo demo--plain">
+          <div class="demo-modal-overlay">
+            <div class="demo-modal-panel" role="alertdialog" aria-modal="true" aria-labelledby="demo-confirm-title">
+              <h3 id="demo-confirm-title">Clear the working set?</h3>
+              <p class="desc">This removes all 14 items from the working set. Saved sets are not affected.</p>
+              <div class="actions">
+                <button class="btn btn--ghost">Cancel</button>
+                <button class="btn btn--destructive">Clear set</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: var(--sp-6);">Props</h3>
+      <table class="spec-table">
+        <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><code>open</code></td><td><code>boolean</code></td><td>&mdash;</td><td>Mounts and traps focus when <code>true</code>.</td></tr>
+          <tr><td><code>title</code></td><td><code>ReactNode</code></td><td>&mdash;</td><td>Wired to <code>aria-labelledby</code>.</td></tr>
+          <tr><td><code>description</code></td><td><code>ReactNode</code></td><td>&mdash;</td><td>Wired to <code>aria-describedby</code>.</td></tr>
+          <tr><td><code>defaultValue</code> <em>(prompt)</em></td><td><code>string</code></td><td><code>""</code></td><td>Pre-fills the input and is selected on open.</td></tr>
+          <tr><td><code>validate</code> <em>(prompt)</em></td><td><code>(v: string) =&gt; string &#124; null</code></td><td><code>undefined</code></td><td>Return an error message to keep the dialog open.</td></tr>
+          <tr><td><code>tone</code></td><td><code>"primary" &#124; "destructive"</code></td><td><code>"primary"</code></td><td>Styles the confirm button. Use destructive for delete/clear.</td></tr>
+          <tr><td><code>onSubmit / onConfirm</code></td><td><code>(value?) =&gt; void</code></td><td>&mdash;</td><td>Fired with the trimmed value (prompt) or void (confirm).</td></tr>
+          <tr><td><code>onCancel</code></td><td><code>() =&gt; void</code></td><td>&mdash;</td><td>Fired on Cancel button, ESC, or overlay click.</td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top: var(--sp-5);">Imperative API</h3>
+      <p style="color: var(--text-secondary); max-width: 70ch;">
+        For one-line replacements of <code>prompt()</code>/<code>confirm()</code>, the <code>usePromptDialog</code> and <code>useConfirmDialog</code> hooks return <code>[ask, dialogElement]</code>. Render the dialog node once, then call <code>await ask({ title })</code> wherever you need it.
+      </p>
+      <div class="card-frame">
+        <header><span>Code</span><span><button class="copy" data-action="copy" type="button">Copy</button></span></header>
+        <pre class="code">const [askName, nameDialog] = usePromptDialog();
+
+const onSave = async () =&gt; {
+  const name = await askName({
+    title: "Name this saved set",
+    description: "Loaded later from the saved-sets list.",
+    inputLabel: "Set name",
+    placeholder: "e.g. SOS targets — confirmed",
+    validate: (v) =&gt; v.length &lt; 2 ? "Too short" : null,
+  });
+  if (name) saveSet(name);
+};
+
+return &lt;&gt;{nameDialog}&lt;Button onClick={onSave}&gt;Save as…&lt;/Button&gt;&lt;/&gt;;</pre>
+      </div>
+
+      <div class="dodont">
+        <div class="do"><h4>Do</h4><p>Use <code>tone="destructive"</code> for clear / delete / overwrite confirmations and the <code>btn--destructive</code> button. Validate inputs in <code>validate</code> so the dialog stays open until the value is acceptable.</p></div>
+        <div class="dont"><h4>Don't</h4><p>Use <code>window.prompt()</code> or <code>window.confirm()</code>. They show <code>localhost says…</code>, can't be themed, can't be focus-restored, and don't honour <code>prefers-reduced-motion</code>.</p></div>
+      </div>
+    </section>
+
+    <!-- Table -->
+    <section class="section" id="table"><header><div class="eyebrow">Molecule</div><h2>Table (data)</h2><p class="lede">Tables are first-class. Sticky <code>&lt;thead&gt;</code>, hover row, monospace numerics for column alignment.</p></header>
+      <div class="card-frame"><header><span>Compact</span></header><div class="demo demo--plain" style="background: var(--surface-raised);">
+        <table class="data compact">
+          <thead><tr><th>Gene</th><th>Position</th><th>Strand</th><th>Length</th><th>Evidence</th></tr></thead>
+          <tbody>
+            <tr><td><em class="gene">recA</em></td><td><span class="coordinate">2,820,830</span></td><td>+</td><td><span class="coordinate">1,062 bp</span></td><td><span class="ev-badge ev-badge--curated">IDA</span></td></tr>
+            <tr><td><em class="gene">uvrA</em></td><td><span class="coordinate">4,266,402</span></td><td>+</td><td><span class="coordinate">2,823 bp</span></td><td><span class="ev-badge ev-badge--curated">IDA</span></td></tr>
+            <tr><td><em class="gene">sulA</em></td><td><span class="coordinate">1,043,002</span></td><td>&minus;</td><td><span class="coordinate">510 bp</span></td><td><span class="ev-badge ev-badge--curated">IDA</span></td></tr>
+            <tr><td><em class="gene">dinB</em></td><td><span class="coordinate">242,310</span></td><td>+</td><td><span class="coordinate">1,053 bp</span></td><td><span class="ev-badge ev-badge--predicted">IEA</span></td></tr>
+            <tr><td><em class="gene">umuD</em></td><td><span class="coordinate">1,228,001</span></td><td>+</td><td><span class="coordinate">420 bp</span></td><td><span class="ev-badge ev-badge--ht">HT</span></td></tr>
+          </tbody>
+        </table>
+      </div></div>
+    </section>
+
+    <!-- Sequence / ConservationBar -->
+    <section class="section" id="sequence-cons"><header><div class="eyebrow">Molecules</div><h2>Sequence · ConservationBar</h2></header>
+      <div class="card-frame"><header><span>10-nt blocks with positions</span></header><div class="demo">
+<pre class="sequence"><span class="num">      1</span>  AACGTGGTGT GTAATTAATT TAACGTACGT GAATCCAGCG ATATCAACTC
+<span class="num">     51</span>  TGCAGCGTGC AGAACGCAAA <mark>GAAGCATTTC</mark> CACGCAATAA CCAGCAAGCA
+<span class="num">    101</span>  GAATTGTTAA CTGTGAGTGC GTAGCATGCA TGCATTGAGC ACTTGAGCAT</pre>
+      </div></div>
+      <div class="card-frame"><header><span>Conservation bar</span></header><div class="demo">
+        <div class="stack">
+          <span class="cons-bar"><span class="track"><span class="fill" style="width: 92%"></span></span>92% identity vs <em class="taxon">E. coli</em></span>
+          <span class="cons-bar"><span class="track"><span class="fill" style="width: 73%"></span></span>73% identity vs <em class="taxon">S. enterica</em></span>
+          <span class="cons-bar"><span class="track"><span class="fill" style="width: 41%"></span></span>41% identity vs <em class="taxon">B. subtilis</em></span>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- OrganismPill / EmptyState / NetworkEdgeLegend -->
+    <section class="section" id="rest"><header><div class="eyebrow">Molecules</div><h2>OrganismPill · EmptyState · NetworkEdgeLegend</h2></header>
+      <div class="card-frame"><header><span>OrganismPill (rendered on dark)</span></header><div class="demo demo--plain" style="background: var(--blue-1); padding: var(--sp-5);">
+        <div class="row">
+          <span class="org-pill"><span class="symbol">Ec</span><em class="taxon">E. coli</em><span class="strain">K-12 MG1655</span><span class="count">4,639</span></span>
+          <span class="org-pill"><span class="symbol" style="background: #6B2F64">Se</span><em class="taxon">S. enterica</em><span class="strain">LT2</span><span class="count">4,489</span></span>
+          <span class="org-pill"><span class="symbol" style="background: #2F6B48">Bs</span><em class="taxon">B. subtilis</em><span class="strain">168</span><span class="count">4,176</span></span>
+        </div>
+      </div></div>
+
+      <div class="card-frame"><header><span>EmptyState</span></header><div class="demo">
+        <div class="empty">
+          <div class="icon">&#9676;</div>
+          <h4>No regulons match these filters</h4>
+          <p>Clear filters or broaden your search to include predicted interactions.</p>
+          <div class="actions"><button class="btn btn--outline btn--sm">Clear filters</button></div>
+        </div>
+      </div></div>
+
+      <div class="card-frame"><header><span>NetworkEdgeLegend</span></header><div class="demo">
+        <div class="net-legend">
+          <span class="item"><span class="line solid"></span>Curated</span>
+          <span class="item"><span class="line dashed"></span>Predicted</span>
+          <span class="item"><span class="line dotted"></span>High-throughput</span>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- Assistant molecules -->
+    <section class="section" id="assistant-molecules">
+      <header><div class="eyebrow">Molecules &middot; Assistant</div><h2>ChatMessage &middot; ChatComposer &middot; CitationChip</h2>
+        <p class="lede">Three primitives that compose into the assistant chat surface. <strong>ChatMessage</strong> renders one of three roles. <strong>ChatComposer</strong> is the auto-growing input + send hint. <strong>CitationChip</strong> links replies back to source objects.</p>
+      </header>
+
+      <div class="card-frame"><header><span>ChatMessage roles</span></header><div class="demo" style="display:flex; flex-direction:column; max-width: 560px;">
+        <div class="chat-msg chat-msg--system"><div class="chat-msg__body"><div class="chat-msg__bubble">Switched to Agent mode</div></div></div>
+        <div class="chat-msg chat-msg--user">
+          <span class="chat-msg__avatar" aria-hidden="true">U</span>
+          <div class="chat-msg__body"><div class="chat-msg__bubble">What is LexA and the SOS response?</div></div>
+        </div>
+        <div class="chat-msg chat-msg--assistant">
+          <span class="chat-msg__avatar" aria-hidden="true">RDB</span>
+          <div class="chat-msg__body">
+            <div class="chat-msg__bubble"><p><strong>LexA</strong> is the master repressor of the SOS response. It binds the SOS box <code>CTGT-N&#8328;-ACAG</code> upstream of ~40 genes&hellip;</p></div>
+            <div class="chat-msg__footer">
+              <a href="#" class="citation-chip"><span class="obj-tag obj-tag--tf">tf</span><span class="citation-chip__label">LexA</span><span class="citation-chip__meta">E. coli</span></a>
+              <a href="#" class="citation-chip"><span class="obj-tag obj-tag--regulon">regulon</span><span class="citation-chip__label">LexA</span></a>
+            </div>
+          </div>
+        </div>
+        <div class="chat-msg chat-msg--assistant">
+          <span class="chat-msg__avatar" aria-hidden="true">RDB</span>
+          <div class="chat-msg__body"><div class="chat-msg__bubble"><span class="typing-indicator" role="status"><span></span><span></span><span></span></span></div></div>
+        </div>
+      </div></div>
+
+      <div class="card-frame"><header><span>ChatComposer</span></header><div class="demo" style="max-width: 560px;">
+        <div class="chat-composer">
+          <div class="chat-composer__suggestions">
+            <button type="button" class="chat-composer__suggestion">What is LexA?</button>
+            <button type="button" class="chat-composer__suggestion">Compare araC orthologs</button>
+            <button type="button" class="chat-composer__suggestion">How is evidence classified?</button>
+          </div>
+          <div class="chat-composer__row">
+            <textarea class="chat-composer__input" rows="1" placeholder="Ask about a gene, TF, regulon, or any concept&hellip;"></textarea>
+            <button type="button" class="btn btn--primary btn--sm">Send</button>
+          </div>
+          <div class="chat-composer__hint"><span class="kbd">&#8629;</span> send &middot; <span class="kbd">Shift</span>+<span class="kbd">&#8629;</span> newline</div>
+        </div>
+      </div></div>
+
+      <div class="card-frame"><header><span>CitationChip variants</span></header><div class="demo" style="display:flex; flex-wrap:wrap; gap:6px;">
+        <a href="#" class="citation-chip"><span class="obj-tag obj-tag--gene">gene</span><span class="citation-chip__label"><em class="gene">recA</em></span><span class="citation-chip__meta">E. coli</span></a>
+        <a href="#" class="citation-chip"><span class="obj-tag obj-tag--tf">tf</span><span class="citation-chip__label">LexA</span></a>
+        <a href="#" class="citation-chip"><span class="obj-tag obj-tag--regulon">regulon</span><span class="citation-chip__label">LexA</span></a>
+        <a href="#" class="citation-chip"><span class="obj-tag obj-tag--operon">operon</span><span class="citation-chip__label">umuDC</span></a>
+        <a href="#" class="citation-chip"><span class="obj-tag obj-tag--promoter">promoter</span><span class="citation-chip__label">lexAp</span></a>
+        <a href="#" class="citation-chip"><span class="obj-tag obj-tag--dataset">dataset</span><span class="citation-chip__label">ChIP-exo LexA (Ishihama 2025)</span></a>
+      </div></div>
+
+      <div class="dodont">
+        <div class="do"><h4>Do</h4><p>Always pair an assistant reply with at least one CitationChip when the answer references curated content. Otherwise the user can&rsquo;t verify what they read.</p></div>
+        <div class="dont"><h4>Don&rsquo;t</h4><p>Don&rsquo;t embed citations as raw text links inside the bubble. The chip strip below the bubble is the contract; it survives copy-paste and screen readers.</p></div>
+      </div>
+    </section>
+
+    <!-- Comparative molecules -->
+    <section class="section" id="comparative-molecules">
+      <header><div class="eyebrow">Molecules &middot; Comparative</div><h2>ConservationCell &middot; DatasetCard</h2>
+        <p class="lede">Two primitives that hold the multi-genomic story together. <strong>ConservationCell</strong> is one cell of the pan-regulome grid &mdash; a glyph + tooltip that tells the reader at a glance whether the regulator is conserved, divergent, absent, or not yet curated for an orthogroup in an organism. <strong>DatasetCard</strong> is a Card-variant for the Datasets &amp; Downloads page; it composes Card + DOIBadge + format Tags so every release uses the same surface to answer "what is this, how do I cite it, where do I get it".</p>
+      </header>
+
+      <div class="card-frame"><header><span>ConservationCell &mdash; one row of the pan-regulome</span></header><div class="demo">
+        <table class="data data--pan-regulome" style="width:auto">
+          <thead><tr>
+            <th>Orthogroup</th>
+            <th>E. coli</th>
+            <th>S. Typhimurium</th>
+            <th>B. subtilis</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td><code>OG_recA</code> &middot; <em class="gene">recA</em></td>
+              <td><span class="cons-cell cons-cell--conserved" title="LexA">&#10003;</span></td>
+              <td><span class="cons-cell cons-cell--conserved" title="LexA">&#10003;</span></td>
+              <td><span class="cons-cell cons-cell--divergent" title="LexA (DinR)">&#8634;</span></td>
+            </tr>
+            <tr>
+              <td><code>OG_araC</code> &middot; <em class="gene">araC</em></td>
+              <td><span class="cons-cell cons-cell--conserved" title="AraC">&#10003;</span></td>
+              <td><span class="cons-cell cons-cell--conserved" title="AraC">&#10003;</span></td>
+              <td><span class="cons-cell cons-cell--divergent" title="AraR">&#8634;</span></td>
+            </tr>
+            <tr>
+              <td><code>OG_invF</code> &middot; <em class="gene">invF</em></td>
+              <td><span class="cons-cell cons-cell--absent" title="—">&mdash;</span></td>
+              <td><span class="cons-cell cons-cell--conserved" title="HilA + InvF">&#10003;</span></td>
+              <td><span class="cons-cell cons-cell--absent" title="—">&mdash;</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div></div>
+
+      <div class="card-frame"><header><span>DatasetCard</span></header><div class="demo" style="max-width:500px">
+        <div class="card dataset-card">
+          <div class="dataset-card__head">
+            <span class="dataset-card__id">D-1</span>
+            <a class="doi-badge" href="#"><span class="doi-badge__label">DOI</span><code class="doi-badge__id">10.5281/zenodo.10874321</code></a>
+          </div>
+          <h3 class="dataset-card__title">Gold-standard TF&ndash;target set v1</h3>
+          <p class="dataset-card__desc">Manually curated TF&ndash;target interactions with strong experimental evidence (IDA / IPI / IMP) across the three organisms. Splits stratified by orthogroup ready for ML.</p>
+          <dl class="dataset-card__meta">
+            <div><dt>Version</dt><dd>v1.0</dd></div>
+            <div><dt>Released</dt><dd>2026-03-14</dd></div>
+            <div><dt>Size</dt><dd>4.8 MB &middot; 6 files</dd></div>
+            <div><dt>License</dt><dd>CC-BY 4.0</dd></div>
+          </dl>
+          <div class="dataset-card__formats">
+            <span class="tag">TSV</span>
+            <span class="tag">JSON-LD</span>
+            <span class="tag">RDF Turtle</span>
+          </div>
+          <div class="dataset-card__actions">
+            <button class="btn btn--primary btn--sm">Download</button>
+            <button class="btn btn--ghost btn--sm">Cite this release</button>
+          </div>
+        </div>
+      </div></div>
+
+      <div class="dodont">
+        <div class="do"><h4>Do</h4><p>Use ConservationCell with a <code>regulator</code> prop so the tooltip carries the actual symbol. The cell is intentionally compact (one glyph) so a pan-regulome of 30+ orthogroups fits one screen.</p></div>
+        <div class="dont"><h4>Don&rsquo;t</h4><p>Don&rsquo;t conflate <code>absent</code> (orthogroup is missing or unregulated) with <code>unknown</code> (orthogroup hasn&rsquo;t been curated yet). Reviewers will treat the dashed-border <code>·</code> as a signal of curation gaps; don&rsquo;t mute that signal by routing through <code>—</code>.</p></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+<script src="assets/spec.js"></script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" data-page="conventions">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conventions · RegulonDB MG Design System</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/spec.css">
+<style>
+  /* Convention page-only helpers */
+  .gene  { font-style: italic; }
+  .taxon { font-style: italic; }
+  .protein { font-style: normal; font-weight: 500; }
+  .seq   { font-family: var(--font-mono); font-size: var(--fs-mono); }
+  .coord { font-family: var(--font-mono); font-size: var(--fs-mono-sm); color: var(--text-secondary); }
+  .citation { font-family: var(--font-citation); font-style: italic; }
+
+  .ev-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 2px 8px; border-radius: var(--radius-pill);
+    font-family: var(--font-mono); font-size: var(--fs-mono-sm);
+    font-weight: 700;
+    border: 1px solid transparent;
+  }
+  .ev-badge.cur { background: var(--evidence-curated-bg); color: var(--evidence-curated-fg); border-color: var(--evidence-curated); }
+  .ev-badge.pre { background: var(--evidence-predicted-bg); color: var(--evidence-predicted-fg); border-color: var(--evidence-predicted); }
+  .ev-badge.ht  { background: var(--evidence-ht-bg); color: var(--evidence-ht-fg); border-color: var(--evidence-ht); }
+  .ev-badge.weak{ background: var(--evidence-weak-bg); color: var(--evidence-weak-fg); border-color: var(--evidence-weak); }
+  .ev-badge::before {
+    content: ""; display: inline-block;
+    width: 6px; height: 6px; border-radius: 999px;
+    background: currentColor;
+  }
+
+  .seq-block {
+    font-family: var(--font-mono); font-size: var(--fs-mono);
+    background: var(--surface-sunken); border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    padding: var(--sp-4); white-space: pre; overflow-x: auto;
+  }
+  .seq-block .num { color: var(--text-tertiary); user-select: none; }
+
+  .voice-pair {
+    display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4);
+    margin: var(--sp-3) 0;
+  }
+  .voice-pair > div {
+    border: 1px solid var(--border-default); border-radius: var(--radius-md);
+    padding: var(--sp-4);
+  }
+  .voice-pair .yes { border-left: 3px solid var(--blue-2); }
+  .voice-pair .no  { border-left: 3px solid var(--error); }
+  .voice-pair h5 {
+    font-size: var(--fs-mono-sm); text-transform: uppercase; letter-spacing: 0.06em;
+    margin: 0 0 var(--sp-2);
+  }
+  .voice-pair .yes h5 { color: var(--blue-2); }
+  .voice-pair .no  h5 { color: var(--error); }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="shell">
+  <aside class="sidebar" aria-label="Design system navigation">
+    <div class="brand">
+      <img class="brand-logo" src="assets/logo-on-dark.svg" alt="RegulonDB" />
+      <small class="brand-strap">Multi-genomic</small>
+    </div>
+    <nav>
+      <h5>Manual</h5>
+      <a href="index.html">Overview</a>
+      <a href="01-foundations.html">01 · Foundations</a>
+      <a href="02-conventions.html">02 · Conventions</a>
+      <h5>Components</h5>
+      <a href="03-atoms.html">03 · Atoms</a>
+      <a href="04-molecules.html">04 · Molecules</a>
+      <a href="05-organisms.html">05 · Organisms</a>
+      <a href="06-templates.html">06 · Templates</a>
+      <a href="07-pages.html">07 · Pages</a>
+      <h5>Quality</h5>
+      <a href="08-accessibility.html">08 · Accessibility</a>
+      <a href="09-changelog.html">09 · Changelog</a>
+      <h5>Library</h5>
+      <a href="../lib/showcase.html">Showcase (preview)</a>
+    </nav>
+  </aside>
+
+  <main class="main" id="main">
+    <div class="topbar">
+      <div>
+        <div class="eyebrow">02 · Conventions</div>
+        <h1>Scientific conventions &amp; voice</h1>
+      </div>
+      <div class="actions"><button class="btn-ghost" data-action="theme" type="button">Theme: auto</button></div>
+    </div>
+    <p class="lede" style="margin-bottom: var(--sp-7);">
+      The rules that make the brand <em>scientifically</em> trustworthy. They are encoded as components
+      in the library so they cannot be skipped. Every gene name italicized, every &sigma; factor superscripted,
+      every evidence code labelled and badged.
+    </p>
+
+    <!-- Nomenclature -->
+    <section class="section" id="nomenclature">
+      <header>
+        <div class="eyebrow">Conventions &middot; Nomenclature</div>
+        <h2>Nomenclature</h2>
+      </header>
+
+      <table class="spec-table">
+        <thead><tr><th>Concept</th><th>Rule</th><th>Example</th><th>Component / class</th></tr></thead>
+        <tbody>
+          <tr><td>Gene name</td>          <td>Italic, lowercase</td>             <td><em class="gene">araC</em>, <em class="gene">lacZ</em>, <em class="gene">recA</em></td><td><code>&lt;Gene&gt;</code> or <code>.gene</code></td></tr>
+          <tr><td>Operon</td>              <td>Italic, letters fused</td>          <td><em class="gene">lacZYA</em>, <em class="gene">araBAD</em></td>     <td><code>&lt;OperonNotation&gt;</code></td></tr>
+          <tr><td>Species name</td>        <td>Italic</td>                          <td><em class="taxon">Escherichia coli</em>, <em class="taxon">E. coli</em></td><td><code>&lt;TaxonName&gt;</code> or <code>.taxon</code></td></tr>
+          <tr><td>Strain</td>              <td>Roman, after the binomial</td>       <td><em class="taxon">E. coli</em> K-12 MG1655</td>                  <td><code>&lt;TaxonName strain="K-12 MG1655" /&gt;</code></td></tr>
+          <tr><td>Protein</td>              <td>Roman, first letter uppercase</td>  <td>AraC, LexA, CRP</td>                                          <td><code>&lt;ProteinSymbol&gt;</code></td></tr>
+          <tr><td>Sigma factor</td>         <td>&sigma; + Unicode superscript</td>  <td>&sigma;&#8311;&#8304;, &sigma;&#179;&#178;, &sigma;&#179;&#8312;</td><td><code>&lt;SigmaFactorLabel value=&#123;70&#125; /&gt;</code></td></tr>
+          <tr><td>Promoter position</td>    <td>Unicode minus + monospace</td>      <td><span class="coord">&minus;10</span>, <span class="coord">&minus;35</span></td><td><code>&lt;PromoterPositionLabel pos=&#123;-10&#125; /&gt;</code></td></tr>
+          <tr><td>Coordinate</td>           <td>Monospace, comma thousands</td>     <td><span class="coord">3,923,882</span></td>                       <td><code>&lt;Coordinate /&gt;</code></td></tr>
+          <tr><td>Sequence (DNA / RNA)</td><td>Mono, uppercase, 10&#8209;nt blocks</td><td><span class="seq">ATGGCAACGC GCCGTCAGCC</span></td>           <td><code>&lt;Sequence /&gt;</code></td></tr>
+          <tr><td>Citation</td>             <td>Times New Roman italic</td>          <td><span class="citation">(Salgado et al., 2024)</span></td>      <td><code>.citation</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="dodont">
+        <div class="do">
+          <h4>Do</h4>
+          <p>Wrap every biological name in its component, even inside paragraphs. Screen-readers benefit from the semantic class, future i18n filters depend on it.</p>
+        </div>
+        <div class="dont">
+          <h4>Don't</h4>
+          <p>Italicize a generic <code>&lt;span style="font-style: italic"&gt;araC&lt;/span&gt;</code>. Without the class the meaning is lost.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sequences -->
+    <section class="section" id="sequences">
+      <header>
+        <div class="eyebrow">Conventions &middot; Sequence</div>
+        <h2>Sequences &amp; coordinates</h2>
+      </header>
+      <p style="color: var(--text-secondary); max-width: 70ch;">
+        Sequences are uppercase and grouped in 10&#8209;nucleotide blocks, optionally with a leading position number.
+        Coordinates are right&#8209;aligned monospace with comma thousand separators.
+      </p>
+
+      <div class="card-frame">
+        <header>Sequence block (formatted)</header>
+        <div class="demo demo--plain" style="background: var(--surface-raised);">
+          <pre class="seq-block"><span class="num">      1</span>  AACGTGGTGT GTAATTAATT TAACGTACGT GAATCCAGCG ATATCAACTC
+<span class="num">     51</span>  TGCAGCGTGC AGAACGCAAA GAAGCATTTC CACGCAATAA CCAGCAAGCA
+<span class="num">    101</span>  GAATTGTTAA CTGTGAGTGC GTAGCATGCA TGCATTGAGC ACTTGAGCAT</pre>
+        </div>
+        <div class="code" hidden>&lt;pre class="seq-block"&gt;&lt;span class="num"&gt;      1&lt;/span&gt;  AACGTGGTGT GTAATTAATT TAACGTACGT...&lt;/pre&gt;</div>
+        <div style="padding: var(--sp-3) var(--sp-4); border-top: 1px solid var(--border-default); display: flex; gap: var(--sp-2);">
+          <button class="toggle-code" data-action="toggle-code" type="button">Show code</button>
+          <button class="copy" data-action="copy" type="button">Copy</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Evidence -->
+    <section class="section" id="evidence">
+      <header>
+        <div class="eyebrow">Conventions &middot; Evidence</div>
+        <h2>Evidence taxonomy</h2>
+        <p class="lede">A single page may carry curated, predicted and high-throughput evidence for the same regulatory link. Always show the code, the badge color, and the tooltip phrase &mdash; not just one of the three.</p>
+      </header>
+
+      <table class="spec-table">
+        <thead><tr><th>Code</th><th>Phrase</th><th>Category</th><th>Example badge</th></tr></thead>
+        <tbody>
+          <tr><td><code>IDA</code></td><td>Inferred from Direct Assay</td><td>Curated</td><td><span class="ev-badge cur">IDA</span></td></tr>
+          <tr><td><code>IEP</code></td><td>Inferred from Expression Pattern</td><td>Curated</td><td><span class="ev-badge cur">IEP</span></td></tr>
+          <tr><td><code>IPI</code></td><td>Inferred from Physical Interaction</td><td>Curated</td><td><span class="ev-badge cur">IPI</span></td></tr>
+          <tr><td><code>IGI</code></td><td>Inferred from Genetic Interaction</td><td>Curated</td><td><span class="ev-badge cur">IGI</span></td></tr>
+          <tr><td><code>IMP</code></td><td>Inferred from Mutant Phenotype</td><td>Curated</td><td><span class="ev-badge cur">IMP</span></td></tr>
+          <tr><td><code>IC</code></td>  <td>Inferred by Curator</td>           <td>Curated</td><td><span class="ev-badge cur">IC</span></td></tr>
+          <tr><td><code>TAS</code></td> <td>Traceable Author Statement</td>    <td>Curated</td><td><span class="ev-badge cur">TAS</span></td></tr>
+          <tr><td><code>IEA</code></td> <td>Inferred from Electronic Annotation</td><td>Predicted</td><td><span class="ev-badge pre">IEA</span></td></tr>
+          <tr><td><code>HT</code></td>  <td>High-throughput dataset</td>       <td>High-throughput</td><td><span class="ev-badge ht">HT</span></td></tr>
+          <tr><td><code>NAS</code></td> <td>Non-traceable / weak</td>           <td>Weak</td>     <td><span class="ev-badge weak">NAS</span></td></tr>
+        </tbody>
+      </table>
+
+      <div class="notice">
+        <strong>Color is never alone.</strong> If you remove the text from any badge above, color carries 0% of the meaning. That is the contract.
+      </div>
+    </section>
+
+    <!-- Voice -->
+    <section class="section" id="voice">
+      <header>
+        <div class="eyebrow">Conventions &middot; Voice</div>
+        <h2>Voice &amp; writing</h2>
+        <p class="lede">Third-person scientific. Descriptive, not promotional. Sentences are factual statements, not invitations.</p>
+      </header>
+
+      <h3 style="margin-top: var(--sp-5);">Casing</h3>
+      <ul style="line-height: 1.8;">
+        <li><strong>Object names</strong> use exact biological casing &mdash; never auto-titled. Genes lowercase italic; proteins title-case roman; operons lowercase italic.</li>
+        <li><strong>UI labels</strong> (nav, buttons, table headers, tabs) use sentence case. Acronyms preserve uppercase: TF, ChIP-seq, RNA-seq, GO, FAIR, IDA.</li>
+        <li><strong>Section eyebrows / micro-labels</strong> are uppercase with 0.05&ndash;0.06em letter-spacing, in <code>--text-tertiary</code>.</li>
+      </ul>
+
+      <h3 style="margin-top: var(--sp-5);">Tone, illustrated</h3>
+      <div class="voice-pair">
+        <div class="yes"><h5>Use this</h5><p>Master repressor of the SOS response to DNA damage. Auto-cleavage following RecA-mediated DNA-binding releases <em class="gene">recA</em>, <em class="gene">uvrA</em> and <em class="gene">sulA</em>, among others.</p></div>
+        <div class="no"><h5>Not this</h5><p>Discover the amazing SOS response! Click here to see how LexA cleverly senses DNA damage. We&rsquo;ve curated everything you need.</p></div>
+      </div>
+      <div class="voice-pair">
+        <div class="yes"><h5>Use this (button)</h5><p style="font-family: var(--font-sans); font-weight: 700; font-size: var(--fs-body);">Compare across organisms</p></div>
+        <div class="no"><h5>Not this (button)</h5><p style="font-family: var(--font-sans); font-weight: 700; font-size: var(--fs-body);">Click here to compare!</p></div>
+      </div>
+      <div class="voice-pair">
+        <div class="yes"><h5>Use this (empty state)</h5><p>No regulons match these filters. Clear filters or broaden your search.</p></div>
+        <div class="no"><h5>Not this</h5><p>Oops! We couldn&rsquo;t find anything. Try again?</p></div>
+      </div>
+
+      <h3 style="margin-top: var(--sp-5);">What we never do</h3>
+      <ul style="line-height: 1.8;">
+        <li>No emoji in product copy. Unicode mathematical glyphs (&sigma;, &Delta;, &minus;, &plusmn;) are content, not decoration &mdash; not the same as emoji.</li>
+        <li>No exclamation marks. No "you" in headings. No first-person plural marketing copy ("our database", "we have curated&hellip;").</li>
+        <li>No abbreviations unless they&rsquo;re scientific (TF, TFBS, HT, GO, ChIP-seq).</li>
+      </ul>
+    </section>
+  </main>
+</div>
+
+<script src="assets/spec.js"></script>
+</body>
+</html>

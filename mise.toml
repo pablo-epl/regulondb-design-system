@@ -1,0 +1,103 @@
+# mise — RegulonDB MG Design System
+# https://mise.jdx.dev — polyglot tool manager + task runner.
+#
+# Quick start (after installing mise itself):
+#   cd regulondb-design-system
+#   mise install           # provisions pinned Node + pnpm
+#   mise run install       # pnpm install inside lib/
+#   mise run storybook     # opens Storybook at :6006
+#
+# List every available task with:   mise tasks
+# Run any task with:                 mise run <name>   (or `mise r <name>`)
+
+# ---------------------------------------------------------------------------- #
+# Tools — pinned versions. `mise install` provisions these; tasks below rely
+# on them.
+# ---------------------------------------------------------------------------- #
+[tools]
+node = "20"        # Storybook 8 + Vite 5 require Node ≥ 18; we pin to 20 LTS.
+pnpm = "9"         # Workspace package manager; npm/yarn also work but pnpm is canonical.
+
+# ---------------------------------------------------------------------------- #
+# Env — design-system-specific environment variables. Mise loads these on `cd`.
+# ---------------------------------------------------------------------------- #
+[env]
+RDB_DESIGN_SYSTEM_ROOT = "{{config_root}}"
+# Force `pnpm storybook` to bind 0.0.0.0 if you want LAN access — uncomment.
+# STORYBOOK_HOST = "0.0.0.0"
+
+# ---------------------------------------------------------------------------- #
+# Tasks
+# ---------------------------------------------------------------------------- #
+
+[tasks.install]
+description = "Install lib/ dependencies (pnpm install)"
+dir = "{{config_root}}/lib"
+run = "pnpm install"
+
+# ---- Dev loops -------------------------------------------------------------- #
+
+[tasks.storybook]
+description = "Run Storybook on http://localhost:6006"
+dir = "{{config_root}}/lib"
+run = "pnpm storybook"
+depends = ["install"]
+alias = "dev"
+
+[tasks.serve]
+description = "Static server for spec/ + lib/showcase.html (works around file:// CDN issues)"
+dir = "{{config_root}}"
+run = "python3 -m http.server 8000"
+# After it starts:
+#   spec      → http://localhost:8000/spec/index.html
+#   showcase  → http://localhost:8000/lib/showcase.html
+
+[tasks.open-spec]
+description = "Open the static brand manual in the default browser"
+run = "open '{{config_root}}/spec/index.html'"
+
+[tasks.open-showcase]
+description = "Open the Storybook-clone showcase in the default browser"
+run = "open '{{config_root}}/lib/showcase.html'"
+
+# ---- Tokens ----------------------------------------------------------------- #
+
+[tasks."tokens:build"]
+description = "Regenerate tokens.css from spec/tokens.json (writes spec/ + lib/ copies)"
+run = "node {{config_root}}/scripts/build-tokens.mjs"
+
+[tasks."tokens:check"]
+description = "Verify tokens.css matches tokens.json — exits 1 if stale (CI-friendly)"
+run = "node {{config_root}}/scripts/build-tokens.mjs --check"
+
+# ---- Quality ---------------------------------------------------------------- #
+
+[tasks.typecheck]
+description = "TypeScript strict-mode check on lib/"
+dir = "{{config_root}}/lib"
+run = "pnpm typecheck"
+depends = ["install"]
+
+[tasks."build:storybook"]
+description = "Build static Storybook to lib/storybook-static/"
+dir = "{{config_root}}/lib"
+run = "pnpm build-storybook"
+depends = ["install"]
+
+# ---- CI / verify ------------------------------------------------------------ #
+
+[tasks.verify]
+description = "Run everything CI runs: tokens drift, typecheck, Storybook build"
+depends = ["tokens:check", "typecheck", "build:storybook"]
+alias = "ci"
+
+# ---- Cleanup ---------------------------------------------------------------- #
+
+[tasks.clean]
+description = "Remove generated artifacts (node_modules, storybook-static)"
+dir = "{{config_root}}/lib"
+run = """
+rm -rf node_modules
+rm -rf storybook-static
+echo 'cleaned lib/{node_modules, storybook-static}'
+"""

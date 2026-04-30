@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RegulonDB MG · Showcase (Storybook preview)</title>
+<meta name="description" content="Single-file React preview of the RegulonDB MG component library. Mirrors Storybook visually; runs without Node.">
+
+<!--
+  SOURCE: spec/tokens.json (canonical) → spec/assets/tokens.css
+  SOURCE: spec/assets/components.css
+  These two stylesheets are copied verbatim below. Do NOT edit a copy — edit
+  spec/tokens.json (or spec/assets/components.css) and re-emit.
+-->
+<style id="rdb-tokens">
+:root {
+  --blue-1: #1F3D4E; --blue-2: #32617D; --blue-3: #3D779B; --blue-4: #72A7C7; --blue-5: #D5E2EA;
+  --grey-1: #373737; --grey-2: #666666; --grey-3: #999999; --grey-4: #D5D5D7; --grey-5: #F4F5F5;
+  --white: #FFFFFF; --black: #000000;
+  --accent: #C98528; --accent-light: #D2A769; --postit: #FFF8A6; --error: #C93A1D;
+  --obj-gene: #2F6B48; --obj-operon: #7A4A1E; --obj-tf: #6B2F64; --obj-regulon: #1A4D6B; --obj-promoter: #A14522; --obj-dataset: #3D4A7A;
+  --evidence-curated: var(--blue-2); --evidence-curated-bg: #E1E9EE; --evidence-curated-fg: #214557;
+  --evidence-predicted: var(--accent); --evidence-predicted-bg: #F8EEDD; --evidence-predicted-fg: #6E481A;
+  --evidence-ht: #7C5295; --evidence-ht-bg: #ECE5F0; --evidence-ht-fg: #4B2F5C;
+  --evidence-weak: var(--error); --evidence-weak-bg: #F7E1DC; --evidence-weak-fg: #7A2412;
+  --surface-canvas: var(--white); --surface-raised: var(--white); --surface-sunken: var(--grey-5);
+  --surface-section: var(--blue-5); --surface-note: var(--postit); --surface-header: var(--blue-1);
+  --text-primary: var(--grey-1); --text-secondary: var(--grey-2); --text-tertiary: var(--grey-3);
+  --text-on-dark: var(--white); --text-link: var(--blue-2); --text-link-hover: var(--blue-3);
+  --text-title: var(--blue-1); --text-error: var(--error);
+  --border-default: var(--grey-4); --border-subtle: #E8EAEC; --border-strong: var(--grey-3); --border-focus: var(--blue-3);
+  --font-sans: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --font-citation: "Times New Roman", Times, Georgia, serif;
+  --font-mono: "Courier New", ui-monospace, "SF Mono", Menlo, monospace;
+  --fs-h1: 1.5rem; --fs-h2: 1.375rem; --fs-h3: 1.25rem; --fs-h4: 1.125rem;
+  --fs-body-lg: 1rem; --fs-body: 0.875rem; --fs-mono: 0.8125rem; --fs-mono-sm: 0.75rem;
+  --lh-h1: 1.25; --lh-h2: 1.3; --lh-h3: 1.35; --lh-h4: 1.4;
+  --lh-body-lg: 1.6; --lh-body: 1.55; --lh-mono: 1.55; --lh-mono-sm: 1.4;
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 20px;
+  --sp-6: 24px; --sp-7: 32px; --sp-8: 40px; --sp-9: 48px; --sp-10: 64px;
+  --radius-sm: 4px; --radius-md: 6px; --radius-lg: 10px; --radius-pill: 999px;
+  --shadow-xs: 0 1px 2px rgba(31, 61, 78, 0.06);
+  --shadow-sm: 0 2px 6px rgba(31, 61, 78, 0.10);
+  --shadow-md: 0 8px 24px rgba(31, 61, 78, 0.14);
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --dur-micro: 120ms; --dur-standard: 200ms; --dur-page: 320ms;
+  --container-max: 1280px; --container-wide: 1400px;
+  --sidebar-width: 280px; --right-panel-width: 360px;
+  --header-height: 56px; --subheader-height: 44px;
+  --focus-ring: 0 0 0 2px var(--surface-canvas), 0 0 0 4px var(--blue-3);
+}
+[data-theme="dark"] {
+  --surface-canvas: #0E1A22; --surface-raised: #152834; --surface-sunken: #0B141A;
+  --surface-section: #1A2D38; --surface-note: #5A4F00; --surface-header: #0A141A;
+  --text-primary: #E6EEF3; --text-secondary: #A7B4BB; --text-tertiary: #7A8890;
+  --text-link: #9CC5DC; --text-link-hover: #BFDCEC; --text-title: #E6EEF3;
+  --border-default: #2A3D48; --border-subtle: #1E2E38; --border-strong: #3B5260;
+  --evidence-curated-bg: #1B2E3A; --evidence-curated-fg: #9CC5DC;
+  --evidence-predicted-bg: #3A2C15; --evidence-predicted-fg: #E3B977;
+  --evidence-ht-bg: #2B2338; --evidence-ht-fg: #C7B0E8;
+  --evidence-weak-bg: #3A1F18; --evidence-weak-fg: #EF7D67;
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.40);
+  --shadow-sm: 0 2px 6px rgba(0,0,0,0.50);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.55);
+  --focus-ring: 0 0 0 2px var(--surface-canvas), 0 0 0 4px var(--blue-4);
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+
+<style id="rdb-components">
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; background: var(--surface-sunken); color: var(--text-primary); font-family: var(--font-sans); font-size: var(--fs-body); -webkit-font-smoothing: antialiased; }
+a { color: var(--text-link); text-decoration: none; }
+a:hover { color: var(--text-link-hover); text-decoration: underline; }
+
+/* --- Storybook-style chrome --- */
+.sb-shell { display: grid; grid-template-columns: 280px 1fr; height: 100vh; }
+.sb-side { background: var(--surface-header); color: #fff; overflow-y: auto; padding: var(--sp-4); border-right: 1px solid rgba(0,0,0,0.2); }
+.sb-side .brand { display: flex; align-items: center; gap: 10px; margin-bottom: var(--sp-5); }
+.sb-side .mark { width: 30px; height: 30px; border-radius: var(--radius-md); background: linear-gradient(135deg, var(--blue-3), var(--blue-4)); color: var(--blue-1); font-family: var(--font-mono); font-weight: 700; font-size: 14px; display: grid; place-items: center; }
+.sb-side h5 { text-transform: uppercase; letter-spacing: 0.06em; font-size: var(--fs-mono-sm); color: var(--blue-4); margin: var(--sp-4) 0 var(--sp-2); }
+.sb-side .item { display: block; padding: 6px 10px; border-radius: var(--radius-sm); color: rgba(255,255,255,0.85); font-size: var(--fs-body); cursor: pointer; border: 0; background: transparent; text-align: left; width: 100%; font-family: inherit; }
+.sb-side .item:hover { background: rgba(255,255,255,0.08); }
+.sb-side .item.active { background: var(--blue-2); color: #fff; }
+
+.sb-main { display: grid; grid-template-rows: 56px 1fr 240px; min-height: 0; }
+.sb-topbar { display: flex; align-items: center; gap: var(--sp-4); padding: 0 var(--sp-5); background: var(--surface-canvas); border-bottom: 1px solid var(--border-default); }
+.sb-topbar h1 { font-size: var(--fs-h3); margin: 0; color: var(--text-title); }
+.sb-topbar .meta { color: var(--text-tertiary); font-family: var(--font-mono); font-size: var(--fs-mono-sm); }
+.sb-topbar .right { margin-left: auto; display: flex; gap: 6px; align-items: center; }
+
+.sb-toolbar-btn { font: inherit; background: transparent; border: 1px solid var(--border-default); color: var(--text-primary); padding: 5px 12px; border-radius: var(--radius-md); cursor: pointer; font-size: var(--fs-mono-sm); }
+.sb-toolbar-btn:hover { border-color: var(--blue-3); color: var(--text-link); }
+.sb-toolbar-btn.on { background: var(--blue-2); color: #fff; border-color: var(--blue-2); }
+
+.sb-canvas { background: var(--surface-canvas); overflow: auto; padding: var(--sp-6); border-bottom: 1px solid var(--border-default); }
+.sb-canvas .viewport { margin: 0 auto; transition: max-width var(--dur-standard) var(--ease-standard); }
+.sb-canvas .viewport.desktop { max-width: 1280px; }
+.sb-canvas .viewport.tablet  { max-width: 768px; }
+.sb-canvas .viewport.mobile  { max-width: 375px; }
+
+.sb-bottom { background: var(--surface-canvas); display: flex; flex-direction: column; min-height: 0; }
+.sb-bottom .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border-default); padding: 0 var(--sp-4); }
+.sb-bottom .tabs button { font: inherit; background: transparent; border: 0; padding: 10px 14px; cursor: pointer; color: var(--text-secondary); border-bottom: 2px solid transparent; margin-bottom: -1px; font-size: var(--fs-body); }
+.sb-bottom .tabs button.on { color: var(--blue-2); border-bottom-color: var(--blue-2); font-weight: 700; }
+.sb-bottom .body { flex: 1; overflow: auto; padding: var(--sp-4); font-family: var(--font-mono); font-size: var(--fs-mono); white-space: pre; color: var(--text-primary); background: var(--surface-canvas); }
+.sb-bottom .body.props { font-family: var(--font-sans); white-space: normal; }
+
+/* --- Story / state grid --- */
+.story-h { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: var(--sp-3); }
+.story-h h2 { margin: 0; font-size: var(--fs-h2); color: var(--text-title); }
+.story-h .lede { color: var(--text-secondary); margin: 0; max-width: 60ch; }
+.state-grid { display: grid; gap: var(--sp-4); grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); margin-bottom: var(--sp-6); }
+.state {
+  background: var(--surface-raised); border: 1px solid var(--border-default); border-radius: var(--radius-md);
+  padding: var(--sp-4);
+}
+.state .label { display: block; font-size: var(--fs-mono-sm); text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-tertiary); font-family: var(--font-mono); margin-bottom: var(--sp-3); }
+.state .demo { display: flex; align-items: center; min-height: 60px; gap: var(--sp-3); flex-wrap: wrap; }
+
+/* --- All copied component CSS (matches spec/assets/components.css) --- */
+.btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-sans); font-size: var(--fs-body); font-weight: 700; line-height: 1; padding: 10px 16px; border-radius: var(--radius-md); border: 1px solid transparent; cursor: pointer; transition: background var(--dur-micro), border-color var(--dur-micro), color var(--dur-micro), box-shadow var(--dur-micro); text-decoration: none; }
+.btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn--sm { font-size: var(--fs-mono); padding: 6px 12px; }
+.btn--lg { font-size: var(--fs-body-lg); padding: 12px 22px; }
+.btn--primary { background: var(--blue-2); color: #fff; }
+.btn--primary:hover { background: var(--blue-1); }
+.btn--secondary { background: var(--accent); color: #fff; border-color: var(--accent-light); }
+.btn--secondary:hover { background: #b27522; }
+.btn--ghost { background: transparent; color: var(--text-primary); }
+.btn--ghost:hover { background: var(--surface-sunken); }
+.btn--outline { background: transparent; color: var(--text-link); border-color: var(--border-default); }
+.btn--outline:hover { border-color: var(--blue-3); color: var(--blue-3); }
+.btn--destructive { background: var(--error); color: #fff; }
+.btn--link { background: transparent; color: var(--text-link); padding: 0; border-radius: 0; }
+.btn--link:hover { color: var(--text-link-hover); text-decoration: underline; }
+.btn--loading { position: relative; color: transparent; }
+.btn--loading::after { content: ""; position: absolute; inset: 0; margin: auto; width: 16px; height: 16px; border-radius: 50%; border: 2px solid currentColor; border-top-color: transparent; color: #fff; animation: btn-spin 600ms linear infinite; }
+@keyframes btn-spin { to { transform: rotate(360deg); } }
+
+.input, .textarea { width: 100%; font-family: var(--font-sans); font-size: var(--fs-body); color: var(--text-primary); background: var(--surface-canvas); border: 1px solid var(--border-default); border-radius: var(--radius-md); padding: 8px 12px; transition: border-color var(--dur-micro), box-shadow var(--dur-micro); }
+.input:focus, .textarea:focus { outline: none; border-color: var(--blue-3); box-shadow: 0 0 0 3px rgba(61,119,155,0.18); }
+.input[aria-invalid="true"] { border-color: var(--error); }
+.textarea { min-height: 80px; resize: vertical; }
+.label { display: block; font-weight: 700; font-size: var(--fs-body); margin-bottom: 4px; }
+.helper-text { font-size: var(--fs-mono-sm); color: var(--text-secondary); margin-top: 4px; }
+.helper-text--error { color: var(--error); }
+
+.checkbox, .radio { appearance: none; width: 16px; height: 16px; border: 1px solid var(--border-strong); background: var(--surface-canvas); cursor: pointer; display: inline-grid; place-items: center; flex: none; }
+.checkbox { border-radius: 3px; } .radio { border-radius: 50%; }
+.checkbox:checked, .radio:checked { background: var(--blue-2); border-color: var(--blue-2); }
+.checkbox:checked::after { content: ""; width: 9px; height: 5px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg) translate(1px, -1px); }
+.radio:checked::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #fff; }
+.switch { appearance: none; width: 36px; height: 20px; background: var(--grey-3); border-radius: 999px; position: relative; cursor: pointer; }
+.switch::before { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; background: #fff; border-radius: 50%; transition: transform var(--dur-micro); }
+.switch:checked { background: var(--blue-2); }
+.switch:checked::before { transform: translateX(16px); }
+
+.tag { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: var(--radius-pill); font-size: var(--fs-mono-sm); background: var(--surface-sunken); color: var(--text-secondary); border: 1px solid var(--border-default); }
+.tag--solid { background: var(--blue-1); color: #fff; border-color: var(--blue-1); }
+.tag--accent { background: var(--accent); color: #fff; border-color: var(--accent); }
+.kbd { font-family: var(--font-mono); font-size: var(--fs-mono-sm); padding: 2px 6px; border: 1px solid var(--border-default); border-bottom-width: 2px; border-radius: 4px; background: var(--surface-canvas); display: inline-block; }
+.divider { border: 0; border-top: 1px solid var(--border-default); margin: var(--sp-5) 0; }
+.link { color: var(--text-link); }
+.spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid var(--border-default); border-top-color: var(--blue-3); border-radius: 50%; animation: btn-spin 600ms linear infinite; }
+.skeleton { display: block; background: linear-gradient(90deg, var(--surface-sunken) 0%, var(--border-subtle) 50%, var(--surface-sunken) 100%); background-size: 200% 100%; border-radius: var(--radius-sm); animation: skel 1400ms infinite; height: 12px; }
+@keyframes skel { to { background-position: -200% 0; } }
+
+.gene, .operon-notation { font-style: italic; }
+.taxon { font-style: italic; } .taxon .strain { font-style: normal; }
+.protein { font-style: normal; }
+.coordinate { font-family: var(--font-mono); font-size: var(--fs-mono-sm); color: var(--text-primary); }
+.promoter-pos { font-family: var(--font-mono); font-size: var(--fs-mono); }
+
+.ev-badge { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border-radius: var(--radius-pill); font-family: var(--font-mono); font-size: var(--fs-mono-sm); font-weight: 700; border: 1px solid transparent; text-transform: uppercase; letter-spacing: 0.04em; }
+.ev-badge::before { content: ""; width: 6px; height: 6px; border-radius: 999px; background: currentColor; }
+.ev-badge--curated { background: var(--evidence-curated-bg); color: var(--evidence-curated-fg); border-color: var(--evidence-curated); }
+.ev-badge--predicted { background: var(--evidence-predicted-bg); color: var(--evidence-predicted-fg); border-color: var(--evidence-predicted); }
+.ev-badge--ht { background: var(--evidence-ht-bg); color: var(--evidence-ht-fg); border-color: var(--evidence-ht); }
+.ev-badge--weak { background: var(--evidence-weak-bg); color: var(--evidence-weak-fg); border-color: var(--evidence-weak); }
+
+.obj-tag { display: inline-flex; align-items: center; gap: 6px; font-size: var(--fs-mono-sm); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; }
+.obj-tag::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: currentColor; }
+.obj-tag--gene { color: var(--obj-gene); } .obj-tag--operon { color: var(--obj-operon); }
+.obj-tag--tf { color: var(--obj-tf); } .obj-tag--regulon { color: var(--obj-regulon); }
+.obj-tag--promoter { color: var(--obj-promoter); } .obj-tag--dataset { color: var(--obj-dataset); }
+
+.tooltip { position: relative; display: inline-block; }
+.tooltip-content { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--grey-1); color: #fff; font-size: var(--fs-mono-sm); padding: 6px 10px; border-radius: var(--radius-sm); white-space: nowrap; opacity: 0; transition: opacity var(--dur-micro) 200ms; pointer-events: none; }
+.tooltip:hover .tooltip-content { opacity: 1; }
+
+.toast { display: flex; align-items: flex-start; gap: 12px; background: var(--surface-raised); border: 1px solid var(--border-default); border-left: 3px solid var(--blue-3); border-radius: var(--radius-md); padding: var(--sp-3) var(--sp-4); box-shadow: var(--shadow-sm); max-width: 420px; }
+.toast--success { border-left-color: var(--blue-2); }
+.toast--warning { border-left-color: var(--accent); }
+.toast--error { border-left-color: var(--error); }
+.toast .title { font-weight: 700; }
+.toast .desc { color: var(--text-secondary); font-size: var(--fs-mono-sm); }
+
+.tabs[role="tablist"] { display: flex; gap: var(--sp-3); border-bottom: 1px solid var(--border-default); }
+.tabs [role="tab"] { font: inherit; background: none; border: 0; padding: 12px 4px; color: var(--text-secondary); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tabs [role="tab"]:hover { color: var(--text-primary); }
+.tabs [role="tab"][aria-selected="true"] { color: var(--blue-2); border-bottom-color: var(--blue-2); font-weight: 700; }
+
+.breadcrumb { font-size: var(--fs-body); color: var(--text-secondary); }
+.breadcrumb a { color: var(--text-link); }
+.breadcrumb .sep { margin: 0 6px; color: var(--text-tertiary); }
+.breadcrumb [aria-current="page"] { color: var(--text-primary); font-weight: 700; }
+
+.card { border: 1px solid var(--border-default); border-radius: var(--radius-md); background: var(--surface-raised); padding: var(--sp-5); }
+.card--sunken { background: var(--surface-sunken); }
+.card--section { background: var(--surface-section); }
+.card--note { background: var(--surface-note); border-color: #E6D86F; color: #5A4F00; }
+[data-theme="dark"] .card--note { color: #FFF8A6; border-color: #6A5C00; }
+
+.pagination { display: flex; gap: 4px; align-items: center; }
+.pagination button { font: inherit; background: transparent; border: 1px solid var(--border-default); color: var(--text-primary); padding: 6px 12px; border-radius: var(--radius-sm); cursor: pointer; min-width: 36px; }
+.pagination button:hover { border-color: var(--blue-3); color: var(--text-link); }
+.pagination button[aria-current="page"] { background: var(--blue-2); color: #fff; border-color: var(--blue-2); }
+.pagination button[disabled] { opacity: 0.4; cursor: not-allowed; }
+
+table.data { width: 100%; border-collapse: collapse; font-size: var(--fs-body); background: var(--surface-raised); }
+table.data thead th { text-align: left; font-size: var(--fs-mono-sm); text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); background: var(--surface-sunken); padding: 10px 16px; border-bottom: 1px solid var(--border-default); font-weight: 700; }
+table.data tbody td { padding: 10px 16px; border-bottom: 1px solid var(--border-subtle); vertical-align: top; }
+table.data tbody tr:hover td { background: rgba(213,226,234,0.18); }
+[data-theme="dark"] table.data tbody tr:hover td { background: rgba(60,80,95,0.22); }
+
+.sequence { font-family: var(--font-mono); font-size: var(--fs-mono); background: var(--surface-sunken); border: 1px solid var(--border-default); border-radius: var(--radius-md); padding: var(--sp-4); white-space: pre; }
+.sequence .num { color: var(--text-tertiary); }
+.sequence mark { background: var(--postit); color: #5A4F00; padding: 0 2px; }
+
+.cons-bar { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: var(--fs-mono-sm); }
+.cons-bar .track { width: 120px; height: 8px; background: var(--surface-sunken); border-radius: 999px; overflow: hidden; }
+.cons-bar .fill { height: 100%; background: linear-gradient(90deg, var(--blue-4), var(--blue-2)); border-radius: 999px; }
+
+.org-pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.10); color: #fff; border: 1px solid rgba(255,255,255,0.18); border-radius: var(--radius-pill); padding: 4px 10px; }
+.org-pill .symbol { font-family: var(--font-mono); font-weight: 700; background: var(--accent); color: #fff; padding: 1px 6px; border-radius: 4px; font-size: var(--fs-mono-sm); }
+.org-pill .strain { color: var(--blue-4); font-size: var(--fs-mono-sm); }
+.org-pill .count { margin-left: 6px; padding-left: 8px; border-left: 1px solid rgba(255,255,255,0.18); font-family: var(--font-mono); font-size: var(--fs-mono-sm); color: var(--blue-4); }
+
+.empty { text-align: center; padding: var(--sp-9) var(--sp-5); border: 1px dashed var(--border-default); border-radius: var(--radius-md); color: var(--text-secondary); }
+.empty .icon { font-size: 32px; color: var(--text-tertiary); margin-bottom: var(--sp-3); }
+.empty h4 { color: var(--text-primary); margin-bottom: var(--sp-2); }
+
+.app-header { background: var(--surface-header); color: #fff; height: 56px; display: flex; align-items: center; padding: 0 var(--sp-5); gap: var(--sp-5); }
+.app-header .brand-lockup { display: flex; align-items: center; gap: 8px; color: #fff; text-decoration: none; }
+.app-header .right { margin-left: auto; display: flex; gap: 12px; align-items: center; }
+.primary-nav { background: var(--surface-canvas); border-bottom: 1px solid var(--border-default); height: 44px; padding: 0 var(--sp-5); display: flex; align-items: center; gap: var(--sp-5); }
+.primary-nav a { color: var(--text-primary); font-size: var(--fs-body); padding: 12px 0; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.primary-nav a[aria-current="page"] { color: var(--blue-2); border-bottom-color: var(--blue-2); font-weight: 700; }
+
+.active-org-card { background: var(--blue-1); color: #fff; border-radius: var(--radius-lg); padding: var(--sp-7); position: relative; overflow: hidden; background-image: radial-gradient(420px 240px at 100% 0%, rgba(114,167,199,0.20), transparent 60%); }
+.active-org-card .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-5); margin-top: var(--sp-5); }
+.active-org-card .stat .num { font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; display: block; color: #fff; }
+.active-org-card .stat .lbl { color: var(--blue-4); font-size: var(--fs-mono-sm); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="importmap">
+{ "imports": {
+  "react":            "https://esm.sh/react@18.3.1",
+  "react/jsx-runtime":"https://esm.sh/react@18.3.1/jsx-runtime",
+  "react-dom/client": "https://esm.sh/react-dom@18.3.1/client"
+} }
+</script>
+<script src="https://unpkg.com/@babel/standalone@7.24.7/babel.min.js"></script>
+
+<script type="text/babel" data-type="module" data-presets="react">
+import React, { useState, useMemo, useEffect } from "react";
+import { createRoot } from "react-dom/client";
+
+/* =========================================================================
+   COMPONENTS — duplicated here from the canonical lib/src/components/*.
+   The classNames are byte-identical to the spec's components.css; props are
+   byte-identical to the React TS sources. Treat this as a read-only mirror.
+   ========================================================================= */
+
+// Atoms ----------------------------------------------------------------------
+const Button = ({ variant = "primary", size, loading, children, ...rest }) => (
+  <button
+    className={`btn btn--${variant}${size ? " btn--" + size : ""}${loading ? " btn--loading" : ""}`}
+    {...rest}>{children}</button>
+);
+const Input    = (p) => <input className="input" {...p} />;
+const Textarea = (p) => <textarea className="textarea" {...p} />;
+const Checkbox = (p) => <input type="checkbox" className="checkbox" {...p} />;
+const Radio    = (p) => <input type="radio" className="radio" {...p} />;
+const Switch   = (p) => <input type="checkbox" className="switch" {...p} />;
+const Tag      = ({ variant, children }) => <span className={`tag${variant ? " tag--" + variant : ""}`}>{children}</span>;
+const Kbd      = ({ children }) => <span className="kbd">{children}</span>;
+const Spinner  = () => <span className="spinner" aria-label="Loading" />;
+const Skeleton = ({ width = "100%", height = 12 }) => <span className="skeleton" style={{ width, height }} />;
+const Divider  = () => <hr className="divider" />;
+const Link     = ({ href = "#", children }) => <a className="link" href={href}>{children}</a>;
+const Label    = ({ children, ...rest }) => <label className="label" {...rest}>{children}</label>;
+const HelperText = ({ error, children }) => <div className={`helper-text${error ? " helper-text--error" : ""}`}>{children}</div>;
+
+// Scientific atoms -----------------------------------------------------------
+const Gene           = ({ children }) => <em className="gene">{children}</em>;
+const ProteinSymbol  = ({ children }) => <span className="protein">{children}</span>;
+const OperonNotation = ({ children }) => <em className="operon-notation">{children}</em>;
+const TaxonName      = ({ children, strain }) => (
+  <em className="taxon">{children}{strain ? <> <span className="strain">{strain}</span></> : null}</em>
+);
+const SUP_MAP = { 0: "⁰", 1: "¹", 2: "²", 3: "³", 4: "⁴", 5: "⁵", 6: "⁶", 7: "⁷", 8: "⁸", 9: "⁹" };
+const toSup = (n) => String(n).split("").map((d) => SUP_MAP[d] ?? d).join("");
+const SigmaFactorLabel     = ({ value }) => <span className="sigma">σ{toSup(value)}</span>;
+const PromoterPositionLabel= ({ pos })   => <span className="promoter-pos">{pos < 0 ? "−" + Math.abs(pos) : "+" + pos}</span>;
+const Coordinate           = ({ value }) => <span className="coordinate">{Number(value).toLocaleString("en-US")}</span>;
+
+// Molecules ------------------------------------------------------------------
+const FormField = ({ label, helper, error, children }) => (
+  <div className="form-field">
+    <Label>{label}</Label>
+    {children}
+    {helper && <HelperText error={error}>{helper}</HelperText>}
+  </div>
+);
+const EvidenceBadge = ({ code = "IDA", category = "curated" }) => (
+  <span className={`ev-badge ev-badge--${category}`}>{code}</span>
+);
+const ObjectTypeTag = ({ type }) => (
+  <span className={`obj-tag obj-tag--${type}`}>{type[0].toUpperCase() + type.slice(1)}</span>
+);
+const Tooltip = ({ label, children }) => (
+  <span className="tooltip">{children}<span className="tooltip-content">{label}</span></span>
+);
+const Toast = ({ tone = "info", title, desc, action }) => (
+  <div className={`toast${tone !== "info" ? " toast--" + tone : ""}`}>
+    <div className="body"><div className="title">{title}</div>{desc && <div className="desc">{desc}</div>}</div>
+    {action}
+  </div>
+);
+const Tabs = ({ items, value, onChange, segmented }) => (
+  <div className={`tabs${segmented ? " tabs--segmented" : ""}`} role="tablist">
+    {items.map((label) => (
+      <button key={label} role="tab" aria-selected={value === label} onClick={() => onChange?.(label)}>{label}</button>
+    ))}
+  </div>
+);
+const Breadcrumb = ({ items }) => (
+  <nav className="breadcrumb" aria-label="Breadcrumb">
+    {items.map((it, i) => {
+      const last = i === items.length - 1;
+      return (
+        <React.Fragment key={i}>
+          {last ? <span aria-current="page">{it.label}</span>
+                : <a href={it.href || "#"}>{it.label}</a>}
+          {!last && <span className="sep">›</span>}
+        </React.Fragment>
+      );
+    })}
+  </nav>
+);
+const Card = ({ variant, children, header, footer }) => (
+  <div className={`card${variant ? " card--" + variant : ""}`}>
+    {header && <header style={{ marginBottom: "var(--sp-3)" }}><h4 style={{ margin: 0 }}>{header}</h4></header>}
+    {children}
+    {footer && <footer style={{ marginTop: "var(--sp-3)", paddingTop: "var(--sp-3)", borderTop: "1px solid var(--border-default)" }}>{footer}</footer>}
+  </div>
+);
+const Pagination = ({ page, total }) => (
+  <div className="pagination">
+    <button disabled={page === 1}>← Prev</button>
+    {Array.from({ length: total }, (_, i) => i + 1).map((p) => (
+      <button key={p} aria-current={p === page ? "page" : undefined}>{p}</button>
+    ))}
+    <button>Next →</button>
+  </div>
+);
+const Sequence = ({ blocks, highlight }) => (
+  <pre className="sequence">{blocks.map((row, i) => (
+    <div key={i}>
+      <span className="num">{String(row.pos).padStart(7, " ")}</span>{"  "}
+      {row.seq.split(" ").map((b, j) => (
+        <React.Fragment key={j}>{highlight && highlight === b ? <mark>{b}</mark> : b}{j < row.seq.split(" ").length - 1 ? " " : ""}</React.Fragment>
+      ))}
+    </div>
+  ))}</pre>
+);
+const ConservationBar = ({ pct, label }) => (
+  <span className="cons-bar"><span className="track"><span className="fill" style={{ width: pct + "%" }} /></span>{pct}% {label && <span style={{ color: "var(--text-secondary)" }}>{label}</span>}</span>
+);
+const OrganismPill = ({ symbol, taxon, strain, count, color }) => (
+  <span className="org-pill">
+    <span className="symbol" style={color ? { background: color } : undefined}>{symbol}</span>
+    <TaxonName>{taxon}</TaxonName>
+    {strain && <span className="strain">{strain}</span>}
+    {count != null && <span className="count">{count.toLocaleString("en-US")}</span>}
+  </span>
+);
+const EmptyState = ({ icon = "○", title, description, action }) => (
+  <div className="empty">
+    <div className="icon" aria-hidden="true">{icon}</div>
+    <h4>{title}</h4>{description && <p>{description}</p>}
+    {action && <div style={{ marginTop: "var(--sp-4)" }}>{action}</div>}
+  </div>
+);
+
+// Logo ------------------------------------------------------------------------
+// Outlined "Regulon" + "DB" paths so the logo is font-independent. Generated
+// from Arial Black + Arial Bold Italic via scripts/build-logo.mjs and kept in
+// sync with spec/assets/logo*.svg.
+const REGULON_PATH = "M51.31 158L13.10 158L13.10 34.88L76.51 34.88Q94.15 34.88 103.47 37.90Q112.79 40.93 118.50 49.11Q124.21 57.30 124.21 69.06L124.21 69.06Q124.21 79.31 119.85 86.74Q115.48 94.17 107.84 98.79L107.84 98.79Q102.96 101.73 94.48 103.66L94.48 103.66Q101.29 105.93 104.39 108.20L104.39 108.20Q106.49 109.71 110.48 114.66Q114.47 119.62 115.81 122.31L115.81 122.31L134.21 158L91.21 158L70.88 120.38Q67.02 113.07 64.00 110.88L64.00 110.88Q59.88 108.03 54.67 108.03L54.67 108.03L51.31 108.03L51.31 158ZM51.31 59.74L51.31 84.77L67.36 84.77Q69.96 84.77 77.43 83.09L77.43 83.09Q81.21 82.33 83.61 79.22Q86 76.12 86 72.08L86 72.08Q86 66.12 82.22 62.93Q78.44 59.74 68.03 59.74L68.03 59.74L51.31 59.74ZM243.13 118.02L243.13 121.89L174.60 121.89Q175.53 130.12 179.05 134.15L179.05 134.15Q184.01 139.94 191.99 139.94L191.99 139.94Q197.03 139.94 201.56 137.42L201.56 137.42Q204.33 135.83 207.53 131.80L207.53 131.80L241.20 134.90Q233.48 148.34 222.56 154.18Q211.64 160.02 191.23 160.02L191.23 160.02Q173.51 160.02 163.35 155.02Q153.19 150.02 146.51 139.15Q139.83 128.27 139.83 113.57L139.83 113.57Q139.83 92.66 153.23 79.73Q166.63 66.79 190.22 66.79L190.22 66.79Q209.37 66.79 220.46 72.59Q231.54 78.38 237.34 89.38Q243.13 100.39 243.13 118.02L243.13 118.02ZM174.69 105.51L208.37 105.51Q207.36 95.60 203.03 91.32Q198.71 87.03 191.65 87.03L191.65 87.03Q183.51 87.03 178.63 93.50L178.63 93.50Q175.53 97.53 174.69 105.51L174.69 105.51ZM320.90 81.99L320.90 68.81L352.90 68.81L352.90 153.04L352.99 156.99Q352.99 165.39 349.42 172.99Q345.85 180.59 339.93 185.29Q334.01 190.00 324.89 192.10Q315.78 194.20 304.02 194.20L304.02 194.20Q277.15 194.20 267.11 186.13Q257.08 178.07 257.08 164.55L257.08 164.55Q257.08 162.87 257.24 160.02L257.24 160.02L290.42 163.79Q291.68 168.41 294.28 170.18L294.28 170.18Q298.06 172.78 303.77 172.78L303.77 172.78Q311.16 172.78 314.82 168.83Q318.47 164.89 318.47 155.06L318.47 155.06L318.47 141.54Q313.43 147.50 308.39 150.19L308.39 150.19Q300.50 154.39 291.34 154.39L291.34 154.39Q273.45 154.39 262.45 138.77L262.45 138.77Q254.64 127.68 254.64 109.46L254.64 109.46Q254.64 88.63 264.72 77.71Q274.80 66.79 291.09 66.79L291.09 66.79Q301.50 66.79 308.26 70.32Q315.03 73.85 320.90 81.99L320.90 81.99ZM288.74 112.06L288.74 112.06Q288.74 121.72 292.85 126.38Q296.97 131.04 303.69 131.04L303.69 131.04Q310.07 131.04 314.40 126.21Q318.72 121.38 318.72 111.64L318.72 111.64Q318.72 101.90 314.19 96.73Q309.65 91.57 303.10 91.57L303.10 91.57Q296.55 91.57 292.64 96.31Q288.74 101.06 288.74 112.06ZM467.54 68.81L467.54 158L435.63 158L435.63 143.55Q428.49 152.46 421.22 156.24Q413.96 160.02 403.38 160.02L403.38 160.02Q389.27 160.02 381.25 151.58Q373.23 143.13 373.23 125.58L373.23 125.58L373.23 68.81L407.58 68.81L407.58 117.86Q407.58 126.25 410.68 129.78Q413.79 133.31 419.42 133.31L419.42 133.31Q425.55 133.31 429.45 128.61Q433.36 123.90 433.36 111.72L433.36 111.72L433.36 68.81L467.54 68.81ZM489.46 158L489.46 34.88L523.73 34.88L523.73 158L489.46 158ZM541.36 113.66L541.36 113.66Q541.36 93.25 555.14 80.02Q568.91 66.79 592.34 66.79L592.34 66.79Q619.13 66.79 632.82 82.33L632.82 82.33Q643.82 94.84 643.82 113.15L643.82 113.15Q643.82 133.73 630.18 146.87Q616.53 160.02 592.43 160.02L592.43 160.02Q570.93 160.02 557.66 149.10L557.66 149.10Q541.36 135.58 541.36 113.66ZM575.63 113.57L575.63 113.57Q575.63 125.50 580.46 131.21Q585.29 136.92 592.59 136.92L592.59 136.92Q599.98 136.92 604.73 131.29Q609.47 125.67 609.47 113.24L609.47 113.24Q609.47 101.65 604.69 95.98Q599.90 90.31 592.85 90.31L592.85 90.31Q585.37 90.31 580.50 96.06Q575.63 101.81 575.63 113.57ZM660.29 158L660.29 68.81L692.12 68.81L692.12 83.34Q699.25 74.44 706.56 70.61Q713.87 66.79 724.37 66.79L724.37 66.79Q738.56 66.79 746.58 75.23Q754.60 83.67 754.60 101.31L754.60 101.31L754.60 158L720.25 158L720.25 108.95Q720.25 100.55 717.14 97.07Q714.04 93.58 708.41 93.58L708.41 93.58Q702.19 93.58 698.33 98.29Q694.47 102.99 694.47 115.17L694.47 115.17L694.47 158L660.29 158Z";
+const DB_PATH = "M38.47 148L5.65 148L25.14 54.94L50.21 54.94Q60.68 54.94 63.60 55.26L63.60 55.26Q69.38 55.83 73.92 57.61Q78.46 59.39 82.17 62.59Q85.88 65.80 88.58 70.30Q91.28 74.81 92.74 80.68Q94.20 86.55 94.20 93.54L94.20 93.54Q94.20 108.58 88.45 120.23Q82.71 131.88 74.01 138.73L74.01 138.73Q67.35 144.06 56.81 146.60L56.81 146.60Q50.84 148 38.47 148L38.47 148ZM41.01 70.30L27.93 133.02L37.64 133.02Q48.18 133.02 52.91 131.72Q57.64 130.42 61.57 126.86L61.57 126.86Q67.22 121.72 71.09 113.15Q74.97 104.58 74.97 92.97L74.97 92.97Q74.97 83.06 71.76 78.08Q68.55 73.10 63.86 71.45L63.86 71.45Q60.56 70.30 52.11 70.30L52.11 70.30L41.01 70.30ZM142.95 148L99.09 148L118.57 54.94L150.38 54.94Q160.72 54.94 164.85 55.58L164.85 55.58Q171.70 56.53 176.46 59.39Q181.23 62.24 183.70 67.00Q186.18 71.76 186.18 77.54L186.18 77.54Q186.18 85.29 181.86 90.97Q177.54 96.65 168.53 99.57L168.53 99.57Q175.70 101.54 179.73 106.58Q183.76 111.63 183.76 117.98L183.76 117.98Q183.76 126.35 179.00 133.88Q174.24 141.40 165.86 144.70Q157.49 148 142.95 148L142.95 148ZM134.44 70.50L129.81 92.52L144.41 92.52Q154.25 92.52 158.56 91.13Q162.88 89.73 165.04 86.55Q167.20 83.38 167.20 79.76L167.20 79.76Q167.20 76.21 165.17 73.92Q163.13 71.64 159.39 70.88L159.39 70.88Q157.29 70.50 149.30 70.50L149.30 70.50L134.44 70.50ZM126.45 108.71L121.37 133.02L139.84 133.02Q151.46 133.02 155.42 131.53Q159.39 130.04 161.77 126.61Q164.15 123.18 164.15 119.37L164.15 119.37Q164.15 114.74 160.72 111.72Q157.29 108.71 149.30 108.71L149.30 108.71L126.45 108.71Z";
+
+const LogoSvg = ({ height = 28, dark = true }) => (
+  <svg viewBox="0 0 1156 200" width={(1156/200)*height} height={height} aria-hidden="true">
+    <path d="M 773 32 L 1003 32 L 1003 4 L 1148 100 L 1003 196 L 1003 168 L 773 168 Z" fill={dark ? "#3D779B" : "#32617D"}/>
+    <line x1="769" y1="100" x2="1142" y2="100" stroke="#FFFFFF" strokeWidth="2" opacity="0.85"/>
+    <path d={REGULON_PATH} fill={dark ? "#FFFFFF" : "#000000"} />
+    <g transform="translate(792, 0)"><path d={DB_PATH} fill="#FFFFFF" /></g>
+  </svg>
+);
+
+// Organisms ------------------------------------------------------------------
+const Header = () => (
+  <header className="app-header">
+    <a className="brand-lockup" href="#" aria-label="RegulonDB home"
+       style={{ display: "flex", alignItems: "center", gap: 8, color: "#fff", textDecoration: "none" }}>
+      <LogoSvg height={26} />
+      <small style={{ color: "var(--blue-4)", fontSize: 11, letterSpacing: "0.06em", textTransform: "uppercase", fontWeight: 700 }}>Multi-genomic</small>
+    </a>
+    <div style={{ flex: 1, maxWidth: 480 }}><Input placeholder="Search genes, TFs, operons" /></div>
+    <div className="right">
+      <OrganismPill symbol="Ec" taxon="E. coli" strain="K-12" />
+      <span className="kbd" style={{ background: "rgba(255,255,255,0.18)", color: "#fff", borderColor: "rgba(255,255,255,0.18)" }}>⌘K</span>
+    </div>
+  </header>
+);
+const PrimaryNav = () => (
+  <nav className="primary-nav">
+    <a href="#" aria-current="page">Genes</a><a href="#">Operons</a><a href="#">Regulons</a>
+    <a href="#">TFs</a><a href="#">Promoters</a><a href="#">Datasets</a><a href="#">Tools</a>
+  </nav>
+);
+const ActiveOrganismCard = () => (
+  <div className="active-org-card">
+    <div style={{ color: "var(--blue-4)", textTransform: "uppercase", letterSpacing: "0.06em", fontSize: "var(--fs-mono-sm)", fontWeight: 700 }}>Active organism</div>
+    <h2 style={{ color: "#fff", margin: "4px 0 12px" }}><TaxonName strain="K-12 MG1655">Escherichia coli</TaxonName></h2>
+    <div className="stats">
+      <div className="stat"><span className="num">4,639</span><span className="lbl">Genes</span></div>
+      <div className="stat"><span className="num">335</span><span className="lbl">TFs</span></div>
+      <div className="stat"><span className="num">2,783</span><span className="lbl">Operons</span></div>
+      <div className="stat"><span className="num">214</span><span className="lbl">Regulons</span></div>
+    </div>
+  </div>
+);
+const RegulonRadial = () => (
+  <svg viewBox="0 0 480 380" style={{ width: "100%", maxWidth: 480, height: 380, display: "block", margin: "0 auto" }}>
+    <defs>
+      <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><line x1="0" y1="2" x2="0" y2="8" stroke="#C93A1D" strokeWidth="2"/></marker>
+    </defs>
+    <circle cx="240" cy="190" r="34" fill="#1F3D4E"/>
+    <text x="240" y="194" textAnchor="middle" fill="#fff" fontFamily="Arial" fontWeight="700" fontSize="14">LexA</text>
+    {[
+      { x: 120, y: 60,  g: "recA" }, { x: 360, y: 60, g: "uvrA" },
+      { x: 60,  y: 190, g: "sulA" }, { x: 420, y: 190, g: "dinB" },
+      { x: 120, y: 320, g: "umuD" }, { x: 360, y: 320, g: "lexA" },
+    ].map((t) => (
+      <g key={t.g}>
+        <circle cx={t.x} cy={t.y} r="22" fill="#D5E2EA" stroke="#32617D"/>
+        <text x={t.x} y={t.y + 4} textAnchor="middle" fontFamily="Arial" fontStyle="italic" fontSize="12" fill="#1F3D4E">{t.g}</text>
+        <line x1="240" y1="190" x2={t.x + (t.x < 240 ? 19 : -19)} y2={t.y + (t.y < 190 ? 19 : -19)} stroke="#C93A1D" strokeWidth="1.5" markerEnd="url(#ah)"/>
+      </g>
+    ))}
+  </svg>
+);
+
+/* =========================================================================
+   STORIES — registry of all stories, grouped by atomic level.
+   Each story: { id, title, render, jsx, html, props, a11y }
+   ========================================================================= */
+const stories = [
+  // FOUNDATIONS ----------------------------------------------------
+  {
+    id: "Foundations/Color",
+    render: () => (
+      <div>
+        <div className="story-h"><h2>Color</h2><p className="lede">Five blues, five greys, four reserved hues.</p></div>
+        <div className="state-grid">
+          {["blue-1","blue-2","blue-3","blue-4","blue-5"].map((t) => (
+            <div className="state" key={t}>
+              <div style={{ height: 48, borderRadius: "var(--radius-sm)", background: `var(--${t})` }}/>
+              <div style={{ marginTop: 8, fontFamily: "var(--font-mono)", fontSize: "var(--fs-mono-sm)" }}>--{t}</div>
+            </div>
+          ))}
+          {["accent","accent-light","postit","error"].map((t) => (
+            <div className="state" key={t}>
+              <div style={{ height: 48, borderRadius: "var(--radius-sm)", background: `var(--${t})`, border: "1px solid var(--border-default)" }}/>
+              <div style={{ marginTop: 8, fontFamily: "var(--font-mono)", fontSize: "var(--fs-mono-sm)" }}>--{t}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ),
+    jsx: '/* Tokens used directly via CSS vars */ var(--blue-2)',
+    html: 'background: var(--blue-2);',
+    props: [["Token", "string", "Reference any --blue-1 through --blue-5, --grey-1..5, --accent, --accent-light, --postit, --error"]],
+    a11y: "Blues 1-3 pair with white at AA. Tertiary grey on white passes only AA-Large; do not use for body."
+  },
+  {
+    id: "Foundations/Typography",
+    render: () => (
+      <div>
+        <div className="story-h"><h2>Typography</h2><p className="lede">Arial, Times, Courier — each with one job.</p></div>
+        <Card>
+          <h1 style={{ margin: 0 }}>H1 · 24 / 1.25 · Master repressor of the SOS response</h1>
+          <h2 style={{ margin: "var(--sp-3) 0 0" }}>H2 · 22 · Targets and conservation</h2>
+          <h3 style={{ margin: "var(--sp-3) 0 0" }}>H3 · 20 · Domain architecture</h3>
+          <h4 style={{ margin: "var(--sp-3) 0 0" }}>H4 · 18 · Per-organism summary</h4>
+          <p style={{ fontSize: "var(--fs-body-lg)", margin: "var(--sp-4) 0 0" }}>Body lg · 16 · Dual regulator of the L-arabinose utilization system…</p>
+          <p style={{ margin: "var(--sp-3) 0 0" }}>Body · 14 · Standard table cell, UI chrome, captions.</p>
+          <p style={{ fontFamily: "var(--font-citation)", fontStyle: "italic", margin: "var(--sp-3) 0 0" }}>Citation · Times Italic 14 · (Salgado et al., 2024)</p>
+          <p style={{ fontFamily: "var(--font-mono)", fontSize: "var(--fs-mono)", margin: "var(--sp-3) 0 0" }}>Mono · 13 · 5'-AACGTGGTGTGTAATTAATT-3'</p>
+        </Card>
+      </div>
+    ),
+    jsx: '<h1 style={{font: "var(--fs-h1)/var(--lh-h1) var(--font-sans)"}}/>',
+    html: 'h1 { font: 700 var(--fs-h1)/var(--lh-h1) var(--font-sans); }',
+    props: [],
+    a11y: "Headings always semantically ordered (h1 → h2 → h3 → h4). Don't skip levels for visual sizing."
+  },
+  // ATOMS ----------------------------------------------------------
+  {
+    id: "Atoms/Button",
+    render: () => (
+      <div>
+        <div className="story-h"><h2>Button</h2><p className="lede">Six variants, three sizes, six states.</p></div>
+        <div className="state-grid">
+          {["primary", "secondary", "outline", "ghost", "destructive", "link"].map((v) => (
+            <div className="state" key={v}>
+              <span className="label">{v}</span>
+              <div className="demo"><Button variant={v}>{v === "secondary" ? "Compare" : v === "destructive" ? "Delete set" : v === "link" ? "View references" : "Save"}</Button></div>
+            </div>
+          ))}
+          <div className="state"><span className="label">small / medium / large</span><div className="demo"><Button variant="primary" size="sm">SM</Button><Button variant="primary">MD</Button><Button variant="primary" size="lg">LG</Button></div></div>
+          <div className="state"><span className="label">disabled · loading</span><div className="demo"><Button variant="primary" disabled>Disabled</Button><Button variant="primary" loading>Loading</Button></div></div>
+        </div>
+      </div>
+    ),
+    jsx: `<Button variant="primary">Save</Button>
+<Button variant="secondary">Compare across organisms</Button>
+<Button variant="primary" loading>Saving</Button>`,
+    html: `<button class="btn btn--primary">Save</button>
+<button class="btn btn--secondary">Compare across organisms</button>
+<button class="btn btn--primary btn--loading">Saving</button>`,
+    props: [
+      ["variant", '"primary"|"secondary"|"outline"|"ghost"|"destructive"|"link"', '"primary"'],
+      ["size", '"sm"|"md"|"lg"', '"md"'],
+      ["loading", "boolean", "false"],
+      ["disabled", "boolean", "false"],
+    ],
+    a11y: "All variants pass WCAG AA on light. focus-visible double-ring is on by default. Use type='button' inside forms unless submit is intended."
+  },
+  {
+    id: "Atoms/Input",
+    render: () => (
+      <div className="state-grid">
+        <div className="state"><span className="label">default</span><div className="demo"><Input placeholder="Search" /></div></div>
+        <div className="state"><span className="label">filled</span><div className="demo"><Input defaultValue="lexA" /></div></div>
+        <div className="state"><span className="label">invalid</span><div className="demo"><Input defaultValue="!@#" aria-invalid="true" /></div></div>
+        <div className="state"><span className="label">disabled</span><div className="demo"><Input defaultValue="—" disabled /></div></div>
+        <div className="state"><span className="label">textarea</span><div className="demo"><Textarea rows={3} placeholder="Curator notes…" /></div></div>
+      </div>
+    ),
+    jsx: `<Input placeholder="Search" />
+<Input aria-invalid />
+<Textarea rows={3} />`,
+    html: `<input class="input" placeholder="Search" />
+<textarea class="textarea" rows="3"></textarea>`,
+    props: [["aria-invalid", "boolean", "false"], ["disabled", "boolean", "false"]],
+    a11y: "Always pair with a Label or aria-label. aria-invalid drives the error border."
+  },
+  {
+    id: "Atoms/Toggles",
+    render: () => (
+      <div className="state-grid">
+        <div className="state"><span className="label">checkbox</span><div className="demo"><label style={{ display: "flex", gap: 8, alignItems: "center" }}><Checkbox defaultChecked /> Curated only</label></div></div>
+        <div className="state"><span className="label">radio</span><div className="demo"><label style={{ display: "flex", gap: 8, alignItems: "center" }}><Radio name="r" defaultChecked /> Sense</label></div></div>
+        <div className="state"><span className="label">switch</span><div className="demo"><label style={{ display: "flex", gap: 8, alignItems: "center" }}><Switch defaultChecked /> Cross-organism</label></div></div>
+      </div>
+    ),
+    jsx: `<Checkbox /> <Radio name="r" /> <Switch />`,
+    html: `<input type="checkbox" class="checkbox" /> <input type="radio" class="radio" /> <input type="checkbox" class="switch" />`,
+    props: [],
+    a11y: "Custom-styled but semantically real <input>. Native keyboard semantics preserved."
+  },
+  {
+    id: "Atoms/Tag · Kbd · Link · Divider",
+    render: () => (
+      <div className="state-grid">
+        <div className="state"><span className="label">tag</span><div className="demo"><Tag>214 regulons</Tag><Tag variant="solid">Active</Tag><Tag variant="accent">Predicted</Tag></div></div>
+        <div className="state"><span className="label">kbd</span><div className="demo"><Kbd>⌘</Kbd><Kbd>K</Kbd> &nbsp; <Kbd>g</Kbd> <Kbd>h</Kbd></div></div>
+        <div className="state"><span className="label">link</span><div className="demo"><Link>view references</Link></div></div>
+        <div className="state"><span className="label">divider</span><div className="demo" style={{ width: "100%" }}><Divider /></div></div>
+      </div>
+    ),
+    jsx: `<Tag>214 regulons</Tag>
+<Kbd>⌘</Kbd><Kbd>K</Kbd>
+<Link>references</Link>
+<Divider />`,
+    html: `<span class="tag">214 regulons</span>
+<span class="kbd">⌘</span> <span class="kbd">K</span>
+<a class="link" href="#">references</a>
+<hr class="divider" />`,
+    props: [["Tag.variant", '"solid"|"accent"', "(neutral default)"]],
+    a11y: "Tag is presentational; for semantic 'this is selected' use aria-pressed on a real button."
+  },
+  {
+    id: "Atoms/Spinner · Skeleton",
+    render: () => (
+      <div>
+        <Card>
+          <div className="demo"><Spinner /> <span style={{ color: "var(--text-secondary)" }}>Spinner — only when silhouette unknown</span></div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 16, maxWidth: 420 }}>
+            <Skeleton width="60%" />
+            <Skeleton width="90%" />
+            <Skeleton width="75%" height={18} />
+            <Skeleton width="100%" height={64} />
+          </div>
+        </Card>
+      </div>
+    ),
+    jsx: `<Spinner />
+<Skeleton width="60%" /><Skeleton width="90%" /><Skeleton height={64} />`,
+    html: `<span class="spinner" aria-label="Loading"></span>
+<span class="skeleton" style="width:60%"></span>`,
+    props: [["Skeleton.width", "string|number", '"100%"'], ["Skeleton.height", "string|number", "12"]],
+    a11y: "Spinner: aria-label='Loading'. Skeletons disable shimmer under prefers-reduced-motion."
+  },
+  {
+    id: "Atoms/Scientific",
+    render: () => (
+      <Card>
+        <div style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: 12, fontSize: "var(--fs-body-lg)" }}>
+          <span style={{ color: "var(--text-secondary)" }}>Gene</span>          <Gene>araC</Gene>
+          <span style={{ color: "var(--text-secondary)" }}>Operon</span>        <OperonNotation>lacZYA</OperonNotation>
+          <span style={{ color: "var(--text-secondary)" }}>TaxonName + strain</span><TaxonName strain="K-12 MG1655">Escherichia coli</TaxonName>
+          <span style={{ color: "var(--text-secondary)" }}>Protein</span>       <ProteinSymbol>AraC</ProteinSymbol>
+          <span style={{ color: "var(--text-secondary)" }}>Sigma factor</span>  <SigmaFactorLabel value={70} />
+          <span style={{ color: "var(--text-secondary)" }}>Promoter pos</span>  <PromoterPositionLabel pos={-10} /> &nbsp; <PromoterPositionLabel pos={-35} />
+          <span style={{ color: "var(--text-secondary)" }}>Coordinate</span>    <Coordinate value={3923882} />
+        </div>
+      </Card>
+    ),
+    jsx: `<Gene>araC</Gene>
+<TaxonName strain="K-12 MG1655">Escherichia coli</TaxonName>
+<SigmaFactorLabel value={70} />          // → σ⁷⁰
+<PromoterPositionLabel pos={-10} />      // → −10
+<Coordinate value={3923882} />           // → 3,923,882`,
+    html: `<em class="gene">araC</em>
+<em class="taxon">Escherichia coli</em> <span class="strain">K-12 MG1655</span>
+<span class="sigma">σ⁷⁰</span>
+<span class="promoter-pos">−10</span>
+<span class="coordinate">3,923,882</span>`,
+    props: [
+      ["Gene", "children: ReactNode", "—"],
+      ["TaxonName", "children, strain?: string", "—"],
+      ["SigmaFactorLabel", "value: number", "—"],
+      ["PromoterPositionLabel", "pos: number", "—"],
+      ["Coordinate", "value: number", "—"],
+    ],
+    a11y: "Italic semantics carry meaning, so we use <em>. ProteinSymbol overrides any inherited italic. SigmaFactor uses Unicode superscript glyphs (not <sup>) for screen-reader correctness."
+  },
+  // MOLECULES ------------------------------------------------------
+  {
+    id: "Molecules/EvidenceBadge",
+    render: () => (
+      <div className="state-grid">
+        {["IDA","IPI","IEP","IC"].map((c) => <div className="state" key={c}><span className="label">{c} (curated)</span><div className="demo"><Tooltip label="Inferred from Direct Assay"><EvidenceBadge code={c} category="curated" /></Tooltip></div></div>)}
+        <div className="state"><span className="label">IEA (predicted)</span><div className="demo"><Tooltip label="Inferred from Electronic Annotation"><EvidenceBadge code="IEA" category="predicted" /></Tooltip></div></div>
+        <div className="state"><span className="label">HT (high-throughput)</span><div className="demo"><Tooltip label="High-throughput dataset"><EvidenceBadge code="HT" category="ht" /></Tooltip></div></div>
+        <div className="state"><span className="label">NAS (weak)</span><div className="demo"><Tooltip label="Non-traceable / weak"><EvidenceBadge code="NAS" category="weak" /></Tooltip></div></div>
+      </div>
+    ),
+    jsx: `<EvidenceBadge code="IDA" category="curated" />`,
+    html: `<span class="ev-badge ev-badge--curated">IDA</span>`,
+    props: [
+      ["code", "string", "—"],
+      ["category", '"curated"|"predicted"|"ht"|"weak"', '"curated"'],
+    ],
+    a11y: "Color is never alone — code text carries 100% of the meaning. Pair with Tooltip for the long phrase."
+  },
+  {
+    id: "Molecules/ObjectTypeTag",
+    render: () => (
+      <Card><div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+        {["gene","operon","tf","regulon","promoter","dataset"].map((t) => <ObjectTypeTag key={t} type={t} />)}
+      </div></Card>
+    ),
+    jsx: `<ObjectTypeTag type="gene" />`,
+    html: `<span class="obj-tag obj-tag--gene">Gene</span>`,
+    props: [["type", '"gene"|"operon"|"tf"|"regulon"|"promoter"|"dataset"', "—"]],
+    a11y: "Faster to read than 14px icons in dense lists. Pairs name + colored dot."
+  },
+  {
+    id: "Molecules/Tabs",
+    render: () => {
+      const [v, sV] = useState("Summary");
+      const [s, sS] = useState("Curated");
+      return (
+        <Card>
+          <Tabs items={["Summary","Regulation","Sequence","Evidence","References"]} value={v} onChange={sV} />
+          <div style={{ height: 16 }} />
+          <Tabs items={["Curated","Predicted","High-throughput"]} value={s} onChange={sS} segmented />
+        </Card>
+      );
+    },
+    jsx: `<Tabs items={["Summary","Regulation"]} value={v} onChange={sV} />
+<Tabs items={["Curated","Predicted"]} segmented value={s} onChange={sS} />`,
+    html: `<div class="tabs" role="tablist">
+  <button role="tab" aria-selected="true">Summary</button>
+  <button role="tab">Regulation</button>
+</div>`,
+    props: [["items", "string[]", "—"], ["value", "string", "—"], ["onChange", "(v:string)=>void", "—"], ["segmented", "boolean", "false"]],
+    a11y: "Roles role=tablist + role=tab + aria-selected applied. ↑↓ keyboard wiring deferred to lib (inferred from value/onChange)."
+  },
+  {
+    id: "Molecules/Card",
+    render: () => (
+      <div className="state-grid">
+        {["default","sunken","section","note"].map((v) => (
+          <div className="state" key={v}><span className="label">{v}</span><Card variant={v === "default" ? undefined : v} header={v[0].toUpperCase()+v.slice(1)}>Surface variant.</Card></div>
+        ))}
+      </div>
+    ),
+    jsx: `<Card header="Title" variant="section">…</Card>`,
+    html: `<div class="card card--section">…</div>`,
+    props: [["variant", '"sunken"|"section"|"note"|undefined', "(white default)"]],
+    a11y: "Cards have no implicit role; if the whole card is interactive, wrap in a single <a> or <button>, not divs."
+  },
+  {
+    id: "Molecules/Toast",
+    render: () => (
+      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        <Toast title="Set saved" desc='"SOS targets" — 14 genes' />
+        <Toast tone="success" title="Export complete" desc="lexA-targets.tsv (14 rows)" />
+        <Toast tone="warning" title="No ortholog data" desc="B. subtilis: distinct family (AraR)" />
+        <Toast tone="error"   title="Connection lost" desc="Retry · view status" />
+      </div>
+    ),
+    jsx: `<Toast tone="success" title="Export complete" desc="lexA-targets.tsv" />`,
+    html: `<div class="toast toast--success">…</div>`,
+    props: [["tone", '"info"|"success"|"warning"|"error"', '"info"'], ["title", "string", "—"], ["desc", "string?", "—"]],
+    a11y: "Render inside a region with role='status' (success/info) or role='alert' (warning/error)."
+  },
+  {
+    id: "Molecules/Pagination",
+    render: () => <Card><Pagination page={2} total={5} /></Card>,
+    jsx: `<Pagination page={2} total={5} />`,
+    html: `<div class="pagination">…</div>`,
+    props: [["page", "number", "1"], ["total", "number", "—"]],
+    a11y: "Current page uses aria-current='page'. First/last buttons disable rather than hide for affordance continuity."
+  },
+  {
+    id: "Molecules/Table",
+    render: () => (
+      <Card>
+        <table className="data">
+          <thead><tr><th>Gene</th><th>Position</th><th>Strand</th><th>Length</th><th>Evidence</th></tr></thead>
+          <tbody>
+            {[
+              ["recA", 2820830, "+", 1062, "IDA"],
+              ["uvrA", 4266402, "+", 2823, "IDA"],
+              ["sulA", 1043002, "−", 510,  "IDA"],
+              ["dinB", 242310,  "+", 1053, "IEA"],
+              ["umuD", 1228001, "+", 420,  "HT"],
+            ].map(([g, p, s, l, e]) => (
+              <tr key={g}>
+                <td><Gene>{g}</Gene></td>
+                <td><Coordinate value={p} /></td>
+                <td>{s}</td>
+                <td><Coordinate value={l} /> bp</td>
+                <td><EvidenceBadge code={e} category={e === "IEA" ? "predicted" : e === "HT" ? "ht" : "curated"} /></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </Card>
+    ),
+    jsx: `<table class="data"><thead>...</thead><tbody>...</tbody></table>`,
+    html: `<table class="data"><thead><tr><th>Gene</th>…</tr></thead></table>`,
+    props: [],
+    a11y: "Sticky <thead>, hover row, <th scope='col'>; horizontal scroll on narrow viewports (never reflowed into cards)."
+  },
+  {
+    id: "Molecules/Sequence",
+    render: () => (
+      <Card>
+        <Sequence highlight="GAAGCATTTC" blocks={[
+          { pos: 1,   seq: "AACGTGGTGT GTAATTAATT TAACGTACGT GAATCCAGCG ATATCAACTC" },
+          { pos: 51,  seq: "TGCAGCGTGC AGAACGCAAA GAAGCATTTC CACGCAATAA CCAGCAAGCA" },
+          { pos: 101, seq: "GAATTGTTAA CTGTGAGTGC GTAGCATGCA TGCATTGAGC ACTTGAGCAT" },
+        ]}/>
+      </Card>
+    ),
+    jsx: `<Sequence highlight="GAAGCATTTC" blocks={[{pos:1, seq:"AACGT..."}]} />`,
+    html: `<pre class="sequence"><span class="num">1</span> AACGT…</pre>`,
+    props: [["blocks", "{pos:number,seq:string}[]", "—"], ["highlight", "string?", "—"]],
+    a11y: "Use <pre> so screen readers don't strip whitespace; numbers are decorative — wrap in aria-hidden if needed."
+  },
+  {
+    id: "Molecules/ConservationBar",
+    render: () => (
+      <Card>
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <ConservationBar pct={92} label={<><span style={{ marginLeft: 4 }}>vs <TaxonName>E. coli</TaxonName></span></>} />
+          <ConservationBar pct={73} label={<><span style={{ marginLeft: 4 }}>vs <TaxonName>S. enterica</TaxonName></span></>} />
+          <ConservationBar pct={41} label={<><span style={{ marginLeft: 4 }}>vs <TaxonName>B. subtilis</TaxonName></span></>} />
+        </div>
+      </Card>
+    ),
+    jsx: `<ConservationBar pct={92} label="vs E. coli" />`,
+    html: `<span class="cons-bar"><span class="track"><span class="fill" style="width:92%"></span></span>92%</span>`,
+    props: [["pct", "0–100", "—"], ["label", "ReactNode?", "—"]],
+    a11y: "Numeric % always rendered alongside the bar — color/length is never the only signal."
+  },
+  {
+    id: "Molecules/EmptyState",
+    render: () => (
+      <EmptyState icon="◌"
+        title="No regulons match these filters"
+        description="Clear filters or broaden your search to include predicted interactions."
+        action={<Button variant="outline" size="sm">Clear filters</Button>} />
+    ),
+    jsx: `<EmptyState title="No regulons match these filters" description="…" action={<Button>Clear</Button>} />`,
+    html: `<div class="empty"><div class="icon">◌</div><h4>…</h4><p>…</p></div>`,
+    props: [["icon", "ReactNode?", "○"], ["title", "string", "—"], ["description", "string?", "—"], ["action", "ReactNode?", "—"]],
+    a11y: "Empty state copy must say what happened AND what to do. Avoid 'Oops' / playful copy."
+  },
+  // ORGANISMS ------------------------------------------------------
+  {
+    id: "Organisms/Header",
+    render: () => <div style={{ borderRadius: "var(--radius-md)", overflow: "hidden", border: "1px solid var(--border-default)" }}><Header /><PrimaryNav /></div>,
+    jsx: `<Header />\n<PrimaryNav />`,
+    html: `<header class="app-header">…</header><nav class="primary-nav">…</nav>`,
+    props: [],
+    a11y: "<header role='banner'> + <nav role='navigation'>. Skip-to-content link must precede the header."
+  },
+  {
+    id: "Organisms/ActiveOrganismCard",
+    render: () => <ActiveOrganismCard />,
+    jsx: `<ActiveOrganismCard organism={{ taxon: "Escherichia coli", strain: "K-12 MG1655", stats: {…} }} />`,
+    html: `<div class="active-org-card">…</div>`,
+    props: [["organism", "{taxon, strain, stats:{genes,tfs,operons,regulons}}", "—"]],
+    a11y: "On dark surface — text colors remap automatically. The radial highlight is decorative (no aria)."
+  },
+  {
+    id: "Organisms/RegulonRadial",
+    render: () => <Card><RegulonRadial /></Card>,
+    jsx: `<RegulonRadial tf={tfData} targets={lexATargets} />`,
+    html: `<svg viewBox="0 0 480 380">…</svg>`,
+    props: [["tf", "{ symbol, x, y }", "—"], ["targets", "{ symbol, effect, evidence }[]", "—"]],
+    a11y: "SVG titled and described via <title>/<desc>; arrows have role='img' with aria-label='LexA represses recA (curated)'."
+  },
+  {
+    id: "Organisms/OrganismDrawer",
+    render: () => (
+      <Card variant="sunken">
+        <p style={{ color: "var(--text-secondary)", margin: 0 }}>Sheet right-anchored. Filter input + scrollable organism list + active state.</p>
+        <p style={{ color: "var(--text-tertiary)", fontSize: "var(--fs-mono-sm)", fontFamily: "var(--font-mono)", margin: "8px 0 0" }}>Live in Storybook · stub here.</p>
+      </Card>
+    ),
+    jsx: `<OrganismDrawer open={open} onClose={() => setOpen(false)} />`,
+    html: `<div class="drawer-overlay"></div><aside class="drawer-panel">…</aside>`,
+    props: [["open", "boolean", "false"], ["onClose", "() => void", "—"]],
+    a11y: "Trap focus while open. Esc closes. Restore focus to the trigger."
+  },
+  // PAGES ----------------------------------------------------------
+  {
+    id: "Pages/Home",
+    render: () => (
+      <div>
+        <Header /><PrimaryNav />
+        <div style={{ padding: 24, background: "var(--surface-canvas)" }}>
+          <ActiveOrganismCard />
+        </div>
+      </div>
+    ),
+    jsx: `<HomePage organism={ecoli} />`,
+    html: `(composed via templates)`,
+    props: [["organism", "Organism", "—"]],
+    a11y: "Hero search auto-focused on /. Skip-to-content link skips the hero too."
+  },
+  {
+    id: "Pages/Gene · araC",
+    render: () => (
+      <div>
+        <Header /><PrimaryNav />
+        <div style={{ padding: 24 }}>
+          <Breadcrumb items={[
+            { label: <><TaxonName>E. coli</TaxonName> K-12</>, href: "#" },
+            { label: "Genes", href: "#" },
+            { label: <Gene>araC</Gene> },
+          ]} />
+          <div style={{ height: 12 }} />
+          <Card>
+            <ObjectTypeTag type="gene" />
+            <h1 style={{ margin: "8px 0 4px" }}><Gene>araC</Gene></h1>
+            <p style={{ color: "var(--text-secondary)", margin: 0, maxWidth: "70ch" }}>
+              Dual regulator of the L-arabinose utilization system; activates the <Gene>araBAD</Gene>, <Gene>araE</Gene> and <Gene>araFGH</Gene> operons in the presence of arabinose and represses <Gene>araC</Gene> in its absence.
+            </p>
+            <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+              <EvidenceBadge code="IDA" /><EvidenceBadge code="IPI" /><EvidenceBadge code="HT" category="ht" /><EvidenceBadge code="IEA" category="predicted" />
+            </div>
+          </Card>
+          <div style={{ height: 16 }} />
+          <Tabs items={["Summary","Regulation","Sequence","Evidence","References"]} value="Summary" onChange={() => {}} />
+        </div>
+      </div>
+    ),
+    jsx: `<GeneAraCPage />`,
+    html: `(composed via GeneTemplate)`,
+    props: [],
+    a11y: "Tabs become aria-controlled panels. Sticky TOC variant uses landmark <nav aria-label='Sections'>."
+  },
+];
+
+/* =========================================================================
+   APP SHELL
+   ========================================================================= */
+const groups = [
+  { name: "Foundations", ids: stories.filter(s => s.id.startsWith("Foundations/")).map(s => s.id) },
+  { name: "Atoms",       ids: stories.filter(s => s.id.startsWith("Atoms/")).map(s => s.id) },
+  { name: "Molecules",   ids: stories.filter(s => s.id.startsWith("Molecules/")).map(s => s.id) },
+  { name: "Organisms",   ids: stories.filter(s => s.id.startsWith("Organisms/")).map(s => s.id) },
+  { name: "Pages",       ids: stories.filter(s => s.id.startsWith("Pages/")).map(s => s.id) },
+];
+
+function App() {
+  const [active, setActive] = useState(stories[0].id);
+  const [theme, setTheme] = useState("auto");
+  const [viewport, setViewport] = useState("desktop");
+  const [tab, setTab] = useState("Code (JSX)");
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === "auto") root.removeAttribute("data-theme");
+    else root.setAttribute("data-theme", theme);
+  }, [theme]);
+
+  const story = useMemo(() => stories.find(s => s.id === active) || stories[0], [active]);
+
+  const copy = (text) => {
+    navigator.clipboard?.writeText(text);
+  };
+
+  return (
+    <div className="sb-shell">
+      <aside className="sb-side">
+        <div className="brand" style={{ flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
+          <LogoSvg height={28} />
+          <small style={{ color: "var(--blue-4)", textTransform: "uppercase", fontSize: 11, letterSpacing: "0.06em", fontWeight: 700, paddingLeft: 2 }}>Showcase</small>
+        </div>
+        {groups.map((g) => (
+          <div key={g.name}>
+            <h5>{g.name}</h5>
+            {g.ids.map((id) => (
+              <button key={id} className={`item${active === id ? " active" : ""}`} onClick={() => setActive(id)}>
+                {id.split("/")[1]}
+              </button>
+            ))}
+          </div>
+        ))}
+        <h5>Library</h5>
+        <a className="item" href="../spec/index.html" style={{ color: "rgba(255,255,255,0.85)" }}>← Open spec</a>
+      </aside>
+
+      <div className="sb-main">
+        <div className="sb-topbar">
+          <h1>{story.id}</h1>
+          <span className="meta">· {story.id.split("/")[0].toLowerCase()} story</span>
+          <div className="right">
+            {["desktop","tablet","mobile"].map((v) => (
+              <button key={v} className={`sb-toolbar-btn${viewport === v ? " on" : ""}`} onClick={() => setViewport(v)}>
+                {v[0].toUpperCase() + v.slice(1)}
+              </button>
+            ))}
+            <span style={{ width: 8 }} />
+            {["auto","light","dark"].map((t) => (
+              <button key={t} className={`sb-toolbar-btn${theme === t ? " on" : ""}`} onClick={() => setTheme(t)}>
+                {t}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="sb-canvas">
+          <div className={`viewport ${viewport}`}>
+            {/* Mount the story as its own component so hooks inside `render`
+                live in their own scope. Without this, switching between a
+                story that uses `useState` and one that doesn't changes the
+                hook count of <App> — React error #310. The `key` ensures a
+                clean unmount/mount when switching stories rapidly. */}
+            {React.createElement(story.render, { key: story.id })}
+          </div>
+        </div>
+
+        <div className="sb-bottom">
+          <div className="tabs">
+            {["Props","Code (JSX)","Code (HTML)","A11y notes"].map((t) => (
+              <button key={t} className={tab === t ? "on" : ""} onClick={() => setTab(t)}>{t}</button>
+            ))}
+            {tab.startsWith("Code") && (
+              <button className="sb-toolbar-btn" style={{ marginLeft: "auto", marginTop: 6, marginRight: 12 }}
+                onClick={() => copy(tab === "Code (JSX)" ? story.jsx : story.html)}>Copy</button>
+            )}
+          </div>
+          <div className={`body ${tab === "Props" ? "props" : ""}`}>
+            {tab === "Code (JSX)" && story.jsx}
+            {tab === "Code (HTML)" && story.html}
+            {tab === "A11y notes" && <span style={{ whiteSpace: "normal", fontFamily: "var(--font-sans)", fontSize: "var(--fs-body)" }}>{story.a11y}</span>}
+            {tab === "Props" && (
+              story.props && story.props.length ? (
+                <table className="data">
+                  <thead><tr><th>Name</th><th>Type</th><th>Default</th></tr></thead>
+                  <tbody>{story.props.map((row, i) => <tr key={i}>{row.map((c, j) => <td key={j}><code>{c}</code></td>)}</tr>)}</tbody>
+                </table>
+              ) : <span style={{ color: "var(--text-tertiary)" }}>No props.</span>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

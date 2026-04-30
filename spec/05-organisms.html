@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" data-page="organisms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Organisms · RegulonDB MG Design System</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/spec.css">
+<link rel="stylesheet" href="assets/components.css">
+<style>
+  .demo-frame { border: 1px solid var(--border-default); border-radius: var(--radius-md); overflow: hidden; background: var(--surface-canvas); }
+  /* Genome strip */
+  svg.genome-strip { display: block; width: 100%; height: 200px; background: var(--surface-canvas); }
+  /* Radial */
+  svg.radial { width: 100%; max-width: 480px; height: 380px; display: block; margin: 0 auto; }
+  /* Ortholog matrix */
+  .ortho-grid { display: grid; grid-template-columns: 160px repeat(3, 1fr); gap: 0; font-size: var(--fs-mono-sm); font-family: var(--font-mono); }
+  .ortho-grid .h { padding: 8px 12px; background: var(--surface-sunken); border-bottom: 1px solid var(--border-default); font-weight: 700; color: var(--text-secondary); }
+  .ortho-grid .lbl { padding: 8px 12px; border-bottom: 1px solid var(--border-subtle); color: var(--text-primary); font-family: var(--font-sans); }
+  .ortho-grid .cell { padding: 8px 12px; border-bottom: 1px solid var(--border-subtle); border-left: 1px solid var(--border-subtle); }
+  .cell-90 { background: var(--blue-2); color: #fff; } .cell-75 { background: var(--blue-3); color: #fff; }
+  .cell-55 { background: var(--blue-4); color: #fff; } .cell-30 { background: var(--blue-5); color: var(--text-primary); }
+  .cell-na { background: var(--surface-sunken); color: var(--text-tertiary); }
+
+  /* Faceted sidebar */
+  .facet-side { width: 280px; border-right: 1px solid var(--border-default); padding: var(--sp-4); background: var(--surface-canvas); }
+  .facet-side .facet { margin-bottom: var(--sp-4); }
+  .facet-side .facet h5 { font-size: var(--fs-mono-sm); text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); margin: 0 0 var(--sp-2); }
+  .facet-side .facet label { display: flex; justify-content: space-between; align-items: center; font-size: var(--fs-body); padding: 4px 0; }
+  .facet-side .facet label .ct { color: var(--text-tertiary); font-family: var(--font-mono); font-size: var(--fs-mono-sm); }
+  .chip { display: inline-flex; align-items: center; gap: 6px; background: var(--blue-5); border-radius: var(--radius-pill); padding: 2px 10px; font-size: var(--fs-mono-sm); margin-right: 6px; }
+  .chip button { background: none; border: 0; cursor: pointer; color: var(--text-secondary); }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="shell">
+  <aside class="sidebar" aria-label="Design system navigation">
+    <div class="brand">
+      <img class="brand-logo" src="assets/logo-on-dark.svg" alt="RegulonDB" />
+      <small class="brand-strap">Multi-genomic</small>
+    </div>
+    <nav>
+      <h5>Manual</h5>
+      <a href="index.html">Overview</a><a href="01-foundations.html">01 · Foundations</a><a href="02-conventions.html">02 · Conventions</a>
+      <h5>Components</h5>
+      <a href="03-atoms.html">03 · Atoms</a><a href="04-molecules.html">04 · Molecules</a><a href="05-organisms.html">05 · Organisms</a><a href="06-templates.html">06 · Templates</a><a href="07-pages.html">07 · Pages</a>
+      <h5>Quality</h5>
+      <a href="08-accessibility.html">08 · Accessibility</a><a href="09-changelog.html">09 · Changelog</a>
+      <h5>Library</h5>
+      <a href="../lib/showcase.html">Showcase (preview)</a>
+    </nav>
+  </aside>
+
+  <main class="main" id="main">
+    <div class="topbar">
+      <div><div class="eyebrow">05 · Organisms</div><h1>Organisms</h1></div>
+      <div class="actions"><button class="btn-ghost" data-action="theme" type="button">Theme: auto</button></div>
+    </div>
+    <p class="lede" style="margin-bottom: var(--sp-7);">Self-contained sections of a page. They combine molecules + atoms; they have visible logic.</p>
+
+    <!-- Header -->
+    <section class="section" id="header"><header><div class="eyebrow">Organism</div><h2>Header</h2><p class="lede">Brand lockup + primary nav slot + global search + organism pill + theme + &#8984;K trigger.</p></header>
+      <div class="card-frame">
+        <header><span>Live</span></header>
+        <div class="demo demo--plain" style="padding: 0;">
+          <header class="app-header">
+            <a class="brand-lockup" href="#" aria-label="RegulonDB home">
+              <img src="assets/logo-on-dark.svg" alt="RegulonDB" style="height: 26px; display: block;" />
+              <small class="brand-strap" style="margin-left: 8px;">Multi-genomic</small>
+            </a>
+            <div class="global-search">
+              <div class="search-input">
+                <svg class="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="16" y1="16" x2="22" y2="22"/></svg>
+                <input class="input" placeholder="Search genes, TFs, operons" />
+              </div>
+            </div>
+            <div class="right">
+              <span class="org-pill"><span class="symbol">Ec</span><em class="taxon">E. coli</em><span class="strain">K-12</span></span>
+              <button class="icon-btn" aria-label="Theme">&#9728;</button>
+              <button class="icon-btn" aria-label="Command palette"><span class="kbd" style="background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.18); color: #fff;">&#8984;K</span></button>
+            </div>
+          </header>
+          <nav class="primary-nav">
+            <a href="#" aria-current="page">Genes</a>
+            <a href="#">Operons</a>
+            <a href="#">Regulons</a>
+            <a href="#">TFs</a>
+            <a href="#">Promoters</a>
+            <a href="#">Datasets</a>
+            <a href="#">Tools</a>
+            <a href="#">Downloads</a>
+            <a href="#" style="margin-left: auto; color: var(--text-tertiary);">Help</a>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <!-- ActiveOrganismCard -->
+    <section class="section" id="active-org"><header><div class="eyebrow">Organism</div><h2>ActiveOrganismCard</h2></header>
+      <div class="card-frame"><header><span>Solid blue-1, radial highlight, monospace stats</span></header>
+        <div class="demo">
+          <div class="active-org-card">
+            <a class="switch-link link" href="#">Switch organism &rarr;</a>
+            <div class="eyebrow">Active organism</div>
+            <h2><em class="taxon" style="color:#fff;">Escherichia coli</em> <span class="strain" style="color: var(--blue-4);">K-12 MG1655</span></h2>
+            <div class="stats">
+              <div class="stat"><span class="num">4,639</span><span class="lbl">Genes</span></div>
+              <div class="stat"><span class="num">335</span><span class="lbl">TFs</span></div>
+              <div class="stat"><span class="num">2,783</span><span class="lbl">Operons</span></div>
+              <div class="stat"><span class="num">214</span><span class="lbl">Regulons</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GeneContextStrip -->
+    <section class="section" id="genome-strip"><header><div class="eyebrow">Organism</div><h2>GeneContextStrip</h2><p class="lede">Hand-drawn SVG showing the divergent <em class="gene">araC</em> / <em class="gene">araBAD</em> architecture: backbone, neighbors, promoters, operators (&minus;10 / &minus;35), TFBSs.</p></header>
+      <div class="card-frame"><header><span>araC locus</span></header>
+        <div class="demo demo--plain" style="background: var(--surface-raised);">
+          <svg class="genome-strip" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- backbone -->
+            <line x1="40" y1="100" x2="760" y2="100" stroke="#373737" stroke-width="2"/>
+            <!-- ticks -->
+            <g font-family="Courier New" font-size="10" fill="#999">
+              <text x="40" y="125" text-anchor="middle">70,387</text>
+              <text x="200" y="125" text-anchor="middle">70,500</text>
+              <text x="400" y="125" text-anchor="middle">70,750</text>
+              <text x="600" y="125" text-anchor="middle">71,000</text>
+              <text x="760" y="125" text-anchor="middle">71,200</text>
+            </g>
+            <!-- gene: araC (reverse, accent) -->
+            <polygon points="180,80 320,80 340,100 320,120 180,120 200,100" fill="#C98528" stroke="#8a5a15" stroke-width="1"/>
+            <text x="250" y="105" text-anchor="middle" font-family="Arial" font-size="14" font-style="italic" fill="#fff">araC</text>
+            <!-- gene: araB,A,D (forward, blue) -->
+            <polygon points="380,80 470,80 480,100 470,120 380,120" fill="#32617D"/>
+            <text x="425" y="105" text-anchor="middle" font-family="Arial" font-size="14" font-style="italic" fill="#fff">araB</text>
+            <polygon points="490,80 560,80 570,100 560,120 490,120" fill="#32617D"/>
+            <text x="525" y="105" text-anchor="middle" font-family="Arial" font-size="14" font-style="italic" fill="#fff">araA</text>
+            <polygon points="580,80 660,80 670,100 660,120 580,120" fill="#32617D"/>
+            <text x="620" y="105" text-anchor="middle" font-family="Arial" font-size="14" font-style="italic" fill="#fff">araD</text>
+            <!-- promoter labels -->
+            <line x1="350" y1="60" x2="350" y2="80" stroke="#3D779B" stroke-width="2"/>
+            <text x="350" y="55" text-anchor="middle" font-family="Arial" font-weight="700" font-size="12" fill="#3D779B">P_BAD &rarr;</text>
+            <line x1="370" y1="120" x2="370" y2="140" stroke="#C98528" stroke-width="2"/>
+            <text x="370" y="155" text-anchor="middle" font-family="Arial" font-weight="700" font-size="12" fill="#C98528">&larr; P_C</text>
+            <!-- operators -->
+            <rect x="345" y="140" width="14" height="14" fill="#6B2F64" rx="2"/>
+            <text x="352" y="170" text-anchor="middle" font-family="Courier New" font-size="10" fill="#6B2F64">araO1</text>
+            <rect x="365" y="140" width="14" height="14" fill="#6B2F64" rx="2"/>
+            <text x="372" y="170" text-anchor="middle" font-family="Courier New" font-size="10" fill="#6B2F64">araO2</text>
+            <rect x="385" y="140" width="14" height="14" fill="#6B2F64" rx="2"/>
+            <text x="392" y="170" text-anchor="middle" font-family="Courier New" font-size="10" fill="#6B2F64">araI1</text>
+            <rect x="405" y="140" width="14" height="14" fill="#6B2F64" rx="2"/>
+            <text x="412" y="170" text-anchor="middle" font-family="Courier New" font-size="10" fill="#6B2F64">araI2</text>
+            <!-- CRP -->
+            <rect x="425" y="140" width="20" height="14" fill="#1A4D6B" rx="2"/>
+            <text x="435" y="170" text-anchor="middle" font-family="Courier New" font-size="10" fill="#1A4D6B">CRP</text>
+            <!-- left neighbor -->
+            <polygon points="100,80 160,80 170,100 160,120 100,120" fill="#999" opacity="0.6"/>
+            <text x="130" y="105" text-anchor="middle" font-family="Arial" font-size="11" font-style="italic" fill="#fff">yaaJ</text>
+            <!-- right neighbor -->
+            <polygon points="690,80 740,80 750,100 740,120 690,120" fill="#999" opacity="0.6"/>
+            <text x="715" y="105" text-anchor="middle" font-family="Arial" font-size="11" font-style="italic" fill="#fff">yabF</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- RegulonRadial -->
+    <section class="section" id="radial"><header><div class="eyebrow">Organism</div><h2>RegulonRadial</h2><p class="lede">TF in center, targets around the rim, edges marked + or &#8722;.</p></header>
+      <div class="card-frame"><header><span>LexA regulon (sample)</span></header>
+        <div class="demo demo--plain" style="background: var(--surface-raised);">
+          <svg class="radial" viewBox="0 0 480 380">
+            <defs>
+              <marker id="arrow-rep" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+                <line x1="0" y1="2" x2="0" y2="8" stroke="#C93A1D" stroke-width="2"/>
+              </marker>
+              <marker id="arrow-act" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+                <path d="M0,0 L10,5 L0,10 z" fill="#32617D"/>
+              </marker>
+            </defs>
+            <g>
+              <!-- center TF -->
+              <circle cx="240" cy="190" r="34" fill="#1F3D4E"/>
+              <text x="240" y="194" text-anchor="middle" fill="#fff" font-family="Arial" font-weight="700" font-size="14">LexA</text>
+              <!-- targets -->
+              <g font-family="Arial" font-size="12" font-style="italic">
+                <circle cx="120" cy="60"  r="22" fill="#D5E2EA" stroke="#32617D"/><text x="120" y="64" text-anchor="middle" fill="#1F3D4E">recA</text><line x1="240" y1="190" x2="139" y2="78" stroke="#C93A1D" stroke-width="1.5" marker-end="url(#arrow-rep)"/>
+                <circle cx="360" cy="60"  r="22" fill="#D5E2EA" stroke="#32617D"/><text x="360" y="64" text-anchor="middle" fill="#1F3D4E">uvrA</text><line x1="240" y1="190" x2="341" y2="78" stroke="#C93A1D" stroke-width="1.5" marker-end="url(#arrow-rep)"/>
+                <circle cx="60" cy="190"  r="22" fill="#D5E2EA" stroke="#32617D"/><text x="60" y="194" text-anchor="middle" fill="#1F3D4E">sulA</text><line x1="240" y1="190" x2="82" y2="190" stroke="#C93A1D" stroke-width="1.5" marker-end="url(#arrow-rep)"/>
+                <circle cx="420" cy="190" r="22" fill="#D5E2EA" stroke="#32617D"/><text x="420" y="194" text-anchor="middle" fill="#1F3D4E">dinB</text><line x1="240" y1="190" x2="398" y2="190" stroke="#C93A1D" stroke-width="1.5" marker-end="url(#arrow-rep)"/>
+                <circle cx="120" cy="320" r="22" fill="#F8EEDD" stroke="#C98528" stroke-dasharray="3 3"/><text x="120" y="324" text-anchor="middle" fill="#1F3D4E">umuD</text><line x1="240" y1="190" x2="139" y2="302" stroke="#C98528" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrow-act)"/>
+                <circle cx="360" cy="320" r="22" fill="#D5E2EA" stroke="#32617D"/><text x="360" y="324" text-anchor="middle" fill="#1F3D4E">lexA</text><line x1="240" y1="190" x2="341" y2="302" stroke="#C93A1D" stroke-width="1.5" marker-end="url(#arrow-rep)"/>
+                <circle cx="240" cy="50"  r="22" fill="#ECE5F0" stroke="#7C5295"/><text x="240" y="54" text-anchor="middle" fill="#1F3D4E">ssb</text><line x1="240" y1="190" x2="240" y2="72" stroke="#7C5295" stroke-width="1.5" stroke-dasharray="1 3" marker-end="url(#arrow-rep)"/>
+                <circle cx="240" cy="330" r="22" fill="#D5E2EA" stroke="#32617D"/><text x="240" y="334" text-anchor="middle" fill="#1F3D4E">ruvA</text><line x1="240" y1="190" x2="240" y2="308" stroke="#C93A1D" stroke-width="1.5" marker-end="url(#arrow-rep)"/>
+              </g>
+            </g>
+          </svg>
+          <div class="net-legend" style="justify-content: center; margin-top: var(--sp-3);">
+            <span class="item"><span class="line solid" style="background: var(--error)"></span>Curated repression</span>
+            <span class="item"><span class="line dashed"></span>Predicted activation</span>
+            <span class="item"><span class="line dotted"></span>HT (gSELEX)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OrthologMatrix -->
+    <section class="section" id="ortho"><header><div class="eyebrow">Organism</div><h2>OrthologMatrix</h2></header>
+      <div class="card-frame"><header><span>SOS regulon conservation</span></header>
+        <div class="demo demo--plain" style="background: var(--surface-raised);">
+          <div class="ortho-grid">
+            <div class="h">Target</div><div class="h">E. coli</div><div class="h">S. enterica</div><div class="h">B. subtilis</div>
+            <div class="lbl"><em class="gene">recA</em></div><div class="cell cell-90">98%</div><div class="cell cell-90">96%</div><div class="cell cell-55">62%</div>
+            <div class="lbl"><em class="gene">uvrA</em></div><div class="cell cell-90">100%</div><div class="cell cell-75">82%</div><div class="cell cell-30">38%</div>
+            <div class="lbl"><em class="gene">sulA</em></div><div class="cell cell-90">100%</div><div class="cell cell-75">79%</div><div class="cell cell-na">N/A</div>
+            <div class="lbl"><em class="gene">dinB</em></div><div class="cell cell-90">100%</div><div class="cell cell-90">93%</div><div class="cell cell-55">55%</div>
+            <div class="lbl"><em class="gene">umuD</em></div><div class="cell cell-90">100%</div><div class="cell cell-75">88%</div><div class="cell cell-na">N/A</div>
+            <div class="lbl"><em class="gene">lexA</em></div><div class="cell cell-90">100%</div><div class="cell cell-90">94%</div><div class="cell cell-55">61%</div>
+          </div>
+          <div class="net-legend" style="margin-top: var(--sp-3);">
+            <span class="item">% identity vs <em class="taxon">E. coli</em></span>
+            <span class="item"><span class="line solid" style="background: var(--blue-2)"></span>&gt;85%</span>
+            <span class="item"><span class="line solid" style="background: var(--blue-3)"></span>65&ndash;85%</span>
+            <span class="item"><span class="line solid" style="background: var(--blue-4)"></span>40&ndash;65%</span>
+            <span class="item"><span class="line solid" style="background: var(--blue-5)"></span>&lt;40%</span>
+            <span class="item">N/A &mdash; no direct ortholog</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Faceted sidebar -->
+    <section class="section" id="faceted"><header><div class="eyebrow">Organism</div><h2>FacetedSidebar</h2><p class="lede">Filter groups with counts and active chips at the top of the result column.</p></header>
+      <div class="card-frame"><header><span>Faceted layout</span></header>
+        <div class="demo demo--plain" style="display: flex; gap: 0; padding: 0;">
+          <div class="facet-side">
+            <div class="facet"><h5>Object type</h5>
+              <label><span class="row tight"><input type="checkbox" class="checkbox" checked /> Genes</span><span class="ct">12,402</span></label>
+              <label><span class="row tight"><input type="checkbox" class="checkbox" /> TFs</span><span class="ct">335</span></label>
+              <label><span class="row tight"><input type="checkbox" class="checkbox" /> Operons</span><span class="ct">2,783</span></label>
+              <label><span class="row tight"><input type="checkbox" class="checkbox" /> Regulons</span><span class="ct">214</span></label>
+            </div>
+            <div class="facet"><h5>Evidence</h5>
+              <label><span class="row tight"><input type="checkbox" class="checkbox" checked /> Curated</span><span class="ct">8,210</span></label>
+              <label><span class="row tight"><input type="checkbox" class="checkbox" /> Predicted</span><span class="ct">4,200</span></label>
+              <label><span class="row tight"><input type="checkbox" class="checkbox" /> High-throughput</span><span class="ct">980</span></label>
+            </div>
+            <div class="facet"><h5>Organism</h5>
+              <label><span class="row tight"><input type="radio" name="o" class="radio" checked /> E. coli K-12</span><span class="ct">4,639</span></label>
+              <label><span class="row tight"><input type="radio" name="o" class="radio" /> S. enterica</span><span class="ct">4,489</span></label>
+              <label><span class="row tight"><input type="radio" name="o" class="radio" /> B. subtilis</span><span class="ct">4,176</span></label>
+            </div>
+          </div>
+          <div style="flex: 1; padding: var(--sp-4); background: var(--surface-canvas);">
+            <div style="margin-bottom: var(--sp-3);">
+              <span class="chip"><em class="gene">lexA</em><button>&times;</button></span>
+              <span class="chip">Curated only<button>&times;</button></span>
+              <span class="chip"><em class="taxon">E. coli</em> K-12<button>&times;</button></span>
+            </div>
+            <p style="color: var(--text-secondary); font-size: var(--fs-mono-sm); font-family: var(--font-mono);">RESULTS &middot; 14 of 14 &middot; sorted by relevance</p>
+            <table class="data compact" style="margin-top: var(--sp-3);">
+              <thead><tr><th>Symbol</th><th>Type</th><th>Length</th><th>Evidence</th></tr></thead>
+              <tbody>
+                <tr><td><em class="gene">recA</em></td><td><span class="obj-tag obj-tag--gene">Gene</span></td><td><span class="coordinate">1,062 bp</span></td><td><span class="ev-badge ev-badge--curated">IDA</span></td></tr>
+                <tr><td><em class="gene">uvrA</em></td><td><span class="obj-tag obj-tag--gene">Gene</span></td><td><span class="coordinate">2,823 bp</span></td><td><span class="ev-badge ev-badge--curated">IDA</span></td></tr>
+                <tr><td><span class="protein">LexA</span></td><td><span class="obj-tag obj-tag--tf">TF</span></td><td><span class="coordinate">607 bp</span></td><td><span class="ev-badge ev-badge--curated">IDA</span></td></tr>
+                <tr><td><em class="gene">sulA</em></td><td><span class="obj-tag obj-tag--gene">Gene</span></td><td><span class="coordinate">510 bp</span></td><td><span class="ev-badge ev-badge--curated">IPI</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Assistant organisms -->
+    <section class="section" id="assistant"><header><div class="eyebrow">Organism &middot; Assistant</div><h2>ChatPanel &middot; ExplainerPanel</h2>
+      <p class="lede">Two assistant surfaces. <strong>ChatPanel</strong> is the slide-in right drawer that hosts the RAG chat &mdash; open-ended Q&amp;A with citations back to curated objects. <strong>ExplainerPanel</strong> is the page-side variant for the per-page explainer.</p>
+    </header>
+
+    <div class="card-frame"><header><span>ChatPanel anatomy</span></header><div class="demo">
+      <ul style="line-height: 1.9;">
+        <li><strong>Header</strong> &mdash; sparkle + title + subtitle slot + close.</li>
+        <li><strong>Messages</strong> &mdash; ChatMessage list, auto-scrolled to bottom on append.</li>
+        <li><strong>Composer</strong> &mdash; ChatComposer molecule pinned to the bottom; suggestions row above the textarea.</li>
+        <li><strong>Behaviour</strong> &mdash; focus-trapped while open, <code>Esc</code> closes, body scroll is <em>not</em> locked, overlay is fully transparent (no dim, no backdrop blur) so the page beneath stays visible and interactive. The panel is a side drawer, not a modal.</li>
+        <li><strong>Trigger</strong> &mdash; floating <code>.assistant-fab</code> bottom-right + <code>&#8984;J</code> / <code>Ctrl+J</code> shortcut.</li>
+      </ul>
+    </div></div>
+
+    <div class="card-frame"><header><span>ExplainerPanel demo</span></header><div class="demo">
+      <section class="explainer-panel">
+        <div class="explainer-panel__head">
+          <div class="explainer-panel__title"><span class="explainer-panel__sparkle" aria-hidden="true">&#10022;</span>About <em class="gene">araC</em></div>
+          <div style="display:flex; gap:8px; align-items:center">
+            <div class="level-picker tabs tabs--segmented" role="tablist" aria-label="Explanation level">
+              <button role="tab" aria-selected="false">PI</button>
+              <button role="tab" aria-selected="true">Postdoc</button>
+              <button role="tab" aria-selected="false">Undergrad</button>
+              <button role="tab" aria-selected="false">Public</button>
+            </div>
+            <button class="btn btn--ghost btn--sm">Open in chat</button>
+          </div>
+        </div>
+        <div class="explainer-panel__body">
+          <p><em class="gene">araC</em> codes for AraC, the regulator of L-arabinose catabolism. Without arabinose AraC represses <em>araBAD</em> via a DNA loop. With arabinose it activates <em>araBAD</em>, <em>araE</em> and <em>araFGH</em>; CRP-cAMP is required for full activation.</p>
+        </div>
+        <div class="explainer-panel__cites">
+          <a href="#" class="citation-chip"><span class="obj-tag obj-tag--gene">gene</span><span class="citation-chip__label"><em class="gene">araC</em></span></a>
+          <a href="#" class="citation-chip"><span class="obj-tag obj-tag--tf">tf</span><span class="citation-chip__label">AraC</span></a>
+          <a href="#" class="citation-chip"><span class="obj-tag obj-tag--regulon">regulon</span><span class="citation-chip__label">AraC</span></a>
+        </div>
+      </section>
+    </div></div>
+
+    <div class="dodont">
+      <div class="do"><h4>Do</h4><p>Mount the ExplainerPanel near the top of object pages so the audience-tunable summary is the <em>first</em> thing a non-expert reads. Persist the level choice in <code>localStorage</code> &mdash; it&rsquo;s a viewer preference, not a route concern.</p></div>
+      <div class="dont"><h4>Don&rsquo;t</h4><p>Don&rsquo;t blur lines between the two panels. If the user wants a conversation, route them to the ChatPanel via the &ldquo;Open in chat&rdquo; button. The explainer is a one-shot summary, not a dialogue.</p></div>
+    </div>
+    </section>
+
+    <!-- Comparative organisms -->
+    <section class="section" id="comparative"><header><div class="eyebrow">Organism &middot; Comparative</div><h2>Pan-regulome &middot; RRI Leaderboard &middot; Datasets &amp; Downloads</h2>
+      <p class="lede">Three cross-organism surfaces that materialise the multi-genomic story. <strong>Pan-regulome</strong> is the orthogroup &times; organism &times; regulator pivot. <strong>RRI Leaderboard</strong> ranks regulons by how rewired they are (M-4). <strong>Datasets &amp; Downloads</strong> is the FAIR landing page where each artefact ships with a Zenodo DOI and a one-click citation.</p>
+    </header>
+
+    <div class="card-frame"><header><span>Pan-regulome anatomy</span></header><div class="demo">
+      <ul style="line-height: 1.9;">
+        <li><strong>KPIs</strong> &mdash; counts: total orthogroups, conserved-across-all, divergent-in-&ge;1, organism-specific.</li>
+        <li><strong>Toolbar</strong> &mdash; filter by functional category (DNA repair, virulence&hellip;) + filter by state. Export TSV.</li>
+        <li><strong>Legend</strong> &mdash; explains the four ConservationCell glyphs upfront, before the first row.</li>
+        <li><strong>Body</strong> &mdash; one row per orthogroup, one column per organism. Each cell is a ConservationCell molecule + the regulator symbol + evidence/effect microcopy.</li>
+        <li><strong>Route</strong> &mdash; <code>#/pan-regulome</code> (cross-organism, no organism prefix).</li>
+      </ul>
+    </div></div>
+
+    <div class="card-frame"><header><span>RRI Leaderboard anatomy</span></header><div class="demo">
+      <ul style="line-height: 1.9;">
+        <li><strong>Header</strong> &mdash; defines the score: <code>0</code> = conserved core, <code>1</code> = wholly rewired. Variants RRI-target / RRI-regulator.</li>
+        <li><strong>Legend</strong> &mdash; the four ScorePill bands (low / medium / high / extreme) with example values.</li>
+        <li><strong>Table</strong> &mdash; sortable rows (default desc by RRI). Columns: regulon, reference organism, RRI, RRI-target, RRI-regulator, "Why" (one-line explanation).</li>
+        <li><strong>Per-regulon pill</strong> &mdash; the same ScorePill is also rendered in the meta of each regulon page header (links back to this page).</li>
+        <li><strong>Route</strong> &mdash; <code>#/rri-leaderboard</code>.</li>
+      </ul>
+    </div></div>
+
+    <div class="card-frame"><header><span>Datasets &amp; Downloads anatomy</span></header><div class="demo">
+      <ul style="line-height: 1.9;">
+        <li><strong>Grid</strong> &mdash; responsive auto-fit grid of DatasetCard molecules, min 360px per column.</li>
+        <li><strong>Card actions</strong> &mdash; primary <em>Download</em> + ghost <em>Cite this release</em> (copies BibTeX-style citation to clipboard).</li>
+        <li><strong>DOIBadge</strong> &mdash; every card carries a Zenodo DOI; clicking opens <code>doi.org</code> in a new tab.</li>
+        <li><strong>Format Tags</strong> &mdash; serialisations (TSV / JSON-LD / RDF Turtle / BigWig / MEME &hellip;) rendered as neutral Tags, not ObjectTypeTag (formats aren&rsquo;t biological objects).</li>
+        <li><strong>Route</strong> &mdash; <code>#/downloads</code>.</li>
+      </ul>
+    </div></div>
+
+    <div class="dodont">
+      <div class="do"><h4>Do</h4><p>Treat the pan-regulome page as the single source of truth for "is this multi-genomic". Every other comparative surface (TF compare page, regulon RRI pill, conservation tab) should derive its numbers from the same matrix.</p></div>
+      <div class="dont"><h4>Don&rsquo;t</h4><p>Don&rsquo;t hide the RRI score behind a tooltip on the regulon page. The pill belongs in the meta row next to "Members" and "Evidence" so reviewers see comparative depth at a glance.</p></div>
+    </div>
+    </section>
+
+    <!-- Other organisms — short list -->
+    <section class="section" id="more"><header><div class="eyebrow">More</div><h2>Other organisms in the library</h2></header>
+      <p style="color: var(--text-secondary);">Each is fully implemented in the Storybook lib (B.1) and showcase (B.2). For brevity here, only key examples are rendered above.</p>
+      <ul style="line-height: 1.9;">
+        <li><strong>OrganismDrawer</strong> &mdash; Sheet right-anchored with filter, organism list, active state.</li>
+        <li><strong>CommandPalette</strong> &mdash; Dialog full-screen with grouped results (Genes / TFs / Actions).</li>
+        <li><strong>Dialog · Drawer</strong> &mdash; primitive overlays.</li>
+        <li><strong>SmartTable + DataTableToolbar</strong> &mdash; Table + row selection + column visibility + export TSV/CSV/JSON + set ops.</li>
+        <li><strong>SearchAutocomplete</strong> &mdash; SearchInput + grouped result panel + keyboard nav.</li>
+        <li><strong>TaxonomicBreadcrumb</strong> &mdash; Bacteria &rsaquo; Phylum &rsaquo; &hellip; &rsaquo; Strain.</li>
+        <li><strong>EvidenceSummaryPanel</strong> &mdash; counts and bars by evidence category.</li>
+        <li><strong>PromoterArchitectureDiagram</strong> &mdash; variant of GeneContextStrip for divergent / convergent / tandem.</li>
+        <li><strong>ResultsList · ObjectSummaryCard</strong> &mdash; ObjectTypeTag + name + meta + chips.</li>
+        <li><strong>ThemeToggle · TweaksPanel · CrossDBLinks</strong> &mdash; settings + outlinks (UniProt, EcoCyc, NCBI, AlphaFold).</li>
+      </ul>
+    </section>
+  </main>
+</div>
+<script src="assets/spec.js"></script>
+</body>
+</html>

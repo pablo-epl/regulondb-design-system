@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" data-page="index">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RegulonDB MG · Design System v1.0</title>
+<meta name="description" content="The brand and product design system for RegulonDB MG — a multi-genomic platform for transcriptional regulation in bacteria.">
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/spec.css">
+<style>
+  /* Landing-page-only styles */
+  .hero {
+    background: var(--surface-section);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    padding: var(--sp-9) var(--sp-9);
+    margin-bottom: var(--sp-9);
+    background-image:
+      radial-gradient(800px 200px at 100% -50%, rgba(60,119,155,0.16), transparent 60%),
+      radial-gradient(600px 200px at -10% 130%, rgba(201,133,40,0.10), transparent 60%);
+  }
+  .hero h1 { font-size: 2.25rem; line-height: 1.15; margin-bottom: var(--sp-3); max-width: 22ch; }
+  .hero .lede { font-size: var(--fs-body-lg); max-width: 64ch; color: var(--text-secondary); }
+  .hero .meta {
+    display: flex; gap: var(--sp-5); flex-wrap: wrap;
+    margin-top: var(--sp-5); font-family: var(--font-mono); font-size: var(--fs-mono);
+  }
+  .hero .meta div { color: var(--text-tertiary); }
+  .hero .meta div strong { display: block; color: var(--text-primary); font-family: var(--font-sans); }
+
+  .cards {
+    display: grid; gap: var(--sp-5);
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    margin-bottom: var(--sp-9);
+  }
+  .cards a {
+    display: block; text-decoration: none;
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    background: var(--surface-raised);
+    padding: var(--sp-5);
+    color: var(--text-primary);
+    transition: all var(--dur-micro) var(--ease-standard);
+  }
+  .cards a:hover { border-color: var(--blue-3); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+  .cards a .num {
+    display: inline-block;
+    font-family: var(--font-mono); font-size: var(--fs-mono-sm);
+    color: var(--text-tertiary); letter-spacing: 0.06em;
+  }
+  .cards a h3 { margin-top: var(--sp-1); margin-bottom: var(--sp-2); color: var(--text-title); }
+  .cards a p { color: var(--text-secondary); margin: 0; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="shell">
+  <aside class="sidebar" aria-label="Design system navigation">
+    <div class="brand">
+      <img class="brand-logo" src="assets/logo-on-dark.svg" alt="RegulonDB" />
+      <small class="brand-strap">Multi-genomic</small>
+    </div>
+    <nav>
+      <h5>Manual</h5>
+      <a href="index.html">Overview</a>
+      <a href="01-foundations.html">01 · Foundations</a>
+      <a href="02-conventions.html">02 · Conventions</a>
+      <h5>Components</h5>
+      <a href="03-atoms.html">03 · Atoms</a>
+      <a href="04-molecules.html">04 · Molecules</a>
+      <a href="05-organisms.html">05 · Organisms</a>
+      <a href="06-templates.html">06 · Templates</a>
+      <a href="07-pages.html">07 · Pages</a>
+      <h5>Quality</h5>
+      <a href="08-accessibility.html">08 · Accessibility</a>
+      <a href="09-changelog.html">09 · Changelog</a>
+      <h5>Library</h5>
+      <a href="../lib/showcase.html">Showcase (preview)</a>
+      <a href="../lib/README.md">Storybook README</a>
+    </nav>
+  </aside>
+
+  <main class="main" id="main">
+    <div class="topbar">
+      <div>
+        <div class="eyebrow">Design system</div>
+        <h1>RegulonDB MG · v1.0</h1>
+      </div>
+      <div class="actions">
+        <button class="btn-ghost" data-action="theme" type="button">Theme: auto</button>
+      </div>
+    </div>
+
+    <section class="hero">
+      <h1>The visual contract for RegulonDB&rsquo;s multi&#8209;genomic era.</h1>
+      <p class="lede">
+        RegulonDB has been the curated reference for transcriptional regulation in
+        <em class="taxon" style="font-style:italic">Escherichia coli</em> K-12 since 1991.
+        Its evolution to <strong>RegulonDB MG</strong> extends curation to
+        <em class="taxon" style="font-style:italic">Salmonella enterica</em>,
+        <em class="taxon" style="font-style:italic">Bacillus subtilis</em>, and additional bacterial models &mdash;
+        weaving experimental evidence and computational predictions, orthology, metabolic context,
+        and high-throughput datasets into a single multi-organism platform. This document is the
+        brand&rsquo;s working visual contract: tokens, conventions, components, and the rules that
+        bind a curator&rsquo;s page, a CLI tool, and a conference poster to the same identity.
+      </p>
+      <div class="meta">
+        <div><strong>v1.0.0</strong>2026&middot;04 release</div>
+        <div><strong>3 deliverables</strong>spec / lib / showcase</div>
+        <div><strong>22 atoms</strong>core + scientific</div>
+        <div><strong>20 molecules</strong>composed primitives</div>
+        <div><strong>22 organisms</strong>page sections</div>
+        <div><strong>10 templates</strong>layouts</div>
+        <div><strong>8 pages</strong>real-data validations</div>
+      </div>
+    </section>
+
+    <section class="section" id="how-to-read">
+      <header><h2>How to read this manual</h2></header>
+      <div class="cards">
+        <a href="01-foundations.html">
+          <span class="num">01</span>
+          <h3>Foundations</h3>
+          <p>Color, typography, spacing, radii, shadows, motion. The unalterable layer.</p>
+        </a>
+        <a href="02-conventions.html">
+          <span class="num">02</span>
+          <h3>Conventions</h3>
+          <p>Scientific nomenclature (gene <em>italic</em>, protein roman, &sigma;&#8311;&#8304;), evidence taxonomy, voice &amp; writing.</p>
+        </a>
+        <a href="03-atoms.html">
+          <span class="num">03</span>
+          <h3>Atoms</h3>
+          <p>Indivisibles: Button, Input, Tag, Icon &mdash; plus the four scientific atoms (Gene, TaxonName, SigmaFactor, PromoterPosition).</p>
+        </a>
+        <a href="04-molecules.html">
+          <span class="num">04</span>
+          <h3>Molecules</h3>
+          <p>Two or three atoms with one purpose: EvidenceBadge, Tabs, Card, Table, Tooltip.</p>
+        </a>
+        <a href="05-organisms.html">
+          <span class="num">05</span>
+          <h3>Organisms</h3>
+          <p>Page sections: Header, FacetedSidebar, GeneContextStrip, RegulonRadial, OrthologMatrix.</p>
+        </a>
+        <a href="06-templates.html">
+          <span class="num">06</span>
+          <h3>Templates</h3>
+          <p>Skeletal layouts: AppShell, ObjectPage, FacetedSearch, Compare, Network.</p>
+        </a>
+        <a href="07-pages.html">
+          <span class="num">07</span>
+          <h3>Pages</h3>
+          <p>Real-data instances: <em class="gene" style="font-style:italic">araC</em>, LexA, the SOS regulon &mdash; the system&rsquo;s end-to-end proof.</p>
+        </a>
+        <a href="08-accessibility.html">
+          <span class="num">08</span>
+          <h3>Accessibility</h3>
+          <p>WCAG AA contrast tables, keyboard map, reduced-motion list, color-blind safety.</p>
+        </a>
+        <a href="09-changelog.html">
+          <span class="num">09</span>
+          <h3>Changelog</h3>
+          <p>What changed and when, with deprecations.</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="audiences">
+      <header><h2>Three deliverables, three audiences</h2>
+        <p class="lede">Same tokens. Same rules. Different surfaces.</p>
+      </header>
+      <table class="spec-table">
+        <thead><tr><th>Deliverable</th><th>Audience</th><th>How to open</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>spec/</code> (this site)</td>
+            <td>Curators, PIs, communications</td>
+            <td>Double-click <code>spec/index.html</code></td>
+            <td>Brand manual + showcase. Sign-off without code.</td>
+          </tr>
+          <tr>
+            <td><code>lib/</code> (Storybook source)</td>
+            <td>Developers</td>
+            <td><code>cd lib &amp;&amp; pnpm install &amp;&amp; pnpm storybook</code></td>
+            <td>The runnable component library &mdash; future <code>@regulondb/ui</code>.</td>
+          </tr>
+          <tr>
+            <td><code>lib/showcase.html</code></td>
+            <td>Reviewers without Node</td>
+            <td>Double-click; loads React + Babel from CDN</td>
+            <td>Storybook-clone visual preview. Read-only.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section" id="non-negotiables">
+      <header><h2>Five non&#8209;negotiables</h2></header>
+      <ol style="font-size: var(--fs-body-lg); line-height: 1.7; padding-left: var(--sp-5);">
+        <li><strong>Blue is the brand.</strong> Accent is rare and intentional &mdash; only on Compare CTAs, divergent gene arrows, predicted-evidence badges, and a single hero accent.</li>
+        <li><strong>Color is never the only signal.</strong> Every evidence badge carries a code (IDA, IEA), every regulation arrow carries a glyph (&rarr;, &#8867;).</li>
+        <li><strong>Scientific typography is rigid.</strong> Genes are italic, proteins are roman, species are italic, &sigma; factors use Unicode superscripts, promoter positions use Unicode minus.</li>
+        <li><strong>No decorative imagery.</strong> The brand&rsquo;s imagery is data: hand-drawn SVG genome maps, regulon radials, conservation matrices &mdash; never AI illustrations or stock photos.</li>
+        <li><strong>One source for tokens.</strong> <code>tokens.json</code> &rarr; <code>tokens.css</code> &rarr; Tailwind &rarr; showcase. Anything else drifts.</li>
+      </ol>
+    </section>
+
+    <footer style="margin-top: var(--sp-10); padding-top: var(--sp-5); border-top: 1px solid var(--border-default); color: var(--text-tertiary); font-size: var(--fs-mono-sm); font-family: var(--font-mono);">
+      <p>RegulonDB MG Design System &middot; v1.0.0 &middot; Center for Genomic Sciences, UNAM &middot; Open the next chapter &rarr; <a href="01-foundations.html">01 · Foundations</a></p>
+    </footer>
+  </main>
+</div>
+<script src="assets/spec.js"></script>
+</body>
+</html>
