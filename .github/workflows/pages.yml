@@ -28,17 +28,25 @@ jobs:
       - name: Assemble site
         run: |
           set -euo pipefail
-          mkdir -p _site
-          cp -R spec/. _site/
+          mkdir -p _site/spec _site/lib _site/dist
+          cp -R spec/. _site/spec/
 
           if [ -f lib/showcase.html ]; then
-            mkdir -p _site/showcase
-            sed 's|\.\./spec/index\.html|../index.html|g' lib/showcase.html > _site/showcase/index.html
+            cp lib/showcase.html _site/lib/showcase.html
           fi
 
           if [ -f dist/RegulonDB-MG-prototype.pdf ]; then
-            cp dist/RegulonDB-MG-prototype.pdf _site/prototype.pdf
+            cp dist/RegulonDB-MG-prototype.pdf _site/dist/RegulonDB-MG-prototype.pdf
           fi
+
+          cat > _site/index.html <<'HTML'
+          <!doctype html>
+          <meta charset="utf-8">
+          <title>RegulonDB MG · Design System</title>
+          <meta http-equiv="refresh" content="0; url=spec/">
+          <link rel="canonical" href="spec/">
+          <p>Redirecting to <a href="spec/">spec/</a>&hellip;</p>
+          HTML
 
           touch _site/.nojekyll
 
